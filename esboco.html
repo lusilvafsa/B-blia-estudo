@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esboço de Ministração — Bíblia de Estudo</title>
+    <style>
+        :root {
+            --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
+            --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
+            --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
+        }
+        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; scroll-behavior:smooth;}
+        body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
+
+        .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+        .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+        .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
+
+        .nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px;}
+        .nav-principal.visivel {transform:translateX(0);}
+        .nav-principal ul {list-style:none;}
+        .nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
+        .nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
+
+        .sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
+        .sobreposicao.ativa {opacity:1; visibility:visible;}
+
+        header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0;}
+        header h1 {font-size:2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+
+        main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem;}
+        section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25);}
+        h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
+        h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
+        h4 {color:#f0d76e; margin:1rem 0 .5rem;}
+        p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+        .versiculo {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.04)); border-left:5px solid var(--ouro); padding:1.2rem; margin:1.2rem 0; font-style:italic; border-radius:0 10px 10px 0; box-shadow:inset 0 0 18px rgba(212,175,55,.08); color:#fff9e8;}
+        .esboco-container {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:2rem; border-radius:12px; margin:1.5rem 0; box-shadow:0 0 18px var(--dourado-sombra);}
+        .parte {margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px dashed rgba(212,175,55,.25);}
+        .parte:last-child {border-bottom:none; margin-bottom:0; padding-bottom:0;}
+        .etapa {margin:.8rem 0; padding-left:1rem; border-left:2px solid rgba(212,175,55,.4);}
+        .destaque {color:var(--ouro-claro); font-weight:600;}
+
+        footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2rem 1.2rem; margin-top:2rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra);}
+        footer p {text-align:center;}
+
+        @media (max-width:768px) {
+            header h1 {font-size:1.6rem;}
+            .nav-principal {width:100%;}
+            .esboco-container {padding:1.2rem;}
+        }
+    </style>
+</head>
+<body>
+
+<button class="menu-toggle" id="botaoMenu">☰</button>
+<div class="sobreposicao" id="fundoMenu" onclick="fecharMenu()"></div>
+
+<nav class="nav-principal" id="menuNavegacao">
+    <ul>
+        <li><a href="index.html">🏠 Página Inicial</a></li>
+        <li><a href="introducao.html">📌 Introdução</a></li>
+        <li><a href="metodos.html">🔍 Métodos de Estudo</a></li>
+        <li><a href="contexto.html">📚 Contexto e Interpretação</a></li>
+        <li><a href="bblia.html">📖 Bíblia</a></li>
+        <li><a href="temas.html">✨ Temas Centrais</a></li>
+        <li><a href="plano.html">📅 Plano de Estudo</a></li>
+        <li><a href="recursos.html">📚 Recursos</a></li>
+        <li><a href="bblia.html">📖 Bíblia — Leitura</a></li>
+        <li><a href="esboco.html" class="ativo">📝 Esboço de Ministração</a></li>
+    </ul>
+</nav>
+
+<header>
+    <h1>📝 Esboço de Ministração</h1>
+</header>
+
+<main>
+    <section>
+        <h2>📝 Modelo de Esboço para Mensagem / Estudo</h2>
+        <p>Use este esboço como guia estruturado para preparar mensagens, estudos bíblicos ou ministrações. Organize o pensamento em: <strong>Introdução → Desenvolvimento → Conclusão → Apelo/Aplicação</strong>.</p>
+
+        <div class="esboco-container">
+            <h3 style="text-align:center; font-size:1.4rem; margin-bottom:1.5rem;">TEMA: O Poder da Fé que Move Montanhas</h3>
+            <p style="text-align:center; font-style:italic; color:#e6d28f; margin-bottom:1.5rem;">Texto base: Mateus 17:14-21</p>
+
+            <div class="parte">
+                <h3>📌 I — Introdução</h3>
+                <div class="etapa">
+                    <p><span class="destaque">1. Ganhar atenção:</span> Apresentar o problema — o impossível aos olhos humanos.</p>
+                </div>
+                <div class="etapa">
+                    <p><span class="destaque">2. O contexto:</span> Os discípulos tentaram falharam; Jesus mostra a diferença entre fé e descrença.</p>
+                </div>
+                <div class="etapa">
+                    <p><span class="destaque">3. Proposição:</span> A fé não é força humana, é confiança absoluta no poder e na palavra de Deus.</p>
+                </div>
+            </div>
+
+            <div class="parte">
+                <h3>🔍 II — Desenvolvimento</h3>
+                <h4>1. A fé reconhece a impossibilidade humana</h4>
+                <p>Os discípulos perceberam que sozinhos não podiam. Reconhecer a limitação é o primeiro passo para a fé verdadeira.</p>
+
+                <h4>2. A fé está ligada à Palavra de Deus</h4>
+                <p>Jesus diz: "Se tiverdes fé como um grão de mostarda... nada vos será impossível." A fé nasce da Palavra e confia na Palavra.</p>
+
+                <div class="versiculo">
+                    "Por isso vos digo: tudo o que pedis e orais, crede que já recebestes, e ser-vos-á concedido." — Marcos 11:24
+                </div>
+
+                <h4>3. A fé acompanha a oração e a entrega</h4>
+                <p>Jesus explica que este tipo de libertação só acontece "por meio de oração e jejum". A fé madura se alia à intimidade com Deus.</p>
+            </div>
+
+            <div class="parte">
+                <h3>✨ III — Conclusão e Aplicação</h3>
+                <div class="etapa">
+                    <p><span class="destaque">Resumo:</span> A fé não precisa ser grande em quantidade, mas precisa ser firme em seu objeto — Jesus Cristo.</p>
+                </div>
+                <div class="etapa">
+                    <p><span class="destaque">Apelo:</span> Você tem confiado em suas próprias forças ou em Deus? Entregue hoje a Deus aquilo que parece impossível para você.</p>
+                </div>
+                <div class="etapa">
+                    <p><span class="destaque">Oração final:</span> Pedir ao Senhor que aumente a fé e ensine a confiar apenas em Seu poder.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>📋 Estrutura Padrão — Modelo em Branco</h2>
+        <div class="esboco-container">
+            <h3 style="text-align:center;">TEMA: ___________________________</h3>
+            <p style="text-align:center; font-style:italic; color:#e6d28f;">Texto base: ___________________________</p>
+
+            <div class="parte">
+                <h3>I — Introdução</h3>
+                <p>1. ________________________________________</p>
+                <p>2. ________________________________________</p>
+                <p>3. Proposição central: ___________________________</p>
+            </div>
+
+            <div class="parte">
+                <h3>II — Desenvolvimento</h3>
+                <p>1. ________________________________________</p>
+                <p style="margin-left:1.5rem;">→ Versículo: ___________________________</p>
+                <p>2. ________________________________________</p>
+                <p style="margin-left:1.5rem;">→ Versículo: ___________________________</p>
+                <p>3. ________________________________________</p>
+                <p style="margin-left:1.5rem;">→ Versículo: ___________________________</p>
+            </div>
+
+            <div class="parte">
+                <h3>III — Conclusão</h3>
+                <p>Resumo: ________________________________________</p>
+                <p>Aplicação prática: ________________________________________</p>
+                <p>Apelo / Convite: ________________________________________</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>"E conhecereis a verdade, e a verdade vos libertará." — João 8:32</p>
+</footer>
+
+<script>
+    const botaoMenu = document.getElementById('botaoMenu');
+    const menuNavegacao = document.getElementById('menuNavegacao');
+    const fundoMenu = document.getElementById('fundoMenu');
+    function alternarMenu() {
+        menuNavegacao.classList.toggle('visivel');
+        fundoMenu.classList.toggle('ativa');
+        botaoMenu.classList.toggle('aberto');
+        botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
+    }
+    function fecharMenu() {
+        menuNavegacao.classList.remove('visivel');
+        fundoMenu.classList.remove('ativa');
+        botaoMenu.classList.remove('aberto');
+        botaoMenu.textContent = '☰';
+    }
+    botaoMenu.addEventListener('click', alternarMenu);
+</script>
+</body>
+</html>

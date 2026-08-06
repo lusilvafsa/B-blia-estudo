@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panorama dos Livros — Bíblia de Estudo</title>
+    <style>
+        :root {
+            --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
+            --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
+            --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
+        }
+        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; scroll-behavior:smooth;}
+        body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
+
+        .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+        .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+        .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
+
+        .nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px;}
+        .nav-principal.visivel {transform:translateX(0);}
+        .nav-principal ul {list-style:none;}
+        .nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
+        .nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
+
+        .sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
+        .sobreposicao.ativa {opacity:1; visibility:visible;}
+
+        header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0;}
+        header h1 {font-size:2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+
+        main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem;}
+        section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25);}
+        h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
+        h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
+        p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+        .tabela {width:100%; border-collapse:collapse; margin:1.5rem 0; box-shadow:0 0 15px rgba(0,0,0,.4); border-radius:10px; overflow:hidden;}
+        .tabela th, .tabela td {border:1px solid rgba(212,175,55,.3); padding:.9rem; text-align:left;}
+        .tabela th {background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); color:#0f1a30; font-weight:600;}
+        .tabela tr:nth-child(even) {background-color:rgba(30,58,107,.45);}
+        .tabela tr:nth-child(odd) {background-color:rgba(15,32,64,.55);}
+
+        footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2rem 1.2rem; margin-top:2rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra);}
+        footer p {text-align:center;}
+
+        @media (max-width:768px) {
+            header h1 {font-size:1.6rem;}
+            .nav-principal {width
