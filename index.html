@@ -18,6 +18,16 @@
         * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; scroll-behavior:smooth;}
         body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
 
+.botao-voltar {
+    position:fixed; top:80px; left:15px; z-index:200;
+    background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro));
+    color:var(--azul-escuro); border:none; padding:.5rem .9rem;
+    border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer;
+    box-shadow:0 0 12px var(--dourado-sombra);
+    transition:all .3s ease;
+}
+.botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
+
         .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
         .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
         .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
