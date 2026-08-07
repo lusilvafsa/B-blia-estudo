@@ -77,7 +77,32 @@ footer p {text-align:center;}
     .toggle-tema {top:auto; bottom:15px; right:15px;}
 }
 
-        .esboco-container {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:2rem; border-radius:12px; margin:1.5rem 0; box-shadow:0 0 18px var(--dourado-sombra);}
+        .boas-vindas {text-align:center; padding:3rem 1rem; animation:fadeInUp 1s ease both;}
+        .boas-vindas h2 {color:var(--ouro-claro); font-size:1.8rem; margin-bottom:1.5rem; border-left:4px solid var(--ouro); padding-left:1rem; display:inline-block; text-shadow:0 0 6px rgba(212,175,55,.35);}
+        .boas-vindas p {font-size:1.1rem; max-width:800px; margin:0 auto 1.5rem; color:#f0ead6;}
+        .grade-links {display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.2rem; margin-top:2rem;}
+        .cartao-link {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); border-radius:12px; padding:1.5rem; text-decoration:none; color:inherit; transition:all .3s ease; box-shadow:0 0 15px rgba(212,175,55,.1); display:flex; flex-direction:column;}
+        .cartao-link:hover {transform:translateY(-5px); box-shadow:0 0 20px var(--dourado-sombra);}
+        .cartao-link h3 {color:var(--ouro-claro); margin-bottom:.5rem;}
+        .cartao-link p {color:#d4c8a8; font-size:.95rem; text-align:left;}
+        .cartao-link .icone {font-size:2rem; margin-bottom:.5rem;}
+        .destaque-versiculo {background:linear-gradient(90deg, rgba(212,175,55,.15), rgba(212,175,55,.05)); border:1px solid rgba(212,175,55,.3); border-radius:12px; padding:1.5rem; margin:2rem auto; max-width:700px; font-style:italic; color:#e6d28f;}
+        .barra-progresso {background:rgba(212,175,55,.15); border-radius:20px; padding:1rem; margin:1rem auto; max-width:600px; text-align:center; border:1px solid rgba(212,175,55,.3);}
+        .barra-progresso h4 {color:var(--ouro-claro); margin-bottom:.5rem;}
+        .progresso-fill {height:10px; background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); border-radius:5px; transition:width .5s ease; margin-top:.5rem;}
+    
+        .form-gerador {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:2rem; border-radius:12px; margin:1.5rem 0; box-shadow:0 0 18px var(--dourado-sombra);}
+        .form-gerador h2 {text-align:center; margin-bottom:1.5rem; border:none; padding:0;}
+        .campo-form {margin-bottom:1.2rem;}
+        .campo-form label {display:block; color:var(--ouro-claro); font-weight:600; margin-bottom:.4rem;}
+        .campo-form input, .campo-form textarea {width:100%; background:rgba(30,58,107,.6); border:1px solid var(--ouro); color:var(--branco-suave); padding:.8rem 1rem; border-radius:8px; font-size:1rem; outline:none; transition:all .3s ease;}
+        .campo-form input:focus, .campo-form textarea:focus {border-color:var(--ouro-claro); box-shadow:0 0 12px var(--dourado-sombra);}
+        .campo-form textarea {min-height:80px; resize:vertical;}
+        .btn-gerar {display:block; width:100%; max-width:400px; margin:0 auto; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:1rem 2rem; border-radius:30px; font-weight:700; font-size:1.1rem; cursor:pointer; transition:all .3s ease; box-shadow:0 0 15px var(--dourado-sombra);}
+        .btn-gerar:hover {transform:scale(1.03); box-shadow:0 0 25px var(--ouro);}
+
+        .esboco-container {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:2rem; border-radius:12px; margin:1.5rem 0; box-shadow:0 0 18px var(--dourado-sombra); display:none;}
+        .esboco-container.visivel {display:block; animation:fadeInUp .6s ease;}
         .parte {margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px dashed rgba(212,175,55,.25);}
         .parte:last-child {border-bottom:none; margin-bottom:0; padding-bottom:0;}
         .etapa {margin:.8rem 0; padding-left:1rem; border-left:2px solid rgba(212,175,55,.4);}
@@ -91,11 +116,18 @@ footer p {text-align:center;}
         .botoes-acao {display:flex; gap:.8rem; flex-wrap:wrap; margin:1rem 0; justify-content:center;}
         .btn-acao {background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.6rem 1.2rem; border-radius:25px; font-weight:600; cursor:pointer; transition:all .3s ease; box-shadow:0 0 12px var(--dourado-sombra);}
         .btn-acao:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
-        .modelo-branco .campo-editable {background:rgba(255,255,255,.1);}
+
+        .modelos-salvos {background:linear-gradient(135deg, rgba(44,82,145,.4), rgba(15,32,64,.6)); border:1px solid var(--ouro); padding:1.5rem; border-radius:12px; margin:1.5rem 0;}
+        .modelos-salvos h3 {color:var(--ouro-claro); margin-bottom:1rem;}
+        .modelo-item {background:rgba(212,175,55,.1); border-left:3px solid var(--ouro); padding:.6rem .8rem; margin:.4rem 0; border-radius:0 6px 6px 0; display:flex; justify-content:space-between; align-items:center;}
+        .modelo-item button {background:transparent; border:none; color:#ff6b6b; cursor:pointer; font-size:1.1rem;}
+        .modelo-item span {color:var(--ouro-claro); cursor:pointer;}
+        .modelo-item span:hover {text-decoration:underline;}
+
         @media print {
-            .menu-toggle, .toggle-tema, .botao-voltar, .botoes-acao, .nav-principal, .sobreposicao {display:none !important;}
+            .menu-toggle, .toggle-tema, .botao-voltar, .botoes-acao, .nav-principal, .sobreposicao, .form-gerador, .modelos-salvos {display:none !important;}
             body {background:white; color:black;}
-            .esboco-container {border:1px solid #ccc; box-shadow:none;}
+            .esboco-container {border:1px solid #ccc; box-shadow:none; display:block !important;}
         }
     </style>
 </head>
@@ -123,99 +155,99 @@ footer p {text-align:center;}
 
 <header>
     <h1>📝 Esboço de Ministração</h1>
-    <p>Prepare mensagens e estudos com modelo editável e interativo</p>
+    <p>Informe o tema ou a passagem e gere um esboço estruturado para editar</p>
 </header>
 
 <main>
     <section>
-        <div class="botoes-acao">
-            <button class="btn-acao" onclick="salvarEsboço()">💾 Salvar no Navegador</button>
-            <button class="btn-acao" onclick="carregarEsboço()">📂 Carregar Último</button>
-            <button class="btn-acao" onclick="limparEsboço()">🧹 Limpar</button>
-            <button class="btn-acao" onclick="window.print()">🖨️ Imprimir / PDF</button>
+        <!-- GERADOR -->
+        <div class="form-gerador">
+            <h2>✨ Gerar Novo Esboço</h2>
+            <div class="campo-form">
+                <label for="inputTema">🎯 Tema da Mensagem</label>
+                <input type="text" id="inputTema" placeholder="Ex: O Poder da Fé que Move Montanhas">
+            </div>
+            <div class="campo-form">
+                <label for="inputPassagem">📖 Texto Base (Passagem)</label>
+                <input type="text" id="inputPassagem" placeholder="Ex: Mateus 17:14-21">
+            </div>
+            <div class="campo-form">
+                <label for="inputContexto">💡 Contexto ou Observações (opcional)</label>
+                <textarea id="inputContexto" placeholder="Ex: Mensagem para jovens sobre confiança em Deus diante das dificuldades..."></textarea>
+            </div>
+            <button class="btn-gerar" onclick="gerarEsboço()">📝 Gerar Esboço</button>
         </div>
 
+        <!-- BOTÕES DE AÇÃO -->
+        <div class="botoes-acao" id="botoesAcao" style="display:none;">
+            <button class="btn-acao" onclick="salvarEsboço()">💾 Salvar no Navegador</button>
+            <button class="btn-acao" onclick="window.print()">🖨️ Imprimir / PDF</button>
+            <button class="btn-acao" onclick="novoEsboço()">➕ Novo Esboço</button>
+        </div>
+
+        <!-- ESBOÇO GERADO -->
         <div class="esboco-container" id="esbocoPrincipal">
-            <input class="campo-titulo" id="temaTitulo" value="TEMA: O Poder da Fé que Move Montanhas">
-            <input class="campo-ref" id="textoBase" value="Texto base: Mateus 17:14-21">
+            <input class="campo-titulo" id="temaTitulo" value="TEMA: ">
+            <input class="campo-ref" id="textoBase" value="Texto base: ">
 
             <div class="parte">
                 <h3>📌 I — Introdução</h3>
                 <div class="etapa">
                     <p><span class="destaque">1. Ganhar atenção:</span></p>
-                    <div class="campo-editavel" contenteditable="true">Apresentar o problema — o impossível aos olhos humanos. O que parece não ter solução para o homem, tem solução para Deus.</div>
+                    <div class="campo-editavel" contenteditable="true" id="intro1"></div>
                 </div>
                 <div class="etapa">
                     <p><span class="destaque">2. O contexto:</span></p>
-                    <div class="campo-editavel" contenteditable="true">Os discípulos tentaram e falharam; Jesus mostra a diferença entre fé e descrença. O pai do menino epilético busca ajuda.</div>
+                    <div class="campo-editavel" contenteditable="true" id="intro2"></div>
                 </div>
                 <div class="etapa">
                     <p><span class="destaque">3. Proposição central:</span></p>
-                    <div class="campo-editavel" contenteditable="true">A fé não é força humana, é confiança absoluta no poder e na palavra de Deus.</div>
+                    <div class="campo-editavel" contenteditable="true" id="intro3"></div>
                 </div>
             </div>
 
             <div class="parte">
                 <h3>🔍 II — Desenvolvimento</h3>
-                <h4>1. A fé reconhece a impossibilidade humana</h4>
-                <div class="campo-editavel" contenteditable="true">Os discípulos perceberam que sozinhos não podiam. Reconhecer a limitação é o primeiro passo para a fé verdadeira. Quando paramos de confiar em nós mesmos, começamos a confiar em Deus.</div>
-
-                <h4>2. A fé está ligada à Palavra de Deus</h4>
-                <div class="campo-editavel" contenteditable="true">Jesus diz: "Se tiverdes fé como um grão de mostarda... nada vos será impossível." A fé nasce da Palavra e confia na Palavra. Não é positivismo, é certeza baseada na promessa divina.</div>
-
+                <h4>1. Primeiro ponto principal</h4>
+                <div class="campo-editavel" contenteditable="true" id="dev1"></div>
                 <div class="versiculo-box">
-                    <div class="campo-editavel" contenteditable="true">"Por isso vos digo: tudo o que pedis e orais, crede que já recebestes, e ser-vos-á concedido." — Marcos 11:24</div>
+                    <div class="campo-editavel" contenteditable="true" id="dev1verso">Versículo de apoio: </div>
                 </div>
 
-                <h4>3. A fé acompanha a oração e a entrega</h4>
-                <div class="campo-editavel" contenteditable="true">Jesus explica que este tipo de libertação só acontece "por meio de oração e jejum". A fé madura se alia à intimidade com Deus. Não basta querer o resultado; é preciso querer a presença.</div>
+                <h4>2. Segundo ponto principal</h4>
+                <div class="campo-editavel" contenteditable="true" id="dev2"></div>
+                <div class="versiculo-box">
+                    <div class="campo-editavel" contenteditable="true" id="dev2verso">Versículo de apoio: </div>
+                </div>
+
+                <h4>3. Terceiro ponto principal</h4>
+                <div class="campo-editavel" contenteditable="true" id="dev3"></div>
+                <div class="versiculo-box">
+                    <div class="campo-editavel" contenteditable="true" id="dev3verso">Versículo de apoio: </div>
+                </div>
             </div>
 
             <div class="parte">
                 <h3>✨ III — Conclusão e Aplicação</h3>
                 <div class="etapa">
                     <p><span class="destaque">Resumo:</span></p>
-                    <div class="campo-editavel" contenteditable="true">A fé não precisa ser grande em quantidade, mas precisa ser firme em seu objeto — Jesus Cristo. Um grão de mostarda é pequeno, mas tem vida. A fé verdadeira está viva e produz frutos.</div>
+                    <div class="campo-editavel" contenteditable="true" id="conc1"></div>
                 </div>
                 <div class="etapa">
-                    <p><span class="destaque">Apelo:</span></p>
-                    <div class="campo-editavel" contenteditable="true">Você tem confiado em suas próprias forças ou em Deus? Entregue hoje a Deus aquilo que parece impossível para você. Não é sobre ter fé grande, mas ter fé no Deus grande.</div>
+                    <p><span class="destaque">Apelo / Aplicação prática:</span></p>
+                    <div class="campo-editavel" contenteditable="true" id="conc2"></div>
                 </div>
                 <div class="etapa">
                     <p><span class="destaque">Oração final:</span></p>
-                    <div class="campo-editavel" contenteditable="true">Pedir ao Senhor que aumente a fé e ensine a confiar apenas em Seu poder. Que o Senhor nos ajude a viver não pelo que vemos, mas pelo que cremos.</div>
+                    <div class="campo-editavel" contenteditable="true" id="conc3"></div>
                 </div>
             </div>
         </div>
 
-        <h2>📋 Modelo em Branco (Edite à vontade)</h2>
-        <div class="esboco-container">
-            <input class="campo-titulo" value="TEMA: ___________________________">
-            <input class="campo-ref" value="Texto base: ___________________________">
-
-            <div class="parte">
-                <h3>I — Introdução</h3>
-                <div class="etapa"><p>1.</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>2.</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>3. Proposição central:</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-            </div>
-
-            <div class="parte">
-                <h3>II — Desenvolvimento</h3>
-                <div class="etapa"><p>1.</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>→ Versículo:</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>2.</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>→ Versículo:</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>3.</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>→ Versículo:</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-            </div>
-
-            <div class="parte">
-                <h3>III — Conclusão</h3>
-                <div class="etapa"><p>Resumo:</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>Aplicação prática:</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-                <div class="etapa"><p>Apelo / Convite:</p><div class="campo-editavel" contenteditable="true">________________________________________</div></div>
-            </div>
+        <!-- MODELOS SALVOS -->
+        <div class="modelos-salvos" id="areaModelos" style="display:none;">
+            <h3>💾 Esboços Salvos</h3>
+            <div id="listaModelos"></div>
         </div>
     </section>
 </main>
@@ -257,30 +289,151 @@ if(toggleTema) {
     });
 }
 
+    // Versículo do dia (baseado na data)
+    const versiculos = [
+        "Toda a Escritura é inspirada por Deus e útil para o ensino... — 2 Timóteo 3:16",
+        "Lâmpada para os meus pés é a tua palavra... — Salmos 119:105",
+        "Buscai diligentemente nas Escrituras... — João 5:39",
+        "A tua palavra é verdade. — João 17:17",
+        "Medita dia e noite na lei do Senhor... — Josué 1:8",
+        "Como é doce ao meu paladar a tua palavra! — Salmos 119:103",
+        "A palavra de Deus é viva e eficaz... — Hebreus 4:12"
+    ];
+    const hoje = new Date().getDate();
+    document.getElementById('versiculoDoDia').textContent = versiculos[hoje % versiculos.length];
+
+    // Progresso do plano
+    const plano = JSON.parse(localStorage.getItem('planoLeitura') || '{}');
+    const total = 7; // 7 itens no plano
+    const concluidos = Object.values(plano).filter(v=>v).length;
+    const pct = Math.round((concluidos/total)*100);
+    document.getElementById('textoProgresso').textContent = concluidos + ' de ' + total + ' etapas concluídas (' + pct + '%)';
+    document.getElementById('progressoFill').style.width = pct + '%';
+
+    function gerarEsboço() {
+        const tema = document.getElementById('inputTema').value.trim();
+        const passagem = document.getElementById('inputPassagem').value.trim();
+        const contexto = document.getElementById('inputContexto').value.trim();
+
+        if(!tema && !passagem) {
+            alert('Por favor, informe pelo menos o tema ou a passagem para gerar o esboço.');
+            return;
+        }
+
+        document.getElementById('temaTitulo').value = 'TEMA: ' + (tema || 'Estudo Bíblico');
+        document.getElementById('textoBase').value = 'Texto base: ' + (passagem || 'A definir');
+
+        const temaLower = (tema || passagem).toLowerCase();
+
+        document.getElementById('intro1').textContent = contexto
+            ? 'Apresentar o tema de forma que conecte com a realidade do ouvinte. ' + contexto
+            : 'Apresentar o tema de forma que conecte com a realidade e as necessidades do ouvinte, chamando a atenção para a relevância da Palavra.';
+        document.getElementById('intro2').textContent = passagem
+            ? 'Contextualizar a passagem de ' + passagem + ', explicando o cenário histórico e espiritual em que o texto foi escrito.'
+            : 'Contextualizar o tema bíblico escolhido, apresentando o cenário histórico e espiritual das Escrituras.';
+        document.getElementById('intro3').textContent = tema
+            ? 'A mensagem central é: ' + tema + '. Este é o eixo que guiará toda a ministração.'
+            : 'A mensagem central será desenvolvida a partir da Palavra de Deus, buscando transformar vidas.';
+
+        const palavrasChave = {
+            'fé': {p1:'A fé reconhece a impossibilidade humana e confia no poder de Deus.', p2:'A fé está ligada à Palavra de Deus e à sua promessa.', p3:'A fé madura se expressa em oração e entrega.'},
+            'amor': {p1:'O amor de Deus é incondicional e se revelou em Cristo.', p2:'O amor ao próximo é a marca do discípulo de Jesus.', p3:'O amor supera o medo e transforma relacionamentos.'},
+            'oração': {p1:'A oração é o canal de comunhão com Deus.', p2:'A oração de fé move o coração de Deus.', p3:'A oração persistente traz respostas no tempo certo.'},
+            'perdão': {p1:'Deus nos perdoou gratuitamente em Cristo.', p2:'O perdão liberta quem perdoa, não apenas quem é perdoado.', p3:'Perdoar setenta vezes sete é um estilo de vida.'},
+            'família': {p1:'A família foi instituída por Deus como núcleo da sociedade.', p2:'Amor, respeito e submissão são pilares do lar cristão.', p3:'A família que ora unida permanece unida.'},
+            'esperança': {p1:'A esperança cristã é certeza, não mera expectativa.', p2:'Deus trabalha em todas as coisas para o bem daqueles que O amam.', p3:'A esperança da volta de Cristo nos sustenta.'},
+            'salvação': {p1:'A humanidade está separada de Deus pelo pecado.', p2:'Jesus é o único caminho, a verdade e a vida.', p3:'A salvação é por graça, mediante a fé em Cristo.'},
+            'espírito': {p1:'O Espírito Santo habita em todo crente.', p2:'O Espírito nos guia a toda a verdade.', p3:'O Espírito nos capacita para o testemunho e o serviço.'}
+        };
+
+        let pontos = null;
+        for(const [chave, pts] of Object.entries(palavrasChave)) {
+            if(temaLower.includes(chave)) { pontos = pts; break; }
+        }
+        if(!pontos) {
+            pontos = {
+                p1: 'Primeiro ponto principal: apresente a verdade bíblica central do tema escolhido.',
+                p2: 'Segundo ponto principal: desenvolva aplicações práticas e exemplos da Escritura.',
+                p3: 'Terceiro ponto principal: mostre como esta verdade transforma a vida do crente.'
+            };
+        }
+
+        document.getElementById('dev1').textContent = pontos.p1;
+        document.getElementById('dev1verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
+        document.getElementById('dev2').textContent = pontos.p2;
+        document.getElementById('dev2verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
+        document.getElementById('dev3').textContent = pontos.p3;
+        document.getElementById('dev3verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
+
+        document.getElementById('conc1').textContent = 'Resumir os três pontos principais e reforçar que ' + (tema || 'a Palavra de Deus') + ' tem poder para transformar vidas.';
+        document.getElementById('conc2').textContent = 'Apelo direto ao ouvinte: como você pode aplicar esta verdade na sua vida esta semana? Que decisão prática você precisa tomar?';
+        document.getElementById('conc3').textContent = 'Oração de encerramento, pedindo ao Senhor que fortaleça a fé, aumente o amor e confirme a Palavra no coração de cada um.';
+
+        document.getElementById('esbocoPrincipal').classList.add('visivel');
+        document.getElementById('botoesAcao').style.display = 'flex';
+        document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
+    }
+
+    function novoEsboço() {
+        document.getElementById('inputTema').value = '';
+        document.getElementById('inputPassagem').value = '';
+        document.getElementById('inputContexto').value = '';
+        document.getElementById('esbocoPrincipal').classList.remove('visivel');
+        document.getElementById('botoesAcao').style.display = 'none';
+        window.scrollTo({top:0, behavior:'smooth'});
+    }
+
     function salvarEsboço() {
         const dados = {
             tema: document.getElementById('temaTitulo').value,
             ref: document.getElementById('textoBase').value,
-            campos: Array.from(document.querySelectorAll('#esbocoPrincipal .campo-editavel')).map(el => el.innerHTML)
+            campos: {}
         };
-        localStorage.setItem('esbocoMinistracao', JSON.stringify(dados));
+        ['intro1','intro2','intro3','dev1','dev1verso','dev2','dev2verso','dev3','dev3verso','conc1','conc2','conc3'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) dados.campos[id] = el.innerHTML;
+        });
+        let modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        modelos.unshift({id: Date.now(), ...dados, data: new Date().toLocaleString()});
+        if(modelos.length > 10) modelos = modelos.slice(0,10);
+        localStorage.setItem('esbocosSalvos', JSON.stringify(modelos));
+        mostrarModelos();
         alert('Esboço salvo com sucesso! 💾');
     }
-    function carregarEsboço() {
-        const dados = JSON.parse(localStorage.getItem('esbocoMinistracao') || 'null');
-        if(!dados) { alert('Nenhum esboço salvo encontrado.'); return; }
-        if(dados.tema) document.getElementById('temaTitulo').value = dados.tema;
-        if(dados.ref) document.getElementById('textoBase').value = dados.ref;
-        const campos = document.querySelectorAll('#esbocoPrincipal .campo-editavel');
-        if(dados.campos) dados.campos.forEach((html, i) => { if(campos[i]) campos[i].innerHTML = html; });
-        alert('Esboço carregado! 📂');
+
+    function carregarModelo(idx) {
+        const modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        const m = modelos[idx]; if(!m) return;
+        document.getElementById('temaTitulo').value = m.tema;
+        document.getElementById('textoBase').value = m.ref;
+        if(m.campos) {
+            for(const [id, html] of Object.entries(m.campos)) {
+                const el = document.getElementById(id);
+                if(el) el.innerHTML = html;
+            }
+        }
+        document.getElementById('esbocoPrincipal').classList.add('visivel');
+        document.getElementById('botoesAcao').style.display = 'flex';
+        document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
     }
-    function limparEsboço() {
-        if(!confirm('Limpar todos os campos editáveis do modelo preenchido?')) return;
-        document.getElementById('temaTitulo').value = 'TEMA: ';
-        document.getElementById('textoBase').value = 'Texto base: ';
-        document.querySelectorAll('#esbocoPrincipal .campo-editavel').forEach(el => el.innerHTML = '');
+
+    function removerModelo(idx) {
+        let modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        modelos.splice(idx,1);
+        localStorage.setItem('esbocosSalvos', JSON.stringify(modelos));
+        mostrarModelos();
     }
+
+    function mostrarModelos() {
+        const modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        const area = document.getElementById('areaModelos');
+        const lista = document.getElementById('listaModelos');
+        if(modelos.length === 0) { area.style.display = 'none'; return; }
+        area.style.display = 'block';
+        lista.innerHTML = modelos.map((m,i) => '<div class="modelo-item"><span onclick="carregarModelo(' + i + ')"><strong>' + m.tema.replace('TEMA: ','') + '</strong> <small>(' + m.ref.replace('Texto base: ','') + ') — ' + m.data + '</small></span><button onclick="removerModelo(' + i + ')" title="Remover">🗑️</button></div>').join('');
+    }
+
+    window.addEventListener('load', mostrarModelos);
 </script>
 </body>
 </html>

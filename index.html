@@ -90,6 +90,29 @@ footer p {text-align:center;}
         .barra-progresso {background:rgba(212,175,55,.15); border-radius:20px; padding:1rem; margin:1rem auto; max-width:600px; text-align:center; border:1px solid rgba(212,175,55,.3);}
         .barra-progresso h4 {color:var(--ouro-claro); margin-bottom:.5rem;}
         .progresso-fill {height:10px; background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); border-radius:5px; transition:width .5s ease; margin-top:.5rem;}
+    
+        .boas-vindas {text-align:center; padding:3rem 1rem; animation:fadeInUp 1s ease both;}
+        .boas-vindas h2 {color:var(--ouro-claro); font-size:1.8rem; margin-bottom:1.5rem; border-left:4px solid var(--ouro); padding-left:1rem; display:inline-block; text-shadow:0 0 6px rgba(212,175,55,.35);}
+        .boas-vindas p {font-size:1.1rem; max-width:800px; margin:0 auto 1.5rem; color:#f0ead6;}
+        .grade-links {display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.2rem; margin-top:2rem;}
+
+        .cartao-link {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); border-radius:12px; padding:1.5rem; text-decoration:none; color:inherit; transition:all .3s ease; box-shadow:0 0 15px rgba(212,175,55,.1); display:flex; flex-direction:column; cursor:pointer;}
+        .cartao-link:hover {transform:translateY(-5px); box-shadow:0 0 20px var(--dourado-sombra);}
+        .cartao-link .cabecalho-card {display:flex; align-items:center; gap:1rem;}
+        .cartao-link .icone {font-size:2.2rem; flex-shrink:0;}
+        .cartao-link h3 {color:var(--ouro-claro); margin:0; font-size:1.15rem;}
+        .cartao-link .conteudo-card {max-height:0; overflow:hidden; opacity:0; transition:max-height .4s ease, opacity .3s ease, margin .3s ease;}
+        .cartao-link.expandido .conteudo-card {max-height:200px; opacity:1; margin-top:1rem;}
+        .cartao-link .conteudo-card p {color:#d4c8a8; font-size:.95rem; text-align:left; margin:0 0 .8rem;}
+        .cartao-link .btn-acessar {display:inline-block; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); padding:.4rem 1rem; border-radius:20px; font-weight:600; font-size:.9rem; text-decoration:none; transition:all .3s ease; text-align:center;}
+        .cartao-link .btn-acessar:hover {transform:scale(1.05); box-shadow:0 0 12px var(--ouro);}
+        .cartao-link .indicador {margin-left:auto; font-size:1.2rem; color:var(--ouro-claro); transition:transform .3s ease;}
+        .cartao-link.expandido .indicador {transform:rotate(180deg);}
+
+        .destaque-versiculo {background:linear-gradient(90deg, rgba(212,175,55,.15), rgba(212,175,55,.05)); border:1px solid rgba(212,175,55,.3); border-radius:12px; padding:1.5rem; margin:2rem auto; max-width:700px; font-style:italic; color:#e6d28f;}
+        .barra-progresso {background:rgba(212,175,55,.15); border-radius:20px; padding:1rem; margin:1rem auto; max-width:600px; text-align:center; border:1px solid rgba(212,175,55,.3);}
+        .barra-progresso h4 {color:var(--ouro-claro); margin-bottom:.5rem;}
+        .progresso-fill {height:10px; background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); border-radius:5px; transition:width .5s ease; margin-top:.5rem;}
     </style>
 </head>
 <body>
@@ -130,55 +153,117 @@ footer p {text-align:center;}
             <p id="textoProgresso">Carregando...</p>
             <div class="progresso-fill" id="progressoFill" style="width:0%"></div>
         </div>
-        <p>Use o botão de menu ☰ no canto superior esquerdo para navegar entre as seções, ou clique nos cartões abaixo:</p>
+        <p>👇 Clique nos cards abaixo para expandir e ver a descrição:</p>
     </section>
 
     <div class="grade-links">
-        <a href="introducao.html" class="cartao-link">
-            <span class="icone">📌</span>
-            <h3>Introdução</h3>
-            <p>Conheça a estrutura, o propósito e a unidade da Bíblia.</p>
-        </a>
-        <a href="metodos.html" class="cartao-link">
-            <span class="icone">🔍</span>
-            <h3>Métodos de Estudo</h3>
-            <p>Aprenda formas eficazes de ler, analisar e compreender as Escrituras.</p>
-        </a>
-        <a href="contexto.html" class="cartao-link">
-            <span class="icone">📚</span>
-            <h3>Contexto e Interpretação</h3>
-            <p>Princípios essenciais para interpretar corretamente sem distorcer o texto.</p>
-        </a>
-        <a href="bblia.html" class="cartao-link">
-            <span class="icone">📖</span>
-            <h3>Leitura Bíblica</h3>
-            <p>Leia a Palavra online com diferentes versões e ferramentas de estudo.</p>
-        </a>
-        <a href="livros.html" class="cartao-link">
-            <span class="icone">📚</span>
-            <h3>Livros da Bíblia</h3>
-            <p>Visão geral dos 66 livros, autores, datas e grupos literários.</p>
-        </a>
-        <a href="temas.html" class="cartao-link">
-            <span class="icone">✨</span>
-            <h3>Temas Centrais</h3>
-            <p>A grande história da salvação que percorre toda a Bíblia.</p>
-        </a>
-        <a href="plano.html" class="cartao-link">
-            <span class="icone">📅</span>
-            <h3>Plano de Leitura</h3>
-            <p>Roteiro prático e interativo com acompanhamento de progresso.</p>
-        </a>
-        <a href="recursos.html" class="cartao-link">
-            <span class="icone">📚</span>
-            <h3>Recursos</h3>
-            <p>Versões recomendadas, dicionários e materiais de apoio.</p>
-        </a>
-        <a href="esboco.html" class="cartao-link">
-            <span class="icone">📝</span>
-            <h3>Esboço de Ministração</h3>
-            <p>Prepare mensagens e estudos com modelo editável e interativo.</p>
-        </a>
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">📌</span>
+                <h3>Introdução</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>Conheça a estrutura, o propósito e a unidade da Bíblia. Entenda como 66 livros formam uma só mensagem de salvação.</p>
+                <a href="introducao.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
+
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">🔍</span>
+                <h3>Métodos de Estudo</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>Aprenda formas eficazes de ler, analisar e compreender as Escrituras. Conheça o método SOAP e outras abordagens.</p>
+                <a href="metodos.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
+
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">📚</span>
+                <h3>Contexto e Interpretação</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>Princípios essenciais de hermenêutica para interpretar corretamente sem distorcer o texto bíblico.</p>
+                <a href="contexto.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
+
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">📖</span>
+                <h3>Leitura Bíblica</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>Leia a Palavra online com diferentes versões (ARA, ACF), favoritos, histórico e versículo aleatório.</p>
+                <a href="bblia.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
+
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">📚</span>
+                <h3>Livros da Bíblia</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>Visão geral dos 66 livros, com autores, datas, grupos literários e temas centrais de cada um.</p>
+                <a href="livros.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
+
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">✨</span>
+                <h3>Temas Centrais</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>A grande história da salvação que percorre toda a Bíblia, com linha do tempo e referências cruzadas.</p>
+                <a href="temas.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
+
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">📅</span>
+                <h3>Plano de Leitura</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>Roteiro prático e interativo de 49 dias com acompanhamento de progresso e checkboxes persistentes.</p>
+                <a href="plano.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
+
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">📚</span>
+                <h3>Recursos</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>Versões recomendadas, dicionários, comentários e links para fontes online confiáveis de estudo.</p>
+                <a href="recursos.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
+
+        <div class="cartao-link" onclick="toggleCard(this)">
+            <div class="cabecalho-card">
+                <span class="icone">📝</span>
+                <h3>Esboço de Ministração</h3>
+                <span class="indicador">▼</span>
+            </div>
+            <div class="conteudo-card">
+                <p>Gere esboços informando tema e passagem. Edite, salve no navegador e imprima suas ministrações.</p>
+                <a href="esboco.html" class="btn-acessar">Acessar página →</a>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -240,6 +325,35 @@ if(toggleTema) {
     const concluidos = Object.values(plano).filter(v=>v).length;
     const pct = Math.round((concluidos/total)*100);
     document.getElementById('textoProgresso').textContent = concluidos + ' de ' + total + ' etapas concluídas (' + pct + '%)';
+    document.getElementById('progressoFill').style.width = pct + '%';
+
+    function toggleCard(card) {
+        // Se o clique foi no botão "Acessar", não alterna
+        if(event.target.closest('.btn-acessar')) return;
+        // Fecha outros cards
+        document.querySelectorAll('.cartao-link.expandido').forEach(c => {
+            if(c !== card) c.classList.remove('expandido');
+        });
+        card.classList.toggle('expandido');
+    }
+
+    const versiculos = [
+        "Toda a Escritura é inspirada por Deus e útil para o ensino... — 2 Timóteo 3:16",
+        "Lâmpada para os meus pés é a tua palavra... — Salmos 119:105",
+        "Buscai diligentemente nas Escrituras... — João 5:39",
+        "A tua palavra é verdade. — João 17:17",
+        "Medita dia e noite na lei do Senhor... — Josué 1:8",
+        "Como é doce ao meu paladar a tua palavra! — Salmos 119:103",
+        "A palavra de Deus é viva e eficaz... — Hebreus 4:12"
+    ];
+    const hoje = new Date().getDate();
+    document.getElementById('versiculoDoDia').textContent = versiculos[hoje % versiculos.length];
+
+    const plano = JSON.parse(localStorage.getItem('planoLeitura') || '{}');
+    const total = 49;
+    const concluidos = Object.values(plano).filter(v=>v).length;
+    const pct = Math.round((concluidos/total)*100);
+    document.getElementById('textoProgresso').textContent = concluidos + ' de ' + total + ' dias concluídos (' + pct + '%)';
     document.getElementById('progressoFill').style.width = pct + '%';
 </script>
 </body>
