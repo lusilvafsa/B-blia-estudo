@@ -3,46 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bíblia de Estudo</title>
+    <title>Livros da Bíblia — Bíblia de Estudo</title>
     <style>
-        :root {
-            --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
-            --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
-            --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
-        }
-        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; scroll-behavior:smooth;}
-        body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
+:root {
+    --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
+    --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
+    --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
+    --fundo-card: rgba(44,82,145,.45);
+}
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior:smooth;}
+body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh; transition:filter .3s ease;}
 
-        .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
-        .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
-        .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
+/* Modo Claro */
+body.modo-claro {background:linear-gradient(180deg, #e8ecf5 0%, #d4dae8 40%, #c8d0e0 100%); color:#1a1a2e;}
+body.modo-claro p, body.modo-claro li {color:#2d2d44;}
+body.modo-claro .nav-principal {background:linear-gradient(180deg, #1e3a6b, #152a50);}
+body.modo-claro .cartao-link {background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(220,225,240,.5)); border-color:var(--ouro-escuro);}
+body.modo-claro .cartao-link p {color:#444;}
+body.modo-claro .tabela tr:nth-child(even) {background-color:rgba(200,210,240,.4);}
+body.modo-claro .tabela tr:nth-child(odd) {background-color:rgba(220,225,240,.5);}
+body.modo-claro .texto-biblico {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.05));}
+body.modo-claro .versiculo-linha {color:#1a1a2e;}
+body.modo-claro .esboco-container, body.modo-claro .caixa-destaque, body.modo-claro .plano-card, body.modo-claro .recurso-card, body.modo-claro .tema-item {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro .painel-controles {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro select, body.modo-claro input {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
+body.modo-claro .botao-voltar, body.modo-claro .menu-toggle, body.modo-claro .botao-carregar, body.modo-claro .botao-painel {color:var(--azul-escuro);}
 
-        .nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px;}
-        .nav-principal.visivel {transform:translateX(0);}
-        .nav-principal ul {list-style:none;}
-        .nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
-        .nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
+.menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+.menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+.menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
 
-        .sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
-        .sobreposicao.ativa {opacity:1; visibility:visible;}
+.toggle-tema {position:fixed; top:15px; right:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:22px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+.toggle-tema:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
 
-        header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0;}
-        header h1 {font-size:2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+.nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px; overflow-y:auto;}
+.nav-principal.visivel {transform:translateX(0);}
+.nav-principal ul {list-style:none;}
+.nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
+.nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
 
-        main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem;}
-        section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25);}
-        h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
-        h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
-        p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+.sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
+.sobreposicao.ativa {opacity:1; visibility:visible;}
+
+header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0; animation:fadeInDown 1s ease;}
+header h1 {font-size:2.2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+header p {font-style:italic; color:#e6d28f; margin-top:.6rem; font-size:1.1rem; position:relative; z-index:1;}
+
+main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem; animation:fadeInUp .8s ease;}
+section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25); animation:fadeInUp .8s ease both;}
+section:nth-child(2) {animation-delay:.1s;}
+section:nth-child(3) {animation-delay:.2s;}
+section:nth-child(4) {animation-delay:.3s;}
+h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
+h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
+h4 {color:#f0d76e; margin:1rem 0 .5rem;}
+p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+ul, ol {margin:1rem 0 1.5rem 2rem; color:#f0ead6;}
+li {margin-bottom:.6rem;}
+.versiculo {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.04)); border-left:5px solid var(--ouro); padding:1.2rem; margin:1.5rem 0; font-style:italic; border-radius:0 10px 10px 0; box-shadow:inset 0 0 18px rgba(212,175,55,.08); color:#fff9e8;}
+
+.botao-voltar {position:fixed; top:80px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem .9rem; border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 0 12px var(--dourado-sombra); transition:all .3s ease;}
+.botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
+
+footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2.5rem 1.2rem; margin-top:2.5rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra); animation:fadeInUp 1s ease;}
+footer p {text-align:center;}
+
+@keyframes fadeInUp {from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}}
+@keyframes fadeInDown {from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);}}
+
+@media (max-width:768px) {
+    header h1 {font-size:1.6rem;}
+    .nav-principal {width:100%;}
+    .toggle-tema {top:auto; bottom:15px; right:15px;}
+}
+
         .tabela {width:100%; border-collapse:collapse; margin:1.5rem 0; box-shadow:0 0 15px rgba(0,0,0,.4); border-radius:10px; overflow:hidden;}
         .tabela th, .tabela td {border:1px solid rgba(212,175,55,.3); padding:.9rem; text-align:left;}
         .tabela th {background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); color:#0f1a30; font-weight:600;}
         .tabela tr:nth-child(even) {background-color:rgba(30,58,107,.45);}
         .tabela tr:nth-child(odd) {background-color:rgba(15,32,64,.55);}
+        .tabela tr:hover {background-color:rgba(212,175,55,.15);}
+        .grupo-titulo {background:rgba(212,175,55,.2); color:var(--ouro-claro); padding:.6rem 1rem; font-weight:600; border-radius:6px; margin:1.5rem 0 .5rem; text-align:center; border:1px solid rgba(212,175,55,.3);}
+        .resumo {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin:1.5rem 0;}
+        .resumo-box {background:linear-gradient(135deg, rgba(44,82,145,.4), rgba(15,32,64,.6)); border:1px solid var(--ouro); border-radius:10px; padding:1rem; text-align:center;}
+        .resumo-box strong {color:var(--ouro-claro); font-size:1.3rem; display:block;}
+    </style>
+</head>
+<body>
 
-        footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2rem 1.2rem; margin-top:2rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra);}
-        footer p {text-align:center;}
+<button class="menu-toggle" id="botaoMenu">☰</button>
+<button class="toggle-tema" id="toggleTema">🌙</button>
+<button class="botao-voltar" onclick="history.back()">⬅️ Voltar</button>
+<div class="sobreposicao" id="fundoMenu" onclick="fecharMenu()"></div>
 
-        @media (max-width:768px) {
-            header h1 {font-size:1.6rem;}
-            .nav-principal {width
+<nav class="nav-principal" id="menuNavegacao">
+    <ul>
+        <li><a href="index.html">🏠 Página Inicial</a></li>
+        <li><a href="introducao.html">📌 Introdução</a></li>
+        <li><a href="metodos.html">🔍 Métodos de Estudo</a></li>
+        <li><a href="contexto.html">📚 Contexto e Interpretação</a></li>
+        <li><a href="bblia.html">📖 Leitura Bíblica</a></li>
+        <li><a href="livros.html" class="ativo">📚 Livros da Bíblia</a></li>
+        <li><a href="temas.html">✨ Temas Centrais</a></li>
+        <li><a href="plano.html">📅 Plano de Leitura</a></li>
+        <li><a href="recursos.html">📚 Recursos</a></li>
+        <li><a href="esboco.html">📝 Esboço de Ministração</a></li>
+    </ul>
+</nav>
+
+<header>
+    <h1>📚 Livros da Bíblia</h1>
+    <p>Visão geral dos 66 livros inspirados das Escrituras Sagradas</p>
+</header>
+
+<main>
+    <section>
+        <div class="resumo">
+            <div class="resumo-box"><strong>39</strong>Livros no Antigo Testamento</div>
+            <div class="resumo-box"><strong>27</strong>Livros no Novo Testamento</div>
+            <div class="resumo-box"><strong>66</strong>Total de Livros</div>
+            <div class="resumo-box"><strong>~40</strong>Autores Diferentes</div>
+        </div>
+
+        <h2>📜 Antigo Testamento</h2>
+
+        <div class="grupo-titulo">📖 Lei (Pentateuco) — 5 livros</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Gênesis</td><td>Moisés</td><td>50</td><td>Criação, queda, aliança com Abraão</td></tr>
+            <tr><td>Êxodo</td><td>Moisés</td><td>40</td><td>Libertação do Egito, lei</td></tr>
+            <tr><td>Levítico</td><td>Moisés</td><td>27</td><td>Santidade, sacrifícios, culto</td></tr>
+            <tr><td>Números</td><td>Moisés</td><td>36</td><td>Peregrinação no deserto</td></tr>
+            <tr><td>Deuteronômio</td><td>Moisés</td><td>34</td><td>Repetição da lei, aliança</td></tr>
+        </table>
+
+        <div class="grupo-titulo">📖 Histórico — 12 livros</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Josué</td><td>Josué</td><td>24</td><td>Conquista da Terra Prometida</td></tr>
+            <tr><td>Juízes</td><td>Samuel</td><td>21</td><td>Ciclos de apostasia e libertação</td></tr>
+            <tr><td>Rute</td><td>Samuel</td><td>4</td><td>Redenção e linhagem de Davi</td></tr>
+            <tr><td>1 Samuel</td><td>Samuel</td><td>31</td><td>Reinado de Saul e ascensão de Davi</td></tr>
+            <tr><td>2 Samuel</td><td>Samuel</td><td>24</td><td>Reinado de Davi</td></tr>
+            <tr><td>1 Reis</td><td>Jeremias</td><td>22</td><td>Reinado de Salomão e divisão</td></tr>
+            <tr><td>2 Reis</td><td>Jeremias</td><td>25</td><td>Reinos do Norte e Sul, exílio</td></tr>
+            <tr><td>1 Crônicas</td><td>Esdras</td><td>29</td><td>Genealogias e reinado de Davi</td></tr>
+            <tr><td>2 Crônicas</td><td>Esdras</td><td>36</td><td>História do reino de Judá</td></tr>
+            <tr><td>Esdras</td><td>Esdras</td><td>10</td><td>Retorno do exílio e reconstrução</td></tr>
+            <tr><td>Neemias</td><td>Neemias</td><td>13</td><td>Reconstrução dos muros</td></tr>
+            <tr><td>Ester</td><td>Mardoqueu</td><td>10</td><td>Proteção divina do povo judeu</td></tr>
+        </table>
+
+        <div class="grupo-titulo">📖 Poesia e Sabedoria — 5 livros</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Jó</td><td>Moisés / Desconhecido</td><td>42</td><td>Sofrimento, justiça e soberania de Deus</td></tr>
+            <tr><td>Salmos</td><td>Davi, Asafe, etc.</td><td>150</td><td>Oração, louvor, adoração</td></tr>
+            <tr><td>Provérbios</td><td>Salomão</td><td>31</td><td>Sabedoria prática para a vida</td></tr>
+            <tr><td>Eclesiastes</td><td>Salomão</td><td>12</td><td>Vaidade da vida sem Deus</td></tr>
+            <tr><td>Cânticos</td><td>Salomão</td><td>8</td><td>Amor conjugal e relação com Deus</td></tr>
+        </table>
+
+        <div class="grupo-titulo">📖 Profetas Maiores — 5 livros</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Isaías</td><td>Isaías</td><td>66</td><td>Julgamento e esperança messiânica</td></tr>
+            <tr><td>Jeremias</td><td>Jeremias</td><td>52</td><td>Queda de Judá, nova aliança</td></tr>
+            <tr><td>Lamentações</td><td>Jeremias</td><td>5</td><td>Lamento pela destruição de Jerusalém</td></tr>
+            <tr><td>Ezequiel</td><td>Ezequiel</td><td>48</td><td>Glória de Deus, restauração futura</td></tr>
+            <tr><td>Daniel</td><td>Daniel</td><td>12</td><td>Soberania divina sobre as nações</td></tr>
+        </table>
+
+        <div class="grupo-titulo">📖 Profetas Menores — 12 livros</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Oséias</td><td>Oséias</td><td>14</td><td>Infidelidade de Israel e amor de Deus</td></tr>
+            <tr><td>Joel</td><td>Joel</td><td>3</td><td>Dia do Senhor, derramamento do Espírito</td></tr>
+            <tr><td>Amós</td><td>Amós</td><td>9</td><td>Justiça social e juízo</td></tr>
+            <tr><td>Obadias</td><td>Obadias</td><td>1</td><td>Juízo sobre Edom</td></tr>
+            <tr><td>Jonas</td><td>Jonas</td><td>4</td><td>Misericórdia divina para os gentios</td></tr>
+            <tr><td>Miqueias</td><td>Miqueias</td><td>7</td><td>Justiça, humildade, Messias em Belém</td></tr>
+            <tr><td>Naum</td><td>Naum</td><td>3</td><td>Queda de Nínive</td></tr>
+            <tr><td>Habacuque</td><td>Habacuque</td><td>3</td><td>Fé diante da injustiça</td></tr>
+            <tr><td>Sofonias</td><td>Sofonias</td><td>3</td><td>Juízo e restauração</td></tr>
+            <tr><td>Ageu</td><td>Ageu</td><td>2</td><td>Reconstrução do templo</td></tr>
+            <tr><td>Zacarias</td><td>Zacarias</td><td>14</td><td>Messias, restauração de Israel</td></tr>
+            <tr><td>Malaquias</td><td>Malaquias</td><td>4</td><td>Fidelidade na aliança, Elias</td></tr>
+        </table>
+
+        <h2>📖 Novo Testamento</h2>
+
+        <div class="grupo-titulo">📖 Evangelhos — 4 livros</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Mateus</td><td>Mateus</td><td>28</td><td>Jesus como Messias e Rei</td></tr>
+            <tr><td>Marcos</td><td>João Marcos</td><td>16</td><td>Jesus como Servo sofredor</td></tr>
+            <tr><td>Lucas</td><td>Lucas</td><td>24</td><td>Jesus como Salvador de todos</td></tr>
+            <tr><td>João</td><td>João</td><td>21</td><td>Jesus como Deus encarnado</td></tr>
+        </table>
+
+        <div class="grupo-titulo">📖 Histórico — 1 livro</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Atos</td><td>Lucas</td><td>28</td><td>Expansão da Igreja pelo Espírito</td></tr>
+        </table>
+
+        <div class="grupo-titulo">📖 Cartas Paulinas — 13 livros</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Romanos</td><td>Paulo</td><td>16</td><td>Justificação pela fé</td></tr>
+            <tr><td>1 Coríntios</td><td>Paulo</td><td>16</td><td>Problemas e dons na igreja</td></tr>
+            <tr><td>2 Coríntios</td><td>Paulo</td><td>13</td><td>Ministério da nova aliança</td></tr>
+            <tr><td>Gálatas</td><td>Paulo</td><td>6</td><td>Libertade da lei, vida no Espírito</td></tr>
+            <tr><td>Efésios</td><td>Paulo</td><td>6</td><td>Unidade e vida cristã na igreja</td></tr>
+            <tr><td>Filipenses</td><td>Paulo</td><td>4</td><td>Alegria em Cristo</td></tr>
+            <tr><td>Colossenses</td><td>Paulo</td><td>4</td><td>Supremacia de Cristo</td></tr>
+            <tr><td>1 Tessalonicenses</td><td>Paulo</td><td>5</td><td>Segunda vinda e santidade</td></tr>
+            <tr><td>2 Tessalonicenses</td><td>Paulo</td><td>3</td><td>Esperança e trabalho</td></tr>
+            <tr><td>1 Timóteo</td><td>Paulo</td><td>6</td><td>Instruções para liderança</td></tr>
+            <tr><td>2 Timóteo</td><td>Paulo</td><td>4</td><td>Fidelidade até o fim</td></tr>
+            <tr><td>Tito</td><td>Paulo</td><td>3</td><td>Conduta sã e doutrina</td></tr>
+            <tr><td>Filemom</td><td>Paulo</td><td>1</td><td>Reconciliação cristã</td></tr>
+        </table>
+
+        <div class="grupo-titulo">📖 Cartas Gerais — 8 livros</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Hebreus</td><td>Desconhecido</td><td>13</td><td>Superioridade de Cristo</td></tr>
+            <tr><td>Tiago</td><td>Tiago</td><td>5</td><td>Fé prática e obras</td></tr>
+            <tr><td>1 Pedro</td><td>Pedro</td><td>5</td><td>Sofrimento e esperança</td></tr>
+            <tr><td>2 Pedro</td><td>Pedro</td><td>3</td><td>Crescimento e escatologia</td></tr>
+            <tr><td>1 João</td><td>João</td><td>5</td><td>Comunhão, amor, verdade</td></tr>
+            <tr><td>2 João</td><td>João</td><td>1</td><td>Verdade e amor</td></tr>
+            <tr><td>3 João</td><td>João</td><td>1</td><td>Hospitalidade e verdade</td></tr>
+            <tr><td>Judas</td><td>Judas</td><td>1</td><td>Contender pela fé</td></tr>
+        </table>
+
+        <div class="grupo-titulo">📖 Profecia — 1 livro</div>
+        <table class="tabela">
+            <tr><th>Livro</th><th>Autor</th><th>Capítulos</th><th>Tema Central</th></tr>
+            <tr><td>Apocalipse</td><td>João</td><td>22</td><td>Consumação do Reino de Deus</td></tr>
+        </table>
+    </section>
+</main>
+
+<footer>
+    <p>"E conhecereis a verdade, e a verdade vos libertará." — João 8:32</p>
+</footer>
+
+<script>
+const botaoMenu = document.getElementById('botaoMenu');
+const menuNavegacao = document.getElementById('menuNavegacao');
+const fundoMenu = document.getElementById('fundoMenu');
+const toggleTema = document.getElementById('toggleTema');
+
+function alternarMenu() {
+    menuNavegacao.classList.toggle('visivel');
+    fundoMenu.classList.toggle('ativa');
+    botaoMenu.classList.toggle('aberto');
+    botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
+}
+function fecharMenu() {
+    menuNavegacao.classList.remove('visivel');
+    fundoMenu.classList.remove('ativa');
+    botaoMenu.classList.remove('aberto');
+    botaoMenu.textContent = '☰';
+}
+if(botaoMenu) botaoMenu.addEventListener('click', alternarMenu);
+
+// Modo claro/escuro
+if(toggleTema) {
+    const temaSalvo = localStorage.getItem('tema');
+    if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
+    toggleTema.textContent = document.body.classList.contains('modo-claro') ? '☀️' : '🌙';
+    toggleTema.addEventListener('click', () => {
+        document.body.classList.toggle('modo-claro');
+        const modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
+        localStorage.setItem('tema', modo);
+        toggleTema.textContent = modo === 'claro' ? '☀️' : '🌙';
+    });
+}
+</script>
+</body>
+</html>

@@ -3,82 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bíblia — Leitura e Estudo</title>
+    <title>Leitura Bíblica — Bíblia de Estudo</title>
     <style>
-        :root {
-            --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
-            --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
-            --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
-        }
-        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; scroll-behavior:smooth;}
-        body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
+:root {
+    --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
+    --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
+    --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
+    --fundo-card: rgba(44,82,145,.45);
+}
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior:smooth;}
+body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh; transition:filter .3s ease;}
 
-        .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
-        .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
-        .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
+/* Modo Claro */
+body.modo-claro {background:linear-gradient(180deg, #e8ecf5 0%, #d4dae8 40%, #c8d0e0 100%); color:#1a1a2e;}
+body.modo-claro p, body.modo-claro li {color:#2d2d44;}
+body.modo-claro .nav-principal {background:linear-gradient(180deg, #1e3a6b, #152a50);}
+body.modo-claro .cartao-link {background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(220,225,240,.5)); border-color:var(--ouro-escuro);}
+body.modo-claro .cartao-link p {color:#444;}
+body.modo-claro .tabela tr:nth-child(even) {background-color:rgba(200,210,240,.4);}
+body.modo-claro .tabela tr:nth-child(odd) {background-color:rgba(220,225,240,.5);}
+body.modo-claro .texto-biblico {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.05));}
+body.modo-claro .versiculo-linha {color:#1a1a2e;}
+body.modo-claro .esboco-container, body.modo-claro .caixa-destaque, body.modo-claro .plano-card, body.modo-claro .recurso-card, body.modo-claro .tema-item {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro .painel-controles {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro select, body.modo-claro input {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
+body.modo-claro .botao-voltar, body.modo-claro .menu-toggle, body.modo-claro .botao-carregar, body.modo-claro .botao-painel {color:var(--azul-escuro);}
 
-        .nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px;}
-        .nav-principal.visivel {transform:translateX(0);}
-        .nav-principal ul {list-style:none;}
-        .nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
-        .nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
+.menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+.menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+.menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
 
-        .sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
-        .sobreposicao.ativa {opacity:1; visibility:visible;}
+.toggle-tema {position:fixed; top:15px; right:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:22px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+.toggle-tema:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
 
-        header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0;}
-        header h1 {font-size:2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+.nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px; overflow-y:auto;}
+.nav-principal.visivel {transform:translateX(0);}
+.nav-principal ul {list-style:none;}
+.nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
+.nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
 
-        main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem;}
-        section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25);}
-        h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
-        p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+.sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
+.sobreposicao.ativa {opacity:1; visibility:visible;}
 
-        .botao-painel {
-            display:inline-flex; align-items:center; gap:.6rem;
-            background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro));
-            color:var(--azul-escuro); border:none; padding:.7rem 1.3rem;
-            border-radius:30px; font-weight:600; font-size:1rem; cursor:pointer;
-            transition:all .3s ease; box-shadow:0 0 12px var(--dourado-sombra); margin-bottom:1rem;
-        }
+header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0; animation:fadeInDown 1s ease;}
+header h1 {font-size:2.2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+header p {font-style:italic; color:#e6d28f; margin-top:.6rem; font-size:1.1rem; position:relative; z-index:1;}
+
+main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem; animation:fadeInUp .8s ease;}
+section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25); animation:fadeInUp .8s ease both;}
+section:nth-child(2) {animation-delay:.1s;}
+section:nth-child(3) {animation-delay:.2s;}
+section:nth-child(4) {animation-delay:.3s;}
+h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
+h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
+h4 {color:#f0d76e; margin:1rem 0 .5rem;}
+p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+ul, ol {margin:1rem 0 1.5rem 2rem; color:#f0ead6;}
+li {margin-bottom:.6rem;}
+.versiculo {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.04)); border-left:5px solid var(--ouro); padding:1.2rem; margin:1.5rem 0; font-style:italic; border-radius:0 10px 10px 0; box-shadow:inset 0 0 18px rgba(212,175,55,.08); color:#fff9e8;}
+
+.botao-voltar {position:fixed; top:80px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem .9rem; border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 0 12px var(--dourado-sombra); transition:all .3s ease;}
+.botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
+
+footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2.5rem 1.2rem; margin-top:2.5rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra); animation:fadeInUp 1s ease;}
+footer p {text-align:center;}
+
+@keyframes fadeInUp {from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}}
+@keyframes fadeInDown {from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);}}
+
+@media (max-width:768px) {
+    header h1 {font-size:1.6rem;}
+    .nav-principal {width:100%;}
+    .toggle-tema {top:auto; bottom:15px; right:15px;}
+}
+
+        .botao-painel {display:inline-flex; align-items:center; gap:.6rem; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.7rem 1.3rem; border-radius:30px; font-weight:600; font-size:1rem; cursor:pointer; transition:all .3s ease; box-shadow:0 0 12px var(--dourado-sombra); margin-bottom:1rem;}
         .botao-painel:hover {transform:scale(1.03); box-shadow:0 0 20px var(--ouro);}
         .botao-painel.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
 
-        .painel-controles {
-            background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7));
-            border:1px solid var(--ouro); padding:1.5rem; border-radius:12px;
-            margin:1rem 0; box-shadow:0 0 18px var(--dourado-sombra);
-            max-height:0; overflow:hidden; opacity:0;
-            transition:max-height .4s ease, opacity .3s ease, margin .3s ease;
-        }
+        .painel-controles {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:1.5rem; border-radius:12px; margin:1rem 0; box-shadow:0 0 18px var(--dourado-sombra); max-height:0; overflow:hidden; opacity:0; transition:max-height .4s ease, opacity .3s ease, margin .3s ease;}
         .painel-controles.visivel {max-height:600px; opacity:1; margin:1.5rem 0;}
 
         .linha-controles {display:flex; flex-wrap:wrap; gap:.8rem; align-items:center; margin:.6rem 0;}
         label {color:#e6d28f; font-weight:500;}
-        select, input {background:rgba(30,58,107,.6); border:1px solid var(--ouro); color:var(--branco-suave); padding:.6rem .8rem; border-radius:6px; font-size:.95rem;}
+        select, input {background:rgba(30,58,107,.6); border:1px solid var(--ouro); color:var(--branco-suave); padding:.6rem .8rem; border-radius:6px; font-size:.95rem; min-width:120px;}
         button.botao-carregar {background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.6rem 1.2rem; border-radius:6px; font-weight:600; cursor:pointer; transition:all .3s ease; margin-top:.5rem;}
         button.botao-carregar:hover {transform:scale(1.05); box-shadow:0 0 12px var(--ouro);}
 
-        .texto-biblico {background:linear-gradient(90deg, rgba(212,175,55,.08), rgba(212,175,55,.03)); border-left:5px solid var(--ouro); padding:2rem; margin:1.5rem 0; border-radius:0 12px 12px 0; box-shadow:inset 0 0 20px rgba(212,175,55,.06);}
-        .texto-biblico h3 {text-align:center; margin-bottom:1.5rem; font-size:1.4rem;}
-        .versiculo-linha {margin:.7rem 0; text-indent:1.5rem; color:#fff9e8;}
-        .numero {color:var(--ouro-claro); font-weight:bold; margin-right:.5rem;}
+        .texto-biblico {background:linear-gradient(90deg, rgba(212,175,55,.08), rgba(212,175,55,.03)); border-left:5px solid var(--ouro); padding:2rem; margin:1.5rem 0; border-radius:0 12px 12px 0; box-shadow:inset 0 0 20px rgba(212,175,55,.06); min-height:200px;}
+        .texto-biblico h3 {text-align:center; margin-bottom:1.5rem; font-size:1.4rem; color:var(--ouro-claro);}
+        .versiculo-linha {margin:.7rem 0; text-indent:1.5rem; color:#fff9e8; line-height:1.9;}
+        .numero {color:var(--ouro-claro); font-weight:bold; margin-right:.5rem; font-size:.9rem; vertical-align:super;}
         .info-versao {text-align:right; font-style:italic; color:#b8a860; font-size:.9rem; margin-bottom:1rem;}
 
-        footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2rem 1.2rem; margin-top:2rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra);}
-        footer p {text-align:center;}
+        .loading {text-align:center; padding:2rem; color:var(--ouro-claro); font-style:italic;}
+        .erro {text-align:center; padding:1.5rem; color:#ff6b6b; background:rgba(255,0,0,.1); border-radius:8px; margin:1rem 0;}
+
+        .botoes-acao {display:flex; gap:.6rem; flex-wrap:wrap; margin:1rem 0; justify-content:center;}
+        .btn-fav {background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem 1rem; border-radius:20px; font-weight:600; cursor:pointer; transition:all .3s ease;}
+        .btn-fav:hover {transform:scale(1.05); box-shadow:0 0 12px var(--ouro);}
+
+        .favoritos-area {background:linear-gradient(135deg, rgba(44,82,145,.4), rgba(15,32,64,.6)); border:1px solid var(--ouro); padding:1.5rem; border-radius:12px; margin:1.5rem 0;}
+        .favoritos-area h3 {color:var(--ouro-claro); margin-bottom:1rem;}
+        .fav-item {background:rgba(212,175,55,.1); border-left:3px solid var(--ouro); padding:.6rem .8rem; margin:.4rem 0; border-radius:0 6px 6px 0; display:flex; justify-content:space-between; align-items:center;}
+        .fav-item button {background:transparent; border:none; color:#ff6b6b; cursor:pointer; font-size:1.1rem;}
+        .fav-item a {color:var(--ouro-claro); text-decoration:none;}
+        .fav-item a:hover {text-decoration:underline;}
+
+        .historico-area {background:linear-gradient(135deg, rgba(44,82,145,.3), rgba(15,32,64,.5)); border:1px solid rgba(212,175,55,.3); padding:1rem; border-radius:10px; margin:1rem 0;}
+        .historico-area h4 {color:var(--ouro-claro); margin-bottom:.5rem;}
+        .hist-tag {display:inline-block; background:rgba(212,175,55,.15); color:#e6d28f; padding:.3rem .7rem; border-radius:15px; font-size:.85rem; margin:.2rem; cursor:pointer; border:1px solid rgba(212,175,55,.2); transition:all .2s ease;}
+        .hist-tag:hover {background:rgba(212,175,55,.3);}
 
         @media (max-width:768px) {
-            header h1 {font-size:1.6rem;}
-            .nav-principal {width:100%;}
             .texto-biblico {padding:1.2rem;}
             .linha-controles {flex-direction:column; align-items:stretch;}
+            select, input {width:100%;}
         }
     </style>
 </head>
 <body>
 
 <button class="menu-toggle" id="botaoMenu">☰</button>
+<button class="toggle-tema" id="toggleTema">🌙</button>
+<button class="botao-voltar" onclick="history.back()">⬅️ Voltar</button>
 <div class="sobreposicao" id="fundoMenu" onclick="fecharMenu()"></div>
 
 <nav class="nav-principal" id="menuNavegacao">
@@ -87,7 +135,8 @@
         <li><a href="introducao.html">📌 Introdução</a></li>
         <li><a href="metodos.html">🔍 Métodos de Estudo</a></li>
         <li><a href="contexto.html">📚 Contexto e Interpretação</a></li>
-        <li><a href="bblia.html" class="ativo">📖 Bíblia</a></li>
+        <li><a href="bblia.html" class="ativo">📖 Leitura Bíblica</a></li>
+        <li><a href="livros.html">📚 Livros da Bíblia</a></li>
         <li><a href="temas.html">✨ Temas Centrais</a></li>
         <li><a href="plano.html">📅 Plano de Leitura</a></li>
         <li><a href="recursos.html">📚 Recursos</a></li>
@@ -96,47 +145,37 @@
 </nav>
 
 <header>
-    <h1>📖 Bíblia — Leitura e Estudo</h1>
+    <h1>📖 Leitura e Estudo da Bíblia</h1>
+    <p>Consulte versículos em tempo real com traduções em português</p>
 </header>
 
 <main>
     <section>
         <h2>📖 Leitura da Palavra</h2>
-        <p>Escolha a passagem clicando abaixo. Selecione versão, livro, capítulo e versículo.</p>
+        <p>Selecione a versão, o livro, o capítulo e o versículo desejado. Os textos são carregados em tempo real da API pública Bible API.</p>
 
         <button class="botao-painel" id="botaoSelecao" onclick="alternarPainel()">
-            📖 Bíblia
+            📖 Abrir Seletor de Passagem
         </button>
 
         <div class="painel-controles" id="painelControles">
             <div class="linha-controles">
                 <label>📜 Versão:</label>
                 <select id="versao">
-                    <option value="ARA">ARA — Almeida Revista e Atualizada</option>
-                    <option value="ACF">ACF — Almeida Corrigida e Fiel</option>
-                    <option value="NVI">NVI — Nova Versão Internacional</option>
-                    <option value="NTLH">NTLH — Nova Tradução na Linguagem de Hoje</option>
+                    <option value="almeida">ARA — Almeida Revista e Atualizada</option>
+                    <option value="acf">ACF — Almeida Corrigida e Fiel</option>
+                    <option value="almeida" data-fallback="NVI">NVI — Nova Versão Internacional (fallback ARA)</option>
+                    <option value="almeida" data-fallback="NTLH">NTLH — Nova Tradução na Linguagem de Hoje (fallback ARA)</option>
                 </select>
             </div>
 
             <div class="linha-controles">
                 <label>📖 Livro:</label>
-                <select id="livro" onchange="atualizarCapitulos()">
-                    <option value="Gênesis">Gênesis</option>
-                    <option value="Êxodo">Êxodo</option>
-                    <option value="Salmos" selected>Salmos</option>
-                    <option value="Isaías">Isaías</option>
-                    <option value="Mateus">Mateus</option>
-                    <option value="Marcos">Marcos</option>
-                    <option value="Lucas">Lucas</option>
-                    <option value="João">João</option>
-                    <option value="Romanos">Romanos</option>
-                    <option value="Apocalipse">Apocalipse</option>
-                </select>
+                <select id="livro" onchange="atualizarCapitulos()"></select>
             </div>
 
             <div class="linha-controles">
-                <label>Cap.:</label>
+                <label>Capítulo:</label>
                 <select id="capitulo"></select>
             </div>
 
@@ -148,22 +187,35 @@
             </div>
 
             <div class="linha-controles">
-                <button class="botao-carregar" onclick="carregarTexto()">🔍 Abrir</button>
+                <button class="botao-carregar" onclick="carregarTexto()">🔍 Carregar Passagem</button>
+                <button class="botao-carregar" onclick="carregarPassagemAleatoria()">🎲 Versículo Aleatório</button>
             </div>
+        </div>
+
+        <div class="historico-area" id="areaHistorico" style="display:none;">
+            <h4>🕐 Últimas Leituras</h4>
+            <div id="listaHistorico"></div>
         </div>
 
         <div class="texto-biblico" id="areaTexto">
-            <h3 id="tituloPassagem">📖 Salmos — Capítulo 91</h3>
-            <p class="info-versao" id="nomeVersao">Versão: ARA — Almeida Revista e Atualizada</p>
+            <h3 id="tituloPassagem">📖 Bem-vindo ao Leitor Bíblico</h3>
+            <p class="info-versao" id="nomeVersao">Selecione uma passagem acima para começar</p>
             <div id="conteudoVersiculos">
-                <p class="versiculo-linha"><span class="numero">1</span>Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará.</p>
-                <p class="versiculo-linha"><span class="numero">2</span>Direi do Senhor: Ele é o meu Deus, o meu Refúgio, a minha Fortaleza e a minha Confiança.</p>
-                <p class="versiculo-linha"><span class="numero">3</span>Ele te livrará do laço do passarinheiro e da peste perniciosa.</p>
-                <p class="versiculo-linha"><span class="numero">4</span>Ele te cobrirá com as suas penas, e debaixo das suas asas estarás seguro; a sua verdade é escudo e broquel.</p>
+                <p style="text-align:center; padding:1.5rem; color:#e6d28f;">
+                    💡 Dica: Comece pelo Evangelho de João ou pelos Salmos.<br>
+                    Use o seletor acima ou clique em "Versículo Aleatório" para uma palavra rápida.
+                </p>
+            </div>
+            <div class="botoes-acao" id="botoesAcao" style="display:none;">
+                <button class="btn-fav" onclick="favoritarAtual()">⭐ Favoritar Passagem</button>
+                <button class="btn-fav" onclick="compartilharTexto()">📤 Copiar Texto</button>
             </div>
         </div>
 
-        <p style="text-align:center; font-style:italic; color:#e6d28f; margin-top:1rem;">💡 Os textos são exemplos ilustrativos.</p>
+        <div class="favoritos-area" id="areaFavoritos" style="display:none;">
+            <h3>⭐ Meus Favoritos</h3>
+            <div id="listaFavoritos"></div>
+        </div>
     </section>
 </main>
 
@@ -172,49 +224,97 @@
 </footer>
 
 <script>
-    const botaoMenu = document.getElementById('botaoMenu');
-    const menuNavegacao = document.getElementById('menuNavegacao');
-    const fundoMenu = document.getElementById('fundoMenu');
+const botaoMenu = document.getElementById('botaoMenu');
+const menuNavegacao = document.getElementById('menuNavegacao');
+const fundoMenu = document.getElementById('fundoMenu');
+const toggleTema = document.getElementById('toggleTema');
+
+function alternarMenu() {
+    menuNavegacao.classList.toggle('visivel');
+    fundoMenu.classList.toggle('ativa');
+    botaoMenu.classList.toggle('aberto');
+    botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
+}
+function fecharMenu() {
+    menuNavegacao.classList.remove('visivel');
+    fundoMenu.classList.remove('ativa');
+    botaoMenu.classList.remove('aberto');
+    botaoMenu.textContent = '☰';
+}
+if(botaoMenu) botaoMenu.addEventListener('click', alternarMenu);
+
+// Modo claro/escuro
+if(toggleTema) {
+    const temaSalvo = localStorage.getItem('tema');
+    if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
+    toggleTema.textContent = document.body.classList.contains('modo-claro') ? '☀️' : '🌙';
+    toggleTema.addEventListener('click', () => {
+        document.body.classList.toggle('modo-claro');
+        const modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
+        localStorage.setItem('tema', modo);
+        toggleTema.textContent = modo === 'claro' ? '☀️' : '🌙';
+    });
+}
+
     const botaoSelecao = document.getElementById('botaoSelecao');
     const painelControles = document.getElementById('painelControles');
 
     const qtdCapitulos = {
-        'Gênesis':50, 'Êxodo':40, 'Levítico':27, 'Números':36, 'Deuteronômio':34,
-        'Josué':24, 'Juízes':21, 'Rute':4, '1 Samuel':31, '2 Samuel':24,
-        '1 Reis':22, '2 Reis':25, '1 Crônicas':29, '2 Crônicas':36, 'Esdras':10,
-        'Neemias':13, 'Ester':10, 'Jó':42, 'Salmos':150, 'Provérbios':31,
-        'Eclesiastes':12, 'Cânticos':8, 'Isaías':66, 'Jeremias':52, 'Lamentações':5,
-        'Ezequiel':48, 'Daniel':12, 'Oséias':14, 'Joel':3, 'Amós':9,
-        'Obadias':1, 'Jonas':4, 'Miqueias':7, 'Naum':3, 'Habacuque':3,
-        'Sofonias':3, 'Ageu':2, 'Zacarias':14, 'Malaquias':4,
-        'Mateus':28, 'Marcos':16, 'Lucas':24, 'João':21, 'Atos':28,
-        'Romanos':16, '1 Coríntios':16, '2 Coríntios':13, 'Gálatas':6,
-        'Efésios':6, 'Filipenses':4, 'Colossenses':4, '1 Tessalonicenses':5,
-        '2 Tessalonicenses':3, '1 Timóteo':6, '2 Timóteo':4, 'Tito':3,
-        'Filemom':1, 'Hebreus':13, 'Tiago':5, '1 Pedro':5, '2 Pedro':3,
-        '1 João':5, '2 João':1, '3 João':1, 'Judas':1, 'Apocalipse':22
+        'Gênesis':50,'Êxodo':40,'Levítico':27,'Números':36,'Deuteronômio':34,
+        'Josué':24,'Juízes':21,'Rute':4,'1 Samuel':31,'2 Samuel':24,
+        '1 Reis':22,'2 Reis':25,'1 Crônicas':29,'2 Crônicas':36,'Esdras':10,
+        'Neemias':13,'Ester':10,'Jó':42,'Salmos':150,'Provérbios':31,
+        'Eclesiastes':12,'Cânticos':8,'Isaías':66,'Jeremias':52,'Lamentações':5,
+        'Ezequiel':48,'Daniel':12,'Oséias':14,'Joel':3,'Amós':9,
+        'Obadias':1,'Jonas':4,'Miqueias':7,'Naum':3,'Habacuque':3,
+        'Sofonias':3,'Ageu':2,'Zacarias':14,'Malaquias':4,
+        'Mateus':28,'Marcos':16,'Lucas':24,'João':21,'Atos':28,
+        'Romanos':16,'1 Coríntios':16,'2 Coríntios':13,'Gálatas':6,
+        'Efésios':6,'Filipenses':4,'Colossenses':4,'1 Tessalonicenses':5,
+        '2 Tessalonicenses':3,'1 Timóteo':6,'2 Timóteo':4,'Tito':3,
+        'Filemom':1,'Hebreus':13,'Tiago':5,'1 Pedro':5,'2 Pedro':3,
+        '1 João':5,'2 João':1,'3 João':1,'Judas':1,'Apocalipse':22
     };
 
-    function alternarMenu() {
-        menuNavegacao.classList.toggle('visivel');
-        fundoMenu.classList.toggle('ativa');
-        botaoMenu.classList.toggle('aberto');
-        botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
-    }
-    function fecharMenu() {
-        menuNavegacao.classList.remove('visivel');
-        fundoMenu.classList.remove('ativa');
-        botaoMenu.classList.remove('aberto');
-        botaoMenu.textContent = '☰';
-    }
-    botaoMenu.addEventListener('click', alternarMenu);
+    const livrosAPI = {
+        'Gênesis':'Genesis','Êxodo':'Exodus','Levítico':'Leviticus','Números':'Numbers','Deuteronômio':'Deuteronomy',
+        'Josué':'Joshua','Juízes':'Judges','Rute':'Ruth','1 Samuel':'1 Samuel','2 Samuel':'2 Samuel',
+        '1 Reis':'1 Kings','2 Reis':'2 Kings','1 Crônicas':'1 Chronicles','2 Crônicas':'2 Chronicles','Esdras':'Ezra',
+        'Neemias':'Nehemiah','Ester':'Esther','Jó':'Job','Salmos':'Psalms','Provérbios':'Proverbs',
+        'Eclesiastes':'Ecclesiastes','Cânticos':'Song of Solomon','Isaías':'Isaiah','Jeremias':'Jeremiah','Lamentações':'Lamentations',
+        'Ezequiel':'Ezekiel','Daniel':'Daniel','Oséias':'Hosea','Joel':'Joel','Amós':'Amos',
+        'Obadias':'Obadiah','Jonas':'Jonah','Miqueias':'Micah','Naum':'Nahum','Habacuque':'Habakkuk',
+        'Sofonias':'Zephaniah','Ageu':'Haggai','Zacarias':'Zechariah','Malaquias':'Malachi',
+        'Mateus':'Matthew','Marcos':'Mark','Lucas':'Luke','João':'John','Atos':'Acts',
+        'Romanos':'Romans','1 Coríntios':'1 Corinthians','2 Coríntios':'2 Corinthians','Gálatas':'Galatians',
+        'Efésios':'Ephesians','Filipenses':'Philippians','Colossenses':'Colossians','1 Tessalonicenses':'1 Thessalonians',
+        '2 Tessalonicenses':'2 Thessalonians','1 Timóteo':'1 Timothy','2 Timóteo':'2 Timothy','Tito':'Titus',
+        'Filemom':'Philemon','Hebreus':'Hebrews','Tiago':'James','1 Pedro':'1 Peter','2 Pedro':'2 Peter',
+        '1 João':'1 John','2 João':'2 John','3 João':'3 John','Judas':'Jude','Apocalipse':'Revelation'
+    };
+
+    const passagensFavoritas = [
+        'João 3:16','Salmos 23','Romanos 8:28','Filipenses 4:13','Jeremias 29:11',
+        'Provérbios 3:5-6','Isaías 40:31','Mateus 11:28','João 14:6','Salmos 91:1-2'
+    ];
 
     function alternarPainel() {
         painelControles.classList.toggle('visivel');
         botaoSelecao.classList.toggle('aberto');
-        botaoSelecao.textContent = painelControles.classList.contains('visivel') 
-            ? '✕ Fechar Painel' 
-            : '📖 Bíblia';
+        botaoSelecao.textContent = painelControles.classList.contains('visivel') ? '✕ Fechar Painel' : '📖 Abrir Seletor de Passagem';
+    }
+
+    function preencherLivros() {
+        const sel = document.getElementById('livro');
+        sel.innerHTML = '';
+        Object.keys(qtdCapitulos).forEach(livro => {
+            const opt = document.createElement('option');
+            opt.value = livro;
+            opt.textContent = livro;
+            if(livro === 'Salmos') opt.selected = true;
+            sel.appendChild(opt);
+        });
+        atualizarCapitulos();
     }
 
     function atualizarCapitulos() {
@@ -235,8 +335,7 @@
     function atualizarVersiculos() {
         const verSel = document.getElementById('versiculo');
         verSel.innerHTML = '<option value="todos">📖 Todo o Capítulo</option>';
-        const qtdVer = 50;
-        for(let i=1; i<=qtdVer; i++) {
+        for(let i=1; i<=50; i++) {
             const opt = document.createElement('option');
             opt.value = i;
             opt.textContent = i;
@@ -244,28 +343,158 @@
         }
     }
 
-    function carregarTexto() {
+    async function carregarTexto() {
         const livro = document.getElementById('livro').value;
         const capitulo = document.getElementById('capitulo').value;
         const versiculo = document.getElementById('versiculo').value;
-        const versao = document.getElementById('versao');
-        const nomeVersaoCompleto = versao.options[versao.selectedIndex].text;
+        const versaoEl = document.getElementById('versao');
+        const versao = versaoEl.value;
+        const nomeVersaoCompleto = versaoEl.options[versaoEl.selectedIndex].text;
 
-        document.getElementById('tituloPassagem').textContent = `📖 ${livro} — Capítulo ${capitulo}`;
-        document.getElementById('nomeVersao').textContent = `Versão: ${nomeVersaoCompleto}`;
-        
-        let textoVersiculo = versiculo==='todos' ? 'Todo o Capítulo' : `Versículo ${versiculo}`;
-        document.getElementById('conteudoVersiculos').innerHTML = `
-            <p style="text-align:center; padding:1.5rem; color:#e6d28f;">
-                ✅ Passagem: <strong>${livro} ${capitulo} — ${textoVersiculo}</strong><br>
-                Versão: ${nomeVersaoCompleto}
-            </p>
-        `;
+        const livroEN = livrosAPI[livro] || livro;
+        let ref = livroEN + ' ' + capitulo;
+        if(versiculo !== 'todos') ref += ':' + versiculo;
+
+        document.getElementById('tituloPassagem').textContent = '📖 Carregando...';
+        document.getElementById('conteudoVersiculos').innerHTML = '<div class="loading">⏳ Buscando na API pública...</div>';
+        document.getElementById('botoesAcao').style.display = 'none';
+
+        try {
+            const url = 'https://bible-api.com/' + encodeURIComponent(ref) + '?translation=' + versao;
+            const resp = await fetch(url);
+            if(!resp.ok) throw new Error('Passagem não encontrada ou versão indisponível');
+            const data = await resp.json();
+
+            document.getElementById('tituloPassagem').textContent = '📖 ' + data.reference;
+            document.getElementById('nomeVersao').textContent = 'Versão: ' + nomeVersaoCompleto + ' | ' + data.translation_name;
+
+            let html = '';
+            if(data.verses && data.verses.length > 0) {
+                data.verses.forEach(v => {
+                    html += '<p class="versiculo-linha"><span class="numero">' + v.verse + '</span>' + v.text.trim() + '</p>';
+                });
+            } else if(data.text) {
+                html += '<p class="versiculo-linha">' + data.text.trim() + '</p>';
+            }
+            document.getElementById('conteudoVersiculos').innerHTML = html;
+            document.getElementById('botoesAcao').style.display = 'flex';
+
+            // Salvar no histórico
+            salvarHistorico(data.reference + ' (' + nomeVersaoCompleto + ')', livro, capitulo, versiculo, versao);
+            mostrarHistorico();
+
+        } catch(e) {
+            document.getElementById('tituloPassagem').textContent = '📖 Erro ao carregar';
+            document.getElementById('conteudoVersiculos').innerHTML = '<div class="erro">❌ ' + e.message + '<br><small>Verifique se o versículo existe neste capítulo ou tente outra versão.</small></div>';
+        }
+    }
+
+    function carregarPassagemAleatoria() {
+        const ref = passagensFavoritas[Math.floor(Math.random() * passagensFavoritas.length)];
+        // Parse ref
+        const partes = ref.match(/^(.+?)\s+(\d+)(?::(\d+(-?\d*)))?$/);
+        if(!partes) { alert('Erro ao selecionar passagem aleatória'); return; }
+        const nomeLivro = partes[1];
+        const cap = partes[2];
+        const ver = partes[3] || 'todos';
+        // Achar no select
+        const livroSel = document.getElementById('livro');
+        for(let i=0; i<livroSel.options.length; i++) {
+            if(livroSel.options[i].text === nomeLivro) { livroSel.selectedIndex = i; break; }
+        }
+        atualizarCapitulos();
+        document.getElementById('capitulo').value = cap;
+        if(ver !== 'todos') document.getElementById('versiculo').value = ver.split('-')[0];
+        else document.getElementById('versiculo').value = 'todos';
+        carregarTexto();
+    }
+
+    function salvarHistorico(display, livro, cap, ver, versao) {
+        let hist = JSON.parse(localStorage.getItem('bibliaHistorico') || '[]');
+        hist = hist.filter(h => h.display !== display);
+        hist.unshift({display, livro, cap, ver, versao, data: new Date().toISOString()});
+        if(hist.length > 10) hist = hist.slice(0,10);
+        localStorage.setItem('bibliaHistorico', JSON.stringify(hist));
+    }
+
+    function mostrarHistorico() {
+        const hist = JSON.parse(localStorage.getItem('bibliaHistorico') || '[]');
+        const area = document.getElementById('areaHistorico');
+        const lista = document.getElementById('listaHistorico');
+        if(hist.length === 0) { area.style.display = 'none'; return; }
+        area.style.display = 'block';
+        lista.innerHTML = hist.map(h => '<span class="hist-tag" onclick="restaurarHistorico(' + JSON.stringify(h).replace(/"/g,'&quot;') + ')">' + h.display + '</span>').join('');
+    }
+
+    function restaurarHistorico(h) {
+        const livroSel = document.getElementById('livro');
+        for(let i=0; i<livroSel.options.length; i++) {
+            if(livroSel.options[i].value === h.livro) { livroSel.selectedIndex = i; break; }
+        }
+        atualizarCapitulos();
+        document.getElementById('capitulo').value = h.cap;
+        document.getElementById('versiculo').value = h.ver;
+        document.getElementById('versao').value = h.versao;
+        carregarTexto();
+    }
+
+    function favoritarAtual() {
+        const titulo = document.getElementById('tituloPassagem').textContent.replace('📖 ','');
+        const texto = document.getElementById('conteudoVersiculos').innerText.substring(0,200);
+        let favs = JSON.parse(localStorage.getItem('bibliaFavoritos') || '[]');
+        if(favs.find(f => f.titulo === titulo)) { alert('Esta passagem já está nos favoritos!'); return; }
+        favs.push({titulo, texto, data: new Date().toLocaleDateString()});
+        localStorage.setItem('bibliaFavoritos', JSON.stringify(favs));
+        mostrarFavoritos();
+        alert('Passagem favoritada! ⭐');
+    }
+
+    function mostrarFavoritos() {
+        const favs = JSON.parse(localStorage.getItem('bibliaFavoritos') || '[]');
+        const area = document.getElementById('areaFavoritos');
+        const lista = document.getElementById('listaFavoritos');
+        if(favs.length === 0) { area.style.display = 'none'; return; }
+        area.style.display = 'block';
+        lista.innerHTML = favs.map((f,i) => '<div class="fav-item"><div><a href="#" onclick="carregarFavorito(' + i + ');return false;"><strong>' + f.titulo + '</strong></a><br><small>' + f.texto + '...</small></div><button onclick="removerFavorito(' + i + ')" title="Remover">🗑️</button></div>').join('');
+    }
+
+    function carregarFavorito(idx) {
+        const favs = JSON.parse(localStorage.getItem('bibliaFavoritos') || '[]');
+        const f = favs[idx]; if(!f) return;
+        // Tenta extrair livro/cap do título
+        const partes = f.titulo.match(/^(.+?)\s+(\d+)(?::(\d+))?/);
+        if(partes) {
+            const livroSel = document.getElementById('livro');
+            for(let i=0; i<livroSel.options.length; i++) {
+                if(livroSel.options[i].text === partes[1]) { livroSel.selectedIndex = i; break; }
+            }
+            atualizarCapitulos();
+            document.getElementById('capitulo').value = partes[2];
+            document.getElementById('versiculo').value = partes[3] || 'todos';
+            carregarTexto();
+        }
+    }
+
+    function removerFavorito(idx) {
+        let favs = JSON.parse(localStorage.getItem('bibliaFavoritos') || '[]');
+        favs.splice(idx,1);
+        localStorage.setItem('bibliaFavoritos', JSON.stringify(favs));
+        mostrarFavoritos();
+    }
+
+    function compartilharTexto() {
+        const titulo = document.getElementById('tituloPassagem').textContent;
+        const texto = document.getElementById('conteudoVersiculos').innerText;
+        const versao = document.getElementById('nomeVersao').textContent;
+        const completo = titulo + '\n' + texto + '\n\n' + versao;
+        navigator.clipboard.writeText(completo).then(() => alert('Texto copiado para a área de transferência! 📋'));
     }
 
     window.onload = function() {
-        atualizarCapitulos();
+        preencherLivros();
         document.getElementById('capitulo').value = 91;
+        mostrarHistorico();
+        mostrarFavoritos();
     };
 </script>
 </body>

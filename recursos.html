@@ -3,64 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recursos — Estudo Bíblico</title>
+    <title>Recursos — Bíblia de Estudo</title>
     <style>
-        :root {
-            --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
-            --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
-            --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
-        }
-        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; scroll-behavior:smooth;}
-        body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
-
-        .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
-        .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
-        .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
-
-        .nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px;}
-        .nav-principal.visivel {transform:translateX(0);}
-        .nav-principal ul {list-style:none;}
-        .nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
-        .nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
-
-        .sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
-        .sobreposicao.ativa {opacity:1; visibility:visible;}
-
-        header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0;}
-        header h1 {font-size:2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
-
-        main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem;}
-        section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25);}
-        h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
-        p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
-
-        .recurso-card {background:linear-gradient(135deg, rgba(44,82,145,.4), rgba(15,32,64,.6)); border:1px solid var(--ouro); padding:1.5rem; border-radius:12px; margin:1rem 0; box-shadow:0 0 15px var(--dourado-sombra);}
-        .recurso-card h3 {color:var(--ouro-claro); margin-bottom:.8rem;}
-        .recurso-card a {color:var(--ouro-claro); text-decoration:none; border-bottom:1px dashed var(--ouro);}
-        .recurso-card a:hover {color:var(--branco-suave); border-bottom-color:transparent;}
-
-        footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2rem 1.2rem; margin-top:2rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra);}
-        footer p {text-align:center;}
-
-        @media (max-width:768px) {
-            header h1 {font-size:1.6rem;}
-            .nav-principal {width:100%;}
-        }
-   .botao-voltar {
-    position:fixed; top:80px; left:15px; z-index:200;
-    background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro));
-    color:var(--azul-escuro); border:none; padding:.5rem .9rem;
-    border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer;
-    box-shadow:0 0 12px var(--dourado-sombra);
-    transition:all .3s ease;
+:root {
+    --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
+    --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
+    --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
+    --fundo-card: rgba(44,82,145,.45);
 }
-.botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}     
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior:smooth;}
+body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh; transition:filter .3s ease;}
+
+/* Modo Claro */
+body.modo-claro {background:linear-gradient(180deg, #e8ecf5 0%, #d4dae8 40%, #c8d0e0 100%); color:#1a1a2e;}
+body.modo-claro p, body.modo-claro li {color:#2d2d44;}
+body.modo-claro .nav-principal {background:linear-gradient(180deg, #1e3a6b, #152a50);}
+body.modo-claro .cartao-link {background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(220,225,240,.5)); border-color:var(--ouro-escuro);}
+body.modo-claro .cartao-link p {color:#444;}
+body.modo-claro .tabela tr:nth-child(even) {background-color:rgba(200,210,240,.4);}
+body.modo-claro .tabela tr:nth-child(odd) {background-color:rgba(220,225,240,.5);}
+body.modo-claro .texto-biblico {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.05));}
+body.modo-claro .versiculo-linha {color:#1a1a2e;}
+body.modo-claro .esboco-container, body.modo-claro .caixa-destaque, body.modo-claro .plano-card, body.modo-claro .recurso-card, body.modo-claro .tema-item {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro .painel-controles {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro select, body.modo-claro input {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
+body.modo-claro .botao-voltar, body.modo-claro .menu-toggle, body.modo-claro .botao-carregar, body.modo-claro .botao-painel {color:var(--azul-escuro);}
+
+.menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+.menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+.menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
+
+.toggle-tema {position:fixed; top:15px; right:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:22px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+.toggle-tema:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+
+.nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px; overflow-y:auto;}
+.nav-principal.visivel {transform:translateX(0);}
+.nav-principal ul {list-style:none;}
+.nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
+.nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
+
+.sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
+.sobreposicao.ativa {opacity:1; visibility:visible;}
+
+header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0; animation:fadeInDown 1s ease;}
+header h1 {font-size:2.2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+header p {font-style:italic; color:#e6d28f; margin-top:.6rem; font-size:1.1rem; position:relative; z-index:1;}
+
+main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem; animation:fadeInUp .8s ease;}
+section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25); animation:fadeInUp .8s ease both;}
+section:nth-child(2) {animation-delay:.1s;}
+section:nth-child(3) {animation-delay:.2s;}
+section:nth-child(4) {animation-delay:.3s;}
+h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
+h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
+h4 {color:#f0d76e; margin:1rem 0 .5rem;}
+p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+ul, ol {margin:1rem 0 1.5rem 2rem; color:#f0ead6;}
+li {margin-bottom:.6rem;}
+.versiculo {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.04)); border-left:5px solid var(--ouro); padding:1.2rem; margin:1.5rem 0; font-style:italic; border-radius:0 10px 10px 0; box-shadow:inset 0 0 18px rgba(212,175,55,.08); color:#fff9e8;}
+
+.botao-voltar {position:fixed; top:80px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem .9rem; border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 0 12px var(--dourado-sombra); transition:all .3s ease;}
+.botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
+
+footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2.5rem 1.2rem; margin-top:2.5rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra); animation:fadeInUp 1s ease;}
+footer p {text-align:center;}
+
+@keyframes fadeInUp {from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}}
+@keyframes fadeInDown {from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);}}
+
+@media (max-width:768px) {
+    header h1 {font-size:1.6rem;}
+    .nav-principal {width:100%;}
+    .toggle-tema {top:auto; bottom:15px; right:15px;}
+}
+
+        .recurso-card {background:linear-gradient(135deg, rgba(44,82,145,.4), rgba(15,32,64,.6)); border:1px solid var(--ouro); padding:1.5rem; border-radius:12px; margin:1rem 0; box-shadow:0 0 15px var(--dourado-sombra); transition:transform .3s ease;}
+        .recurso-card:hover {transform:translateY(-3px);}
+        .recurso-card h3 {color:var(--ouro-claro); margin-bottom:.8rem;}
+        .recurso-card a {color:var(--ouro-claro); text-decoration:none; border-bottom:1px dashed var(--ouro); transition:all .2s ease;}
+        .recurso-card a:hover {color:var(--branco-suave); border-bottom-color:transparent;}
+        .tag {display:inline-block; background:rgba(212,175,55,.2); color:var(--ouro-claro); padding:.2rem .6rem; border-radius:12px; font-size:.8rem; margin-right:.4rem; margin-top:.4rem; border:1px solid rgba(212,175,55,.3);}
     </style>
 </head>
 <body>
 
 <button class="menu-toggle" id="botaoMenu">☰</button>
-<button class="botao-voltar" onclick="history.back()">⬅️</button>
+<button class="toggle-tema" id="toggleTema">🌙</button>
+<button class="botao-voltar" onclick="history.back()">⬅️ Voltar</button>
 <div class="sobreposicao" id="fundoMenu" onclick="fecharMenu()"></div>
 
 <nav class="nav-principal" id="menuNavegacao">
@@ -69,7 +98,8 @@
         <li><a href="introducao.html">📌 Introdução</a></li>
         <li><a href="metodos.html">🔍 Métodos de Estudo</a></li>
         <li><a href="contexto.html">📚 Contexto e Interpretação</a></li>
-        <li><a href="bblia.html">📖 Bíblia</a></li>
+        <li><a href="bblia.html">📖 Leitura Bíblica</a></li>
+        <li><a href="livros.html">📚 Livros da Bíblia</a></li>
         <li><a href="temas.html">✨ Temas Centrais</a></li>
         <li><a href="plano.html">📅 Plano de Leitura</a></li>
         <li><a href="recursos.html" class="ativo">📚 Recursos</a></li>
@@ -79,28 +109,47 @@
 
 <header>
     <h1>📚 Recursos de Apoio</h1>
+    <p>Materiais para aprofundar seu conhecimento das Escrituras</p>
 </header>
 
 <main>
     <section>
-        <h2>Materiais para Aprofundar o Estudo</h2>
-        <p>Utilize estas referências para compreender melhor as Escrituras.</p>
-
+        <h2>📖 Bíblias de Estudo Recomendadas</h2>
         <div class="recurso-card">
-            <h3>📖 Bíblias de Estudo</h3>
-            <p>Prefira versões com notas explicativas, mapas e introduções aos livros. Recomendadas: Almeida Revista e Atualizada (ARA), Almeida Corrigida e Fiel (ACF) e Nova Versão Internacional (NVI).</p>
+            <h3>ARA — Almeida Revista e Atualizada</h3>
+            <p>Tradução equilibrada, linguagem atualizada, ideal para estudo e leitura devocional. Uma das mais utilizadas no Brasil.</p>
+            <span class="tag">Português</span><span class="tag">Equilibrada</span><span class="tag">Estudo</span>
+        </div>
+        <div class="recurso-card">
+            <h3>ACF — Almeida Corrigida e Fiel</h3>
+            <p>Tradução mais literal, preserva estruturas do hebraico e grego. Excelente para estudo exegético aprofundado.</p>
+            <span class="tag">Literal</span><span class="tag">Hebraico/Grego</span><span class="tag">Exegese</span>
+        </div>
+        <div class="recurso-card">
+            <h3>NVI — Nova Versão Internacional</h3>
+            <p>Linguagem clara e contemporânea. Boa para evangelismo e leitura por novos cristãos.</p>
+            <span class="tag">Contemporânea</span><span class="tag">Acessível</span>
+        </div>
+        <div class="recurso-card">
+            <h3>NTLH — Nova Tradução na Linguagem de Hoje</h3>
+            <p>Tradução dinâmica, focada em compreensão imediata. Ideal para crianças e iniciantes.</p>
+            <span class="tag">Dinâmica</span><span class="tag">Iniciantes</span>
         </div>
 
+        <h2>🛠️ Ferramentas de Estudo</h2>
         <div class="recurso-card">
             <h3>📘 Dicionários e Comentários</h3>
             <p>Consulte dicionários bíblicos para entender palavras, costumes e lugares. Comentários ajudam a compreender o contexto histórico e literário de cada passagem.</p>
         </div>
-
         <div class="recurso-card">
-            <h3>🌐 Fontes Confiáveis</h3>
+            <h3>🌐 Fontes Online Confiáveis</h3>
             <p>Busque sempre materiais de origem confiável, alinhados com a fé cristã e com bom embasamento bíblico. Compare diferentes fontes antes de concluir.</p>
+            <p style="margin-top:.5rem;">
+                <a href="https://www.bible.com/pt" target="_blank">YouVersion (Bible.com)</a> |
+                <a href="https://www.bibliacatolica.com.br/" target="_blank">Bíblia Católica Online</a> |
+                <a href="https://www.biblegateway.com/" target="_blank">Bible Gateway</a>
+            </p>
         </div>
-
         <div class="recurso-card">
             <h3>🙏 Oração e Comunhão</h3>
             <p>O melhor recurso é a oração. Leia a Palavra com o coração aberto, buscando a Deus em comunhão, e peça ao Espírito Santo a luz para entender.</p>
@@ -113,23 +162,37 @@
 </footer>
 
 <script>
-    const botaoMenu = document.getElementById('botaoMenu');
-    const menuNavegacao = document.getElementById('menuNavegacao');
-    const fundoMenu = document.getElementById('fundoMenu');
+const botaoMenu = document.getElementById('botaoMenu');
+const menuNavegacao = document.getElementById('menuNavegacao');
+const fundoMenu = document.getElementById('fundoMenu');
+const toggleTema = document.getElementById('toggleTema');
 
-    function alternarMenu() {
-        menuNavegacao.classList.toggle('visivel');
-        fundoMenu.classList.toggle('ativa');
-        botaoMenu.classList.toggle('aberto');
-        botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
-    }
-    function fecharMenu() {
-        menuNavegacao.classList.remove('visivel');
-        fundoMenu.classList.remove('ativa');
-        botaoMenu.classList.remove('aberto');
-        botaoMenu.textContent = '☰';
-    }
-    botaoMenu.addEventListener('click', alternarMenu);
+function alternarMenu() {
+    menuNavegacao.classList.toggle('visivel');
+    fundoMenu.classList.toggle('ativa');
+    botaoMenu.classList.toggle('aberto');
+    botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
+}
+function fecharMenu() {
+    menuNavegacao.classList.remove('visivel');
+    fundoMenu.classList.remove('ativa');
+    botaoMenu.classList.remove('aberto');
+    botaoMenu.textContent = '☰';
+}
+if(botaoMenu) botaoMenu.addEventListener('click', alternarMenu);
+
+// Modo claro/escuro
+if(toggleTema) {
+    const temaSalvo = localStorage.getItem('tema');
+    if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
+    toggleTema.textContent = document.body.classList.contains('modo-claro') ? '☀️' : '🌙';
+    toggleTema.addEventListener('click', () => {
+        document.body.classList.toggle('modo-claro');
+        const modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
+        localStorage.setItem('tema', modo);
+        toggleTema.textContent = modo === 'claro' ? '☀️' : '🌙';
+    });
+}
 </script>
 </body>
 </html>

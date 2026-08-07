@@ -3,74 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introdução</title>
+    <title>Introdução — Bíblia de Estudo</title>
     <style>
-        :root {
-            --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
-            --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
-            --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
-        }
-        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; scroll-behavior:smooth;}
-        body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
-
-        .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
-        .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
-        .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
-
-        .nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px;}
-        .nav-principal.visivel {transform:translateX(0);}
-        .nav-principal ul {list-style:none;}
-        .nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
-        .nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
-
-        .sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
-        .sobreposicao.ativa {opacity:1; visibility:visible;}
-
-        header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0;}
-        header h1 {font-size:2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
-
-        main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem;}
-        section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25);}
-        h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
-        h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
-        p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
-        ul {margin:1rem 0 1.5rem 2rem; color:#f0ead6;}
-        li {margin-bottom:.6rem;}
-        .versiculo {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.04)); border-left:5px solid var(--ouro); padding:1.2rem; margin:1.5rem 0; font-style:italic; border-radius:0 10px 10px 0; box-shadow:inset 0 0 18px rgba(212,175,55,.08); color:#fff9e8;}
-
-        footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2rem 1.2rem; margin-top:2rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra);}
-        footer p {text-align:center;}
-
-        @media (max-width:768px) {
-            header h1 {font-size:1.6rem;}
-            .nav-principal {width:100%;}
-        }
-   .botao-voltar {
-    position:fixed; top:80px; left:15px; z-index:200;
-    background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro));
-    color:var(--azul-escuro); border:none; padding:.5rem .9rem;
-    border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer;
-    box-shadow:0 0 12px var(--dourado-sombra);
-    transition:all .3s ease;
+:root {
+    --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
+    --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
+    --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
+    --fundo-card: rgba(44,82,145,.45);
 }
-.botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}     
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior:smooth;}
+body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh; transition:filter .3s ease;}
+
+/* Modo Claro */
+body.modo-claro {background:linear-gradient(180deg, #e8ecf5 0%, #d4dae8 40%, #c8d0e0 100%); color:#1a1a2e;}
+body.modo-claro p, body.modo-claro li {color:#2d2d44;}
+body.modo-claro .nav-principal {background:linear-gradient(180deg, #1e3a6b, #152a50);}
+body.modo-claro .cartao-link {background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(220,225,240,.5)); border-color:var(--ouro-escuro);}
+body.modo-claro .cartao-link p {color:#444;}
+body.modo-claro .tabela tr:nth-child(even) {background-color:rgba(200,210,240,.4);}
+body.modo-claro .tabela tr:nth-child(odd) {background-color:rgba(220,225,240,.5);}
+body.modo-claro .texto-biblico {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.05));}
+body.modo-claro .versiculo-linha {color:#1a1a2e;}
+body.modo-claro .esboco-container, body.modo-claro .caixa-destaque, body.modo-claro .plano-card, body.modo-claro .recurso-card, body.modo-claro .tema-item {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro .painel-controles {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro select, body.modo-claro input {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
+body.modo-claro .botao-voltar, body.modo-claro .menu-toggle, body.modo-claro .botao-carregar, body.modo-claro .botao-painel {color:var(--azul-escuro);}
+
+.menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+.menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+.menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
+
+.toggle-tema {position:fixed; top:15px; right:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:22px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+.toggle-tema:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+
+.nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px; overflow-y:auto;}
+.nav-principal.visivel {transform:translateX(0);}
+.nav-principal ul {list-style:none;}
+.nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
+.nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
+
+.sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
+.sobreposicao.ativa {opacity:1; visibility:visible;}
+
+header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0; animation:fadeInDown 1s ease;}
+header h1 {font-size:2.2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+header p {font-style:italic; color:#e6d28f; margin-top:.6rem; font-size:1.1rem; position:relative; z-index:1;}
+
+main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem; animation:fadeInUp .8s ease;}
+section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25); animation:fadeInUp .8s ease both;}
+section:nth-child(2) {animation-delay:.1s;}
+section:nth-child(3) {animation-delay:.2s;}
+section:nth-child(4) {animation-delay:.3s;}
+h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
+h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
+h4 {color:#f0d76e; margin:1rem 0 .5rem;}
+p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+ul, ol {margin:1rem 0 1.5rem 2rem; color:#f0ead6;}
+li {margin-bottom:.6rem;}
+.versiculo {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.04)); border-left:5px solid var(--ouro); padding:1.2rem; margin:1.5rem 0; font-style:italic; border-radius:0 10px 10px 0; box-shadow:inset 0 0 18px rgba(212,175,55,.08); color:#fff9e8;}
+
+.botao-voltar {position:fixed; top:80px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem .9rem; border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 0 12px var(--dourado-sombra); transition:all .3s ease;}
+.botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
+
+footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2.5rem 1.2rem; margin-top:2.5rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra); animation:fadeInUp 1s ease;}
+footer p {text-align:center;}
+
+@keyframes fadeInUp {from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}}
+@keyframes fadeInDown {from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);}}
+
+@media (max-width:768px) {
+    header h1 {font-size:1.6rem;}
+    .nav-principal {width:100%;}
+    .toggle-tema {top:auto; bottom:15px; right:15px;}
+}
+
+        .caixa-destaque {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:1.5rem; border-radius:10px; margin:1.5rem 0; box-shadow:0 0 18px var(--dourado-sombra);}
+        .lista-objetivos {display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem; margin-top:1rem;}
+        .objetivo-item {background:rgba(212,175,55,.1); border:1px solid rgba(212,175,55,.3); border-radius:8px; padding:1rem; transition:transform .3s ease;}
+        .objetivo-item:hover {transform:translateY(-3px); background:rgba(212,175,55,.15);}
+        .objetivo-item strong {color:var(--ouro-claro);}
     </style>
 </head>
 <body>
 
 <button class="menu-toggle" id="botaoMenu">☰</button>
-<button class="botao-voltar" onclick="history.back()">⬅️</button>
+<button class="toggle-tema" id="toggleTema">🌙</button>
+<button class="botao-voltar" onclick="history.back()">⬅️ Voltar</button>
 <div class="sobreposicao" id="fundoMenu" onclick="fecharMenu()"></div>
 
 <nav class="nav-principal" id="menuNavegacao">
     <ul>
         <li><a href="index.html">🏠 Página Inicial</a></li>
-        <li><a href="introducao.html">📌 Introdução</a></li>
+        <li><a href="introducao.html" class="ativo">📌 Introdução</a></li>
         <li><a href="metodos.html">🔍 Métodos de Estudo</a></li>
         <li><a href="contexto.html">📚 Contexto e Interpretação</a></li>
-        <li><a href="bblia.html">📖 Bíblia</a></li> <!-- ✅ CORRIGIDO -->
+        <li><a href="bblia.html">📖 Leitura Bíblica</a></li>
+        <li><a href="livros.html">📚 Livros da Bíblia</a></li>
         <li><a href="temas.html">✨ Temas Centrais</a></li>
-        <li><a href="plano.html">📅 Plano de Estudo</a></li>
+        <li><a href="plano.html">📅 Plano de Leitura</a></li>
         <li><a href="recursos.html">📚 Recursos</a></li>
         <li><a href="esboco.html">📝 Esboço de Ministração</a></li>
     </ul>
@@ -78,25 +108,50 @@
 
 <header>
     <h1>📌 Introdução</h1>
+    <p>Compreendendo a origem, estrutura e propósito das Escrituras Sagradas</p>
 </header>
 
 <main>
     <section>
-        <p>A Bíblia é o livro mais lido e influente da história. Composta por 66 livros, escritos por cerca de 40 autores, ao longo de aproximadamente 1.500 anos, em três idiomas — hebraico, aramaico e grego — e em três continentes. Apesar dessa diversidade, apresenta uma unidade temática: a salvação oferecida por Deus por meio de Jesus Cristo.</p>
-        
+        <p>A Bíblia é o livro mais lido e influente da história. Composta por <strong>66 livros</strong>, escritos por cerca de <strong>40 autores</strong>, ao longo de aproximadamente <strong>1.500 anos</strong>, em três idiomas — hebraico, aramaico e grego — e em três continentes (Ásia, África e Europa). Apesar dessa diversidade, apresenta uma unidade temática surpreendente: a salvação oferecida por Deus por meio de Jesus Cristo.</p>
+
         <div class="versiculo">
             "Toda a Escritura é inspirada por Deus e útil para o ensino, para a repreensão, para a correção e para a instrução na justiça, para que o homem de Deus seja apto e plenamente preparado para toda boa obra."<br>
             — 2 Timóteo 3:16-17
         </div>
 
-        <h3>Objetivos deste Guia</h3>
-        <ul>
-            <li>Compreender a estrutura e unidade da Bíblia;</li>
-            <li>Aprender princípios corretos de interpretação;</li>
-            <li>Conhecer métodos eficazes de estudo;</li>
-            <li>Estabelecer um plano prático de leitura e estudo;</li>
-            <li>Identificar temas centrais que percorrem toda a Escritura.</li>
-        </ul>
+        <h2>📊 Estrutura da Bíblia</h2>
+        <div class="caixa-destaque">
+            <ul>
+                <li><strong>Antigo Testamento:</strong> 39 livros (Lei, História, Poesia, Profetas Maiores e Menores)</li>
+                <li><strong>Novo Testamento:</strong> 27 livros (Evangelhos, História, Cartas e Profecia)</li>
+                <li><strong>Total:</strong> 66 livros, 1.189 capítulos, mais de 31.000 versículos</li>
+            </ul>
+        </div>
+
+        <h2>🎯 Objetivos deste Guia</h2>
+        <div class="lista-objetivos">
+            <div class="objetivo-item">
+                <strong>📖 Estrutura</strong>
+                <p>Compreender a organização e unidade da Bíblia como um todo.</p>
+            </div>
+            <div class="objetivo-item">
+                <strong>🔍 Interpretação</strong>
+                <p>Aprender princípios corretos de hermenêutica bíblica.</p>
+            </div>
+            <div class="objetivo-item">
+                <strong>🧠 Métodos</strong>
+                <p>Conhecer métodos eficazes de estudo para diferentes contextos.</p>
+            </div>
+            <div class="objetivo-item">
+                <strong>📅 Rotina</strong>
+                <p>Estabelecer um plano prático de leitura e estudo contínuo.</p>
+            </div>
+            <div class="objetivo-item">
+                <strong>✨ Temas</strong>
+                <p>Identificar temas centrais que percorrem toda a Escritura.</p>
+            </div>
+        </div>
     </section>
 </main>
 
@@ -105,22 +160,37 @@
 </footer>
 
 <script>
-    const botaoMenu = document.getElementById('botaoMenu');
-    const menuNavegacao = document.getElementById('menuNavegacao');
-    const fundoMenu = document.getElementById('fundoMenu');
-    function alternarMenu() {
-        menuNavegacao.classList.toggle('visivel');
-        fundoMenu.classList.toggle('ativa');
-        botaoMenu.classList.toggle('aberto');
-        botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
-    }
-    function fecharMenu() {
-        menuNavegacao.classList.remove('visivel');
-        fundoMenu.classList.remove('ativa');
-        botaoMenu.classList.remove('aberto');
-        botaoMenu.textContent = '☰';
-    }
-    botaoMenu.addEventListener('click', alternarMenu);
+const botaoMenu = document.getElementById('botaoMenu');
+const menuNavegacao = document.getElementById('menuNavegacao');
+const fundoMenu = document.getElementById('fundoMenu');
+const toggleTema = document.getElementById('toggleTema');
+
+function alternarMenu() {
+    menuNavegacao.classList.toggle('visivel');
+    fundoMenu.classList.toggle('ativa');
+    botaoMenu.classList.toggle('aberto');
+    botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
+}
+function fecharMenu() {
+    menuNavegacao.classList.remove('visivel');
+    fundoMenu.classList.remove('ativa');
+    botaoMenu.classList.remove('aberto');
+    botaoMenu.textContent = '☰';
+}
+if(botaoMenu) botaoMenu.addEventListener('click', alternarMenu);
+
+// Modo claro/escuro
+if(toggleTema) {
+    const temaSalvo = localStorage.getItem('tema');
+    if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
+    toggleTema.textContent = document.body.classList.contains('modo-claro') ? '☀️' : '🌙';
+    toggleTema.addEventListener('click', () => {
+        document.body.classList.toggle('modo-claro');
+        const modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
+        localStorage.setItem('tema', modo);
+        toggleTema.textContent = modo === 'claro' ? '☀️' : '🌙';
+    });
+}
 </script>
 </body>
 </html>
