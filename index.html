@@ -113,6 +113,9 @@ footer p {text-align:center;}
         .barra-progresso {background:rgba(212,175,55,.15); border-radius:20px; padding:1rem; margin:1rem auto; max-width:600px; text-align:center; border:1px solid rgba(212,175,55,.3);}
         .barra-progresso h4 {color:var(--ouro-claro); margin-bottom:.5rem;}
         .progresso-fill {height:10px; background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); border-radius:5px; transition:width .5s ease; margin-top:.5rem;}
+    
+        /* Garantir que o link dentro do card funcione */
+        .cartao-link .btn-acessar {position:relative; z-index:2;}
     </style>
 </head>
 <body>
@@ -157,7 +160,7 @@ footer p {text-align:center;}
     </section>
 
     <div class="grade-links">
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">📌</span>
                 <h3>Introdução</h3>
@@ -165,11 +168,11 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>Conheça a estrutura, o propósito e a unidade da Bíblia. Entenda como 66 livros formam uma só mensagem de salvação.</p>
-                <a href="introducao.html" class="btn-acessar">Acessar página →</a>
+                <a href="introducao.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
 
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">🔍</span>
                 <h3>Métodos de Estudo</h3>
@@ -177,11 +180,11 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>Aprenda formas eficazes de ler, analisar e compreender as Escrituras. Conheça o método SOAP e outras abordagens.</p>
-                <a href="metodos.html" class="btn-acessar">Acessar página →</a>
+                <a href="metodos.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
 
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">📚</span>
                 <h3>Contexto e Interpretação</h3>
@@ -189,11 +192,11 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>Princípios essenciais de hermenêutica para interpretar corretamente sem distorcer o texto bíblico.</p>
-                <a href="contexto.html" class="btn-acessar">Acessar página →</a>
+                <a href="contexto.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
 
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">📖</span>
                 <h3>Leitura Bíblica</h3>
@@ -201,11 +204,11 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>Leia a Palavra online com diferentes versões (ARA, ACF), favoritos, histórico e versículo aleatório.</p>
-                <a href="bblia.html" class="btn-acessar">Acessar página →</a>
+                <a href="bblia.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
 
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">📚</span>
                 <h3>Livros da Bíblia</h3>
@@ -213,11 +216,11 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>Visão geral dos 66 livros, com autores, datas, grupos literários e temas centrais de cada um.</p>
-                <a href="livros.html" class="btn-acessar">Acessar página →</a>
+                <a href="livros.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
 
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">✨</span>
                 <h3>Temas Centrais</h3>
@@ -225,11 +228,11 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>A grande história da salvação que percorre toda a Bíblia, com linha do tempo e referências cruzadas.</p>
-                <a href="temas.html" class="btn-acessar">Acessar página →</a>
+                <a href="temas.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
 
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">📅</span>
                 <h3>Plano de Leitura</h3>
@@ -237,11 +240,11 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>Roteiro prático e interativo de 49 dias com acompanhamento de progresso e checkboxes persistentes.</p>
-                <a href="plano.html" class="btn-acessar">Acessar página →</a>
+                <a href="plano.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
 
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">📚</span>
                 <h3>Recursos</h3>
@@ -249,11 +252,11 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>Versões recomendadas, dicionários, comentários e links para fontes online confiáveis de estudo.</p>
-                <a href="recursos.html" class="btn-acessar">Acessar página →</a>
+                <a href="recursos.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
 
-        <div class="cartao-link" onclick="toggleCard(this)">
+        <div class="cartao-link" onclick="toggleCard(this, event)">
             <div class="cabecalho-card">
                 <span class="icone">📝</span>
                 <h3>Esboço de Ministração</h3>
@@ -261,7 +264,7 @@ footer p {text-align:center;}
             </div>
             <div class="conteudo-card">
                 <p>Gere esboços informando tema e passagem. Edite, salve no navegador e imprima suas ministrações.</p>
-                <a href="esboco.html" class="btn-acessar">Acessar página →</a>
+                <a href="esboco.html" class="btn-acessar" onclick="event.stopPropagation()">Acessar página →</a>
             </div>
         </div>
     </div>
@@ -327,9 +330,10 @@ if(toggleTema) {
     document.getElementById('textoProgresso').textContent = concluidos + ' de ' + total + ' etapas concluídas (' + pct + '%)';
     document.getElementById('progressoFill').style.width = pct + '%';
 
-    function toggleCard(card) {
-        // Se o clique foi no botão "Acessar", não alterna
-        if(event.target.closest('.btn-acessar')) return;
+    function toggleCard(card, evt) {
+        if(!evt) evt = window.event;
+        var target = evt.target || evt.srcElement;
+        if(target.closest && target.closest('.btn-acessar')) return;
         // Fecha outros cards
         document.querySelectorAll('.cartao-link.expandido').forEach(c => {
             if(c !== card) c.classList.remove('expandido');
@@ -355,6 +359,7 @@ if(toggleTema) {
     const pct = Math.round((concluidos/total)*100);
     document.getElementById('textoProgresso').textContent = concluidos + ' de ' + total + ' dias concluídos (' + pct + '%)';
     document.getElementById('progressoFill').style.width = pct + '%';
+
 </script>
 </body>
 </html>
