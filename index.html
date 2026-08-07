@@ -70,7 +70,9 @@
             .nav-principal {width:100%;}
             .toggle-tema {top:auto; bottom:15px; right:15px;}
         }
-    </style>
+    
+        .toggle-tema {font-size:11px; letter-spacing:0.5px; font-weight:700;}
+</style>
 </head>
 <body>
 
@@ -243,12 +245,12 @@
     if(toggleTema) {
         var temaSalvo = localStorage.getItem('tema');
         if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
-        toggleTema.innerHTML = document.body.classList.contains('modo-claro') ? '&sun;' : '&moon;';
+        toggleTema.innerHTML = document.body.classList.contains('modo-claro') ? 'CLARO' : 'ESCURO';
         toggleTema.addEventListener('click', function() {
             document.body.classList.toggle('modo-claro');
             var modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
             localStorage.setItem('tema', modo);
-            toggleTema.innerHTML = modo === 'claro' ? '&sun;' : '&moon;';
+            toggleTema.innerHTML = modo === 'claro' ? 'CLARO' : 'ESCURO';
         });
     }
 

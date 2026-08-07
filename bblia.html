@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leitura Bíblica — Bíblia de Estudo</title>
+    <title>Leitura Bíblica Evangélica — Bíblia de Estudo</title>
     <style>
 :root {
     --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
@@ -145,8 +145,8 @@ footer p {text-align:center;}
 </nav>
 
 <header>
-    <h1>📖 Leitura e Estudo da Bíblia</h1>
-    <p>Consulte versículos em tempo real com traduções em português</p>
+    <h1>📖 Leitura e Estudo da Bíblia Evangélica</h1>
+    <p>Consulte versículos em tempo real com as principais versões evangélicas em português</p>
 </header>
 
 <main>
@@ -162,10 +162,10 @@ footer p {text-align:center;}
             <div class="linha-controles">
                 <label>📜 Versão:</label>
                 <select id="versao">
-                    <option value="almeida">ARA — Almeida Revista e Atualizada</option>
-                    <option value="acf">ACF — Almeida Corrigida e Fiel</option>
-                    <option value="almeida" data-fallback="NVI">NVI — Nova Versão Internacional (fallback ARA)</option>
-                    <option value="almeida" data-fallback="NTLH">NTLH — Nova Tradução na Linguagem de Hoje (fallback ARA)</option>
+                    <option value="almeida">ARA — Almeida Revista e Atualizada (Evangélica)</option>
+                    <option value="acf">ACF — Almeida Corrigida e Fiel (Evangélica)</option>
+                    <option value="almeida" data-fallback="NVI">NVI — Nova Versão Internacional (Evangélica)</option>
+                    <option value="almeida" data-fallback="NTLH">NTLH — Nova Tradução na Linguagem de Hoje (Evangélica)</option>
                 </select>
             </div>
 
@@ -247,12 +247,12 @@ if(botaoMenu) botaoMenu.addEventListener('click', alternarMenu);
 if(toggleTema) {
     const temaSalvo = localStorage.getItem('tema');
     if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
-    toggleTema.textContent = document.body.classList.contains('modo-claro') ? '☀️' : '🌙';
+    toggleTema.textContent = document.body.classList.contains('modo-claro') ? 'CLARO' : 'ESCURO';
     toggleTema.addEventListener('click', () => {
         document.body.classList.toggle('modo-claro');
         const modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
         localStorage.setItem('tema', modo);
-        toggleTema.textContent = modo === 'claro' ? '☀️' : '🌙';
+        toggleTema.textContent = modo === 'claro' ? 'CLARO' : 'ESCURO';
     });
 }
 
