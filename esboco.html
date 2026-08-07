@@ -5,92 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esboço de Ministração — Bíblia de Estudo</title>
     <style>
-:root {
-    --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
-    --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
-    --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
-    --fundo-card: rgba(44,82,145,.45);
-}
-* {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior:smooth;}
-body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh; transition:filter .3s ease;}
+        :root {
+            --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
+            --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
+            --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
+            --fundo-card: rgba(44,82,145,.45);
+        }
+        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior:smooth;}
+        body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
 
-/* Modo Claro */
-body.modo-claro {background:linear-gradient(180deg, #e8ecf5 0%, #d4dae8 40%, #c8d0e0 100%); color:#1a1a2e;}
-body.modo-claro p, body.modo-claro li {color:#2d2d44;}
-body.modo-claro .nav-principal {background:linear-gradient(180deg, #1e3a6b, #152a50);}
-body.modo-claro .cartao-link {background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(220,225,240,.5)); border-color:var(--ouro-escuro);}
-body.modo-claro .cartao-link p {color:#444;}
-body.modo-claro .tabela tr:nth-child(even) {background-color:rgba(200,210,240,.4);}
-body.modo-claro .tabela tr:nth-child(odd) {background-color:rgba(220,225,240,.5);}
-body.modo-claro .texto-biblico {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.05));}
-body.modo-claro .versiculo-linha {color:#1a1a2e;}
-body.modo-claro .esboco-container, body.modo-claro .caixa-destaque, body.modo-claro .plano-card, body.modo-claro .recurso-card, body.modo-claro .tema-item {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
-body.modo-claro .painel-controles {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
-body.modo-claro select, body.modo-claro input {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
-body.modo-claro .botao-voltar, body.modo-claro .menu-toggle, body.modo-claro .botao-carregar, body.modo-claro .botao-painel {color:var(--azul-escuro);}
+        body.modo-claro {background:linear-gradient(180deg, #e8ecf5 0%, #d4dae8 40%, #c8d0e0 100%); color:#1a1a2e;}
+        body.modo-claro p, body.modo-claro li {color:#2d2d44;}
+        body.modo-claro .nav-principal {background:linear-gradient(180deg, #1e3a6b, #152a50);}
+        body.modo-claro .form-gerador, body.modo-claro .esboco-container, body.modo-claro .modelos-salvos {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+        body.modo-claro .campo-editavel, body.modo-claro .campo-form input, body.modo-claro .campo-form textarea {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
 
-.menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
-.menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
-.menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
+        .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+        .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+        .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
 
-.toggle-tema {position:fixed; top:15px; right:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:22px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
-.toggle-tema:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+        .toggle-tema {position:fixed; top:15px; right:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:22px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+        .toggle-tema:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
 
-.nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px; overflow-y:auto;}
-.nav-principal.visivel {transform:translateX(0);}
-.nav-principal ul {list-style:none;}
-.nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
-.nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
+        .nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px; overflow-y:auto;}
+        .nav-principal.visivel {transform:translateX(0);}
+        .nav-principal ul {list-style:none;}
+        .nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
+        .nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
 
-.sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
-.sobreposicao.ativa {opacity:1; visibility:visible;}
+        .sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
+        .sobreposicao.ativa {opacity:1; visibility:visible;}
 
-header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0; animation:fadeInDown 1s ease;}
-header h1 {font-size:2.2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
-header p {font-style:italic; color:#e6d28f; margin-top:.6rem; font-size:1.1rem; position:relative; z-index:1;}
+        header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0;}
+        header h1 {font-size:2.2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+        header p {font-style:italic; color:#e6d28f; margin-top:.6rem; font-size:1.1rem;}
 
-main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem; animation:fadeInUp .8s ease;}
-section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25); animation:fadeInUp .8s ease both;}
-section:nth-child(2) {animation-delay:.1s;}
-section:nth-child(3) {animation-delay:.2s;}
-section:nth-child(4) {animation-delay:.3s;}
-h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem; text-shadow:0 0 6px rgba(212,175,55,.35);}
-h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
-h4 {color:#f0d76e; margin:1rem 0 .5rem;}
-p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
-ul, ol {margin:1rem 0 1.5rem 2rem; color:#f0ead6;}
-li {margin-bottom:.6rem;}
-.versiculo {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.04)); border-left:5px solid var(--ouro); padding:1.2rem; margin:1.5rem 0; font-style:italic; border-radius:0 10px 10px 0; box-shadow:inset 0 0 18px rgba(212,175,55,.08); color:#fff9e8;}
+        main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem;}
+        section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25);}
+        h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem;}
+        h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
+        h4 {color:#f0d76e; margin:1rem 0 .5rem;}
+        p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
 
-.botao-voltar {position:fixed; top:80px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem .9rem; border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 0 12px var(--dourado-sombra); transition:all .3s ease;}
-.botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
+        .botao-voltar {position:fixed; top:80px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem .9rem; border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 0 12px var(--dourado-sombra); transition:all .3s ease;}
+        .botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
 
-footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2.5rem 1.2rem; margin-top:2.5rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra); animation:fadeInUp 1s ease;}
-footer p {text-align:center;}
-
-@keyframes fadeInUp {from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}}
-@keyframes fadeInDown {from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);}}
-
-@media (max-width:768px) {
-    header h1 {font-size:1.6rem;}
-    .nav-principal {width:100%;}
-    .toggle-tema {top:auto; bottom:15px; right:15px;}
-}
-
-        .boas-vindas {text-align:center; padding:3rem 1rem; animation:fadeInUp 1s ease both;}
-        .boas-vindas h2 {color:var(--ouro-claro); font-size:1.8rem; margin-bottom:1.5rem; border-left:4px solid var(--ouro); padding-left:1rem; display:inline-block; text-shadow:0 0 6px rgba(212,175,55,.35);}
-        .boas-vindas p {font-size:1.1rem; max-width:800px; margin:0 auto 1.5rem; color:#f0ead6;}
-        .grade-links {display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.2rem; margin-top:2rem;}
-        .cartao-link {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); border-radius:12px; padding:1.5rem; text-decoration:none; color:inherit; transition:all .3s ease; box-shadow:0 0 15px rgba(212,175,55,.1); display:flex; flex-direction:column;}
-        .cartao-link:hover {transform:translateY(-5px); box-shadow:0 0 20px var(--dourado-sombra);}
-        .cartao-link h3 {color:var(--ouro-claro); margin-bottom:.5rem;}
-        .cartao-link p {color:#d4c8a8; font-size:.95rem; text-align:left;}
-        .cartao-link .icone {font-size:2rem; margin-bottom:.5rem;}
-        .destaque-versiculo {background:linear-gradient(90deg, rgba(212,175,55,.15), rgba(212,175,55,.05)); border:1px solid rgba(212,175,55,.3); border-radius:12px; padding:1.5rem; margin:2rem auto; max-width:700px; font-style:italic; color:#e6d28f;}
-        .barra-progresso {background:rgba(212,175,55,.15); border-radius:20px; padding:1rem; margin:1rem auto; max-width:600px; text-align:center; border:1px solid rgba(212,175,55,.3);}
-        .barra-progresso h4 {color:var(--ouro-claro); margin-bottom:.5rem;}
-        .progresso-fill {height:10px; background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); border-radius:5px; transition:width .5s ease; margin-top:.5rem;}
-    
         .form-gerador {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:2rem; border-radius:12px; margin:1.5rem 0; box-shadow:0 0 18px var(--dourado-sombra);}
         .form-gerador h2 {text-align:center; margin-bottom:1.5rem; border:none; padding:0;}
         .campo-form {margin-bottom:1.2rem;}
@@ -124,74 +83,81 @@ footer p {text-align:center;}
         .modelo-item span {color:var(--ouro-claro); cursor:pointer;}
         .modelo-item span:hover {text-decoration:underline;}
 
+        footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2.5rem 1.2rem; margin-top:2.5rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra);}
+        footer p {text-align:center;}
+
+        @keyframes fadeInUp {from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}}
+
         @media print {
             .menu-toggle, .toggle-tema, .botao-voltar, .botoes-acao, .nav-principal, .sobreposicao, .form-gerador, .modelos-salvos {display:none !important;}
             body {background:white; color:black;}
             .esboco-container {border:1px solid #ccc; box-shadow:none; display:block !important;}
         }
+        @media (max-width:768px) {
+            header h1 {font-size:1.6rem;}
+            .nav-principal {width:100%;}
+            .toggle-tema {top:auto; bottom:15px; right:15px;}
+        }
     </style>
 </head>
 <body>
 
-<button class="menu-toggle" id="botaoMenu">☰</button>
-<button class="toggle-tema" id="toggleTema">🌙</button>
-<button class="botao-voltar" onclick="history.back()">⬅️ Voltar</button>
+<button class="menu-toggle" id="botaoMenu">&#9776;</button>
+<button class="toggle-tema" id="toggleTema">&#127769;</button>
+<button class="botao-voltar" onclick="history.back()">&#11013; Voltar</button>
 <div class="sobreposicao" id="fundoMenu" onclick="fecharMenu()"></div>
 
 <nav class="nav-principal" id="menuNavegacao">
     <ul>
-        <li><a href="index.html">🏠 Página Inicial</a></li>
-        <li><a href="introducao.html">📌 Introdução</a></li>
-        <li><a href="metodos.html">🔍 Métodos de Estudo</a></li>
-        <li><a href="contexto.html">📚 Contexto e Interpretação</a></li>
-        <li><a href="bblia.html">📖 Leitura Bíblica</a></li>
-        <li><a href="livros.html">📚 Livros da Bíblia</a></li>
-        <li><a href="temas.html">✨ Temas Centrais</a></li>
-        <li><a href="plano.html">📅 Plano de Leitura</a></li>
-        <li><a href="recursos.html">📚 Recursos</a></li>
-        <li><a href="esboco.html" class="ativo">📝 Esboço de Ministração</a></li>
+        <li><a href="index.html">&#127968; Página Inicial</a></li>
+        <li><a href="introducao.html">&#128204; Introdução</a></li>
+        <li><a href="metodos.html">&#128269; Métodos de Estudo</a></li>
+        <li><a href="contexto.html">&#128218; Contexto e Interpretação</a></li>
+        <li><a href="bblia.html">&#128214; Leitura Bíblica</a></li>
+        <li><a href="livros.html">&#128218; Livros da Bíblia</a></li>
+        <li><a href="temas.html">&#10024; Temas Centrais</a></li>
+        <li><a href="plano.html">&#128197; Plano de Leitura</a></li>
+        <li><a href="recursos.html">&#128218; Recursos</a></li>
+        <li><a href="esboco.html" class="ativo">&#128221; Esboço de Ministração</a></li>
     </ul>
 </nav>
 
 <header>
-    <h1>📝 Esboço de Ministração</h1>
+    <h1>&#128221; Esboço de Ministração</h1>
     <p>Informe o tema ou a passagem e gere um esboço estruturado para editar</p>
 </header>
 
 <main>
     <section>
-        <!-- GERADOR -->
         <div class="form-gerador">
-            <h2>✨ Gerar Novo Esboço</h2>
+            <h2>&#10024; Gerar Novo Esboço</h2>
             <div class="campo-form">
-                <label for="inputTema">🎯 Tema da Mensagem</label>
+                <label for="inputTema">&#127919; Tema da Mensagem</label>
                 <input type="text" id="inputTema" placeholder="Ex: O Poder da Fé que Move Montanhas">
             </div>
             <div class="campo-form">
-                <label for="inputPassagem">📖 Texto Base (Passagem)</label>
+                <label for="inputPassagem">&#128214; Texto Base (Passagem)</label>
                 <input type="text" id="inputPassagem" placeholder="Ex: Mateus 17:14-21">
             </div>
             <div class="campo-form">
-                <label for="inputContexto">💡 Contexto ou Observações (opcional)</label>
-                <textarea id="inputContexto" placeholder="Ex: Mensagem para jovens sobre confiança em Deus diante das dificuldades..."></textarea>
+                <label for="inputContexto">&#128161; Contexto ou Observações (opcional)</label>
+                <textarea id="inputContexto" placeholder="Ex: Mensagem para jovens sobre confiança em Deus..."></textarea>
             </div>
-            <button class="btn-gerar" onclick="gerarEsboço()">📝 Gerar Esboço</button>
+            <button class="btn-gerar" onclick="gerarEsboco()">&#128221; Gerar Esboço</button>
         </div>
 
-        <!-- BOTÕES DE AÇÃO -->
         <div class="botoes-acao" id="botoesAcao" style="display:none;">
-            <button class="btn-acao" onclick="salvarEsboço()">💾 Salvar no Navegador</button>
-            <button class="btn-acao" onclick="window.print()">🖨️ Imprimir / PDF</button>
-            <button class="btn-acao" onclick="novoEsboço()">➕ Novo Esboço</button>
+            <button class="btn-acao" onclick="salvarEsboco()">&#128190; Salvar no Navegador</button>
+            <button class="btn-acao" onclick="window.print()">&#128424; Imprimir / PDF</button>
+            <button class="btn-acao" onclick="novoEsboco()">&#10133; Novo Esboço</button>
         </div>
 
-        <!-- ESBOÇO GERADO -->
         <div class="esboco-container" id="esbocoPrincipal">
             <input class="campo-titulo" id="temaTitulo" value="TEMA: ">
             <input class="campo-ref" id="textoBase" value="Texto base: ">
 
             <div class="parte">
-                <h3>📌 I — Introdução</h3>
+                <h3>&#128204; I — Introdução</h3>
                 <div class="etapa">
                     <p><span class="destaque">1. Ganhar atenção:</span></p>
                     <div class="campo-editavel" contenteditable="true" id="intro1"></div>
@@ -207,7 +173,7 @@ footer p {text-align:center;}
             </div>
 
             <div class="parte">
-                <h3>🔍 II — Desenvolvimento</h3>
+                <h3>&#128269; II — Desenvolvimento</h3>
                 <h4>1. Primeiro ponto principal</h4>
                 <div class="campo-editavel" contenteditable="true" id="dev1"></div>
                 <div class="versiculo-box">
@@ -228,7 +194,7 @@ footer p {text-align:center;}
             </div>
 
             <div class="parte">
-                <h3>✨ III — Conclusão e Aplicação</h3>
+                <h3>&#10024; III — Conclusão e Aplicação</h3>
                 <div class="etapa">
                     <p><span class="destaque">Resumo:</span></p>
                     <div class="campo-editavel" contenteditable="true" id="conc1"></div>
@@ -244,9 +210,8 @@ footer p {text-align:center;}
             </div>
         </div>
 
-        <!-- MODELOS SALVOS -->
         <div class="modelos-salvos" id="areaModelos" style="display:none;">
-            <h3>💾 Esboços Salvos</h3>
+            <h3>&#128190; Esboços Salvos</h3>
             <div id="listaModelos"></div>
         </div>
     </section>
@@ -257,60 +222,38 @@ footer p {text-align:center;}
 </footer>
 
 <script>
-const botaoMenu = document.getElementById('botaoMenu');
-const menuNavegacao = document.getElementById('menuNavegacao');
-const fundoMenu = document.getElementById('fundoMenu');
-const toggleTema = document.getElementById('toggleTema');
+    const botaoMenu = document.getElementById('botaoMenu');
+    const menuNavegacao = document.getElementById('menuNavegacao');
+    const fundoMenu = document.getElementById('fundoMenu');
+    const toggleTema = document.getElementById('toggleTema');
 
-function alternarMenu() {
-    menuNavegacao.classList.toggle('visivel');
-    fundoMenu.classList.toggle('ativa');
-    botaoMenu.classList.toggle('aberto');
-    botaoMenu.textContent = menuNavegacao.classList.contains('visivel') ? '✕' : '☰';
-}
-function fecharMenu() {
-    menuNavegacao.classList.remove('visivel');
-    fundoMenu.classList.remove('ativa');
-    botaoMenu.classList.remove('aberto');
-    botaoMenu.textContent = '☰';
-}
-if(botaoMenu) botaoMenu.addEventListener('click', alternarMenu);
+    function alternarMenu() {
+        menuNavegacao.classList.toggle('visivel');
+        fundoMenu.classList.toggle('ativa');
+        botaoMenu.classList.toggle('aberto');
+        botaoMenu.innerHTML = menuNavegacao.classList.contains('visivel') ? '&#10005;' : '&#9776;';
+    }
+    function fecharMenu() {
+        menuNavegacao.classList.remove('visivel');
+        fundoMenu.classList.remove('ativa');
+        botaoMenu.classList.remove('aberto');
+        botaoMenu.innerHTML = '&#9776;';
+    }
+    botaoMenu.addEventListener('click', alternarMenu);
 
-// Modo claro/escuro
-if(toggleTema) {
-    const temaSalvo = localStorage.getItem('tema');
-    if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
-    toggleTema.textContent = document.body.classList.contains('modo-claro') ? '☀️' : '🌙';
-    toggleTema.addEventListener('click', () => {
-        document.body.classList.toggle('modo-claro');
-        const modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
-        localStorage.setItem('tema', modo);
-        toggleTema.textContent = modo === 'claro' ? '☀️' : '🌙';
-    });
-}
+    if(toggleTema) {
+        const temaSalvo = localStorage.getItem('tema');
+        if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
+        toggleTema.innerHTML = document.body.classList.contains('modo-claro') ? '&#9728;' : '&#127769;';
+        toggleTema.addEventListener('click', function() {
+            document.body.classList.toggle('modo-claro');
+            const modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
+            localStorage.setItem('tema', modo);
+            toggleTema.innerHTML = modo === 'claro' ? '&#9728;' : '&#127769;';
+        });
+    }
 
-    // Versículo do dia (baseado na data)
-    const versiculos = [
-        "Toda a Escritura é inspirada por Deus e útil para o ensino... — 2 Timóteo 3:16",
-        "Lâmpada para os meus pés é a tua palavra... — Salmos 119:105",
-        "Buscai diligentemente nas Escrituras... — João 5:39",
-        "A tua palavra é verdade. — João 17:17",
-        "Medita dia e noite na lei do Senhor... — Josué 1:8",
-        "Como é doce ao meu paladar a tua palavra! — Salmos 119:103",
-        "A palavra de Deus é viva e eficaz... — Hebreus 4:12"
-    ];
-    const hoje = new Date().getDate();
-    document.getElementById('versiculoDoDia').textContent = versiculos[hoje % versiculos.length];
-
-    // Progresso do plano
-    const plano = JSON.parse(localStorage.getItem('planoLeitura') || '{}');
-    const total = 7; // 7 itens no plano
-    const concluidos = Object.values(plano).filter(v=>v).length;
-    const pct = Math.round((concluidos/total)*100);
-    document.getElementById('textoProgresso').textContent = concluidos + ' de ' + total + ' etapas concluídas (' + pct + '%)';
-    document.getElementById('progressoFill').style.width = pct + '%';
-
-    function gerarEsboço() {
+    function gerarEsboco() {
         const tema = document.getElementById('inputTema').value.trim();
         const passagem = document.getElementById('inputPassagem').value.trim();
         const contexto = document.getElementById('inputContexto').value.trim();
@@ -323,7 +266,7 @@ if(toggleTema) {
         document.getElementById('temaTitulo').value = 'TEMA: ' + (tema || 'Estudo Bíblico');
         document.getElementById('textoBase').value = 'Texto base: ' + (passagem || 'A definir');
 
-        const temaLower = (tema || passagem).toLowerCase();
+        const tl = (tema || passagem).toLowerCase();
 
         document.getElementById('intro1').textContent = contexto
             ? 'Apresentar o tema de forma que conecte com a realidade do ouvinte. ' + contexto
@@ -335,34 +278,29 @@ if(toggleTema) {
             ? 'A mensagem central é: ' + tema + '. Este é o eixo que guiará toda a ministração.'
             : 'A mensagem central será desenvolvida a partir da Palavra de Deus, buscando transformar vidas.';
 
-        const palavrasChave = {
-            'fé': {p1:'A fé reconhece a impossibilidade humana e confia no poder de Deus.', p2:'A fé está ligada à Palavra de Deus e à sua promessa.', p3:'A fé madura se expressa em oração e entrega.'},
+        var pts = null;
+        var chaves = {
+            'fe': {p1:'A fé reconhece a impossibilidade humana e confia no poder de Deus.', p2:'A fé está ligada à Palavra de Deus e à sua promessa.', p3:'A fé madura se expressa em oração e entrega.'},
             'amor': {p1:'O amor de Deus é incondicional e se revelou em Cristo.', p2:'O amor ao próximo é a marca do discípulo de Jesus.', p3:'O amor supera o medo e transforma relacionamentos.'},
-            'oração': {p1:'A oração é o canal de comunhão com Deus.', p2:'A oração de fé move o coração de Deus.', p3:'A oração persistente traz respostas no tempo certo.'},
-            'perdão': {p1:'Deus nos perdoou gratuitamente em Cristo.', p2:'O perdão liberta quem perdoa, não apenas quem é perdoado.', p3:'Perdoar setenta vezes sete é um estilo de vida.'},
-            'família': {p1:'A família foi instituída por Deus como núcleo da sociedade.', p2:'Amor, respeito e submissão são pilares do lar cristão.', p3:'A família que ora unida permanece unida.'},
-            'esperança': {p1:'A esperança cristã é certeza, não mera expectativa.', p2:'Deus trabalha em todas as coisas para o bem daqueles que O amam.', p3:'A esperança da volta de Cristo nos sustenta.'},
-            'salvação': {p1:'A humanidade está separada de Deus pelo pecado.', p2:'Jesus é o único caminho, a verdade e a vida.', p3:'A salvação é por graça, mediante a fé em Cristo.'},
-            'espírito': {p1:'O Espírito Santo habita em todo crente.', p2:'O Espírito nos guia a toda a verdade.', p3:'O Espírito nos capacita para o testemunho e o serviço.'}
+            'oracao': {p1:'A oração é o canal de comunhão com Deus.', p2:'A oração de fé move o coração de Deus.', p3:'A oração persistente traz respostas no tempo certo.'},
+            'perdao': {p1:'Deus nos perdoou gratuitamente em Cristo.', p2:'O perdão liberta quem perdoa, não apenas quem é perdoado.', p3:'Perdoar setenta vezes sete é um estilo de vida.'},
+            'familia': {p1:'A família foi instituída por Deus como núcleo da sociedade.', p2:'Amor, respeito e submissão são pilares do lar cristão.', p3:'A família que ora unida permanece unida.'},
+            'esperanca': {p1:'A esperança cristã é certeza, não mera expectativa.', p2:'Deus trabalha em todas as coisas para o bem daqueles que O amam.', p3:'A esperança da volta de Cristo nos sustenta.'},
+            'salvacao': {p1:'A humanidade está separada de Deus pelo pecado.', p2:'Jesus é o único caminho, a verdade e a vida.', p3:'A salvação é por graça, mediante a fé em Cristo.'},
+            'espirito': {p1:'O Espírito Santo habita em todo crente.', p2:'O Espírito nos guia a toda a verdade.', p3:'O Espírito nos capacita para o testemunho e o serviço.'}
         };
-
-        let pontos = null;
-        for(const [chave, pts] of Object.entries(palavrasChave)) {
-            if(temaLower.includes(chave)) { pontos = pts; break; }
+        for(var k in chaves) {
+            if(tl.indexOf(k) !== -1) { pts = chaves[k]; break; }
         }
-        if(!pontos) {
-            pontos = {
-                p1: 'Primeiro ponto principal: apresente a verdade bíblica central do tema escolhido.',
-                p2: 'Segundo ponto principal: desenvolva aplicações práticas e exemplos da Escritura.',
-                p3: 'Terceiro ponto principal: mostre como esta verdade transforma a vida do crente.'
-            };
+        if(!pts) {
+            pts = {p1:'Primeiro ponto principal: apresente a verdade bíblica central do tema escolhido.', p2:'Segundo ponto principal: desenvolva aplicações práticas e exemplos da Escritura.', p3:'Terceiro ponto principal: mostre como esta verdade transforma a vida do crente.'};
         }
 
-        document.getElementById('dev1').textContent = pontos.p1;
+        document.getElementById('dev1').textContent = pts.p1;
         document.getElementById('dev1verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
-        document.getElementById('dev2').textContent = pontos.p2;
+        document.getElementById('dev2').textContent = pts.p2;
         document.getElementById('dev2verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
-        document.getElementById('dev3').textContent = pontos.p3;
+        document.getElementById('dev3').textContent = pts.p3;
         document.getElementById('dev3verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
 
         document.getElementById('conc1').textContent = 'Resumir os três pontos principais e reforçar que ' + (tema || 'a Palavra de Deus') + ' tem poder para transformar vidas.';
@@ -374,7 +312,7 @@ if(toggleTema) {
         document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
     }
 
-    function novoEsboço() {
+    function novoEsboco() {
         document.getElementById('inputTema').value = '';
         document.getElementById('inputPassagem').value = '';
         document.getElementById('inputContexto').value = '';
@@ -383,33 +321,30 @@ if(toggleTema) {
         window.scrollTo({top:0, behavior:'smooth'});
     }
 
-    function salvarEsboço() {
-        const dados = {
-            tema: document.getElementById('temaTitulo').value,
-            ref: document.getElementById('textoBase').value,
-            campos: {}
-        };
-        ['intro1','intro2','intro3','dev1','dev1verso','dev2','dev2verso','dev3','dev3verso','conc1','conc2','conc3'].forEach(id => {
-            const el = document.getElementById(id);
-            if(el) dados.campos[id] = el.innerHTML;
-        });
-        let modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
-        modelos.unshift({id: Date.now(), ...dados, data: new Date().toLocaleString()});
+    function salvarEsboco() {
+        var dados = {tema: document.getElementById('temaTitulo').value, ref: document.getElementById('textoBase').value, campos: {}};
+        var ids = ['intro1','intro2','intro3','dev1','dev1verso','dev2','dev2verso','dev3','dev3verso','conc1','conc2','conc3'];
+        for(var i=0; i<ids.length; i++) {
+            var el = document.getElementById(ids[i]);
+            if(el) dados.campos[ids[i]] = el.innerHTML;
+        }
+        var modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        modelos.unshift({id: Date.now(), tema: dados.tema, ref: dados.ref, campos: dados.campos, data: new Date().toLocaleString()});
         if(modelos.length > 10) modelos = modelos.slice(0,10);
         localStorage.setItem('esbocosSalvos', JSON.stringify(modelos));
         mostrarModelos();
-        alert('Esboço salvo com sucesso! 💾');
+        alert('Esboço salvo com sucesso!');
     }
 
     function carregarModelo(idx) {
-        const modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
-        const m = modelos[idx]; if(!m) return;
+        var modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        var m = modelos[idx]; if(!m) return;
         document.getElementById('temaTitulo').value = m.tema;
         document.getElementById('textoBase').value = m.ref;
         if(m.campos) {
-            for(const [id, html] of Object.entries(m.campos)) {
-                const el = document.getElementById(id);
-                if(el) el.innerHTML = html;
+            for(var id in m.campos) {
+                var el = document.getElementById(id);
+                if(el) el.innerHTML = m.campos[id];
             }
         }
         document.getElementById('esbocoPrincipal').classList.add('visivel');
@@ -418,19 +353,24 @@ if(toggleTema) {
     }
 
     function removerModelo(idx) {
-        let modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        var modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
         modelos.splice(idx,1);
         localStorage.setItem('esbocosSalvos', JSON.stringify(modelos));
         mostrarModelos();
     }
 
     function mostrarModelos() {
-        const modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
-        const area = document.getElementById('areaModelos');
-        const lista = document.getElementById('listaModelos');
+        var modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        var area = document.getElementById('areaModelos');
+        var lista = document.getElementById('listaModelos');
         if(modelos.length === 0) { area.style.display = 'none'; return; }
         area.style.display = 'block';
-        lista.innerHTML = modelos.map((m,i) => '<div class="modelo-item"><span onclick="carregarModelo(' + i + ')"><strong>' + m.tema.replace('TEMA: ','') + '</strong> <small>(' + m.ref.replace('Texto base: ','') + ') — ' + m.data + '</small></span><button onclick="removerModelo(' + i + ')" title="Remover">🗑️</button></div>').join('');
+        var html = '';
+        for(var i=0; i<modelos.length; i++) {
+            var m = modelos[i];
+            html += '<div class="modelo-item"><span onclick="carregarModelo(' + i + ')"><strong>' + m.tema.replace('TEMA: ','') + '</strong> <small>(' + m.ref.replace('Texto base: ','') + ') — ' + m.data + '</small></span><button onclick="removerModelo(' + i + ')" title="Remover">&#128465;</button></div>';
+        }
+        lista.innerHTML = html;
     }
 
     window.addEventListener('load', mostrarModelos);
