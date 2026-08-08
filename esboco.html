@@ -1,85 +1,105 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Esboço de Ministração — Bíblia de Estudo</title>
-<style>
-:root{--azul-escuro:#0f2040;--azul-medio:#1e3a6b;--azul-claro:#2c5291;--ouro:#d4af37;--ouro-claro:#f0d76e;--ouro-escuro:#b8860b;--branco-suave:#fff9e8;--dourado-sombra:rgba(212,175,55,0.35);}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;scroll-behavior:smooth;}
-body{background:linear-gradient(180deg,#152a50 0%,#0f2040 40%,#0a1528 100%);color:var(--branco-suave);line-height:1.8;min-height:100vh;}
-body.modo-claro{background:linear-gradient(180deg,#e8ecf5 0%,#d4dae8 40%,#c8d0e0 100%);color:#1a1a2e;}
-body.modo-claro p,body.modo-claro li{color:#2d2d44;}
-body.modo-claro .form-gerador,body.modo-claro .esboco-container,body.modo-claro .sugestoes-box{background:linear-gradient(135deg,rgba(255,255,255,.6),rgba(220,225,240,.4));}
-body.modo-claro .campo-editavel,body.modo-claro .campo-form input,body.modo-claro .campo-form textarea{background:rgba(255,255,255,.8);color:#1a1a2e;border-color:var(--ouro-escuro);}
-body.modo-claro .sugestao-item{background:rgba(255,255,255,.5);color:#1a1a2e;}
-.menu-toggle{position:fixed;top:15px;left:15px;z-index:200;background:linear-gradient(135deg,var(--ouro-escuro),var(--ouro));color:var(--azul-escuro);border:none;width:50px;height:50px;border-radius:50%;font-size:24px;cursor:pointer;box-shadow:0 0 15px var(--dourado-sombra);display:flex;align-items:center;justify-content:center;transition:all .3s ease;}
-.menu-toggle:hover{transform:scale(1.1);box-shadow:0 0 25px var(--ouro);}
-.menu-toggle.aberto{background:var(--azul-escuro);color:var(--ouro-claro);border:2px solid var(--ouro);}
-.toggle-tema{position:fixed;top:15px;right:15px;z-index:200;background:linear-gradient(135deg,var(--ouro-escuro),var(--ouro));color:var(--azul-escuro);border:none;width:50px;height:50px;border-radius:50%;font-size:22px;cursor:pointer;box-shadow:0 0 15px var(--dourado-sombra);display:flex;align-items:center;justify-content:center;transition:all .3s ease;}
-.toggle-tema:hover{transform:scale(1.1);box-shadow:0 0 25px var(--ouro);}
-.nav-principal{position:fixed;top:0;left:0;height:100vh;width:280px;background:linear-gradient(180deg,var(--azul-escuro),#0a1528);border-right:2px solid var(--ouro);box-shadow:5px 0 25px rgba(0,0,0,.6);z-index:150;transform:translateX(-100%);transition:transform .4s ease;padding-top:80px;overflow-y:auto;}
-.nav-principal.visivel{transform:translateX(0);}
-.nav-principal ul{list-style:none;}
-.nav-principal a{display:block;color:var(--branco-suave);padding:14px 25px;text-decoration:none;font-weight:500;transition:all .3s ease;border-left:3px solid transparent;border-bottom:1px solid rgba(212,175,55,.15);}
-.nav-principal a:hover,.nav-principal a.ativo{color:var(--ouro-claro);background:rgba(212,175,55,.12);border-left:3px solid var(--ouro);padding-left:30px;}
-.sobreposicao{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:100;opacity:0;visibility:hidden;transition:all .3s ease;}
-.sobreposicao.ativa{opacity:1;visibility:visible;}
-header{position:relative;text-align:center;padding:3rem 1.5rem;background:radial-gradient(ellipse at top,rgba(255,220,100,.18) 0%,transparent 65%);border-bottom:2px solid var(--ouro);box-shadow:0 4px 25px var(--dourado-sombra);margin-top:0;}
-header h1{font-size:2.2rem;color:var(--ouro-claro);text-shadow:0 0 12px var(--ouro);position:relative;z-index:1;padding-top:10px;}
-header p{font-style:italic;color:#e6d28f;margin-top:.6rem;font-size:1.1rem;}
-main{max-width:1000px;margin:0 auto;padding:2.5rem 1.2rem;}
-section{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(212,175,55,.25);}
-h2{color:var(--ouro-claro);margin:1.5rem 0 1rem;border-left:4px solid var(--ouro);padding-left:1rem;}
-h3{color:var(--ouro-claro);margin:1.2rem 0 .8rem;}
-h4{color:#f0d76e;margin:1rem 0 .5rem;}
-p{margin-bottom:1rem;text-align:justify;color:#f0ead6;}
-.botao-voltar{position:fixed;top:80px;left:15px;z-index:200;background:linear-gradient(135deg,var(--ouro-escuro),var(--ouro));color:var(--azul-escuro);border:none;padding:.5rem .9rem;border-radius:25px;font-weight:600;font-size:.9rem;cursor:pointer;box-shadow:0 0 12px var(--dourado-sombra);transition:all .3s ease;}
-.botao-voltar:hover{transform:scale(1.05);box-shadow:0 0 20px var(--ouro);}
-.form-gerador{background:linear-gradient(135deg,rgba(44,82,145,.5),rgba(15,32,64,.7));border:1px solid var(--ouro);padding:2rem;border-radius:12px;margin:1.5rem 0;box-shadow:0 0 18px var(--dourado-sombra);}
-.form-gerador h2{text-align:center;margin-bottom:1.5rem;border:none;padding:0;}
-.campo-form{margin-bottom:1.2rem;}
-.campo-form label{display:block;color:var(--ouro-claro);font-weight:600;margin-bottom:.4rem;}
-.campo-form input,.campo-form textarea{width:100%;background:rgba(30,58,107,.6);border:1px solid var(--ouro);color:var(--branco-suave);padding:.8rem 1rem;border-radius:8px;font-size:1rem;outline:none;transition:all .3s ease;}
-.campo-form input:focus,.campo-form textarea:focus{border-color:var(--ouro-claro);box-shadow:0 0 12px var(--dourado-sombra);}
-.campo-form textarea{min-height:80px;resize:vertical;}
-.btn-gerar{display:block;width:100%;max-width:400px;margin:0 auto;background:linear-gradient(135deg,var(--ouro-escuro),var(--ouro));color:var(--azul-escuro);border:none;padding:1rem 2rem;border-radius:30px;font-weight:700;font-size:1.1rem;cursor:pointer;transition:all .3s ease;box-shadow:0 0 15px var(--dourado-sombra);}
-.btn-gerar:hover{transform:scale(1.03);box-shadow:0 0 25px var(--ouro);}
-.sugestoes-box{background:linear-gradient(135deg,rgba(44,82,145,.4),rgba(15,32,64,.6));border:1px solid var(--ouro);padding:1.5rem;border-radius:12px;margin:1.5rem 0;display:none;}
-.sugestoes-box.visivel{display:block;animation:fadeInUp .6s ease;}
-.sugestoes-box h3{color:var(--ouro-claro);margin-bottom:1rem;text-align:center;}
-.sugestao-item{background:rgba(212,175,55,.1);border-left:3px solid var(--ouro);padding:.8rem 1rem;margin:.5rem 0;border-radius:0 8px 8px 0;cursor:pointer;transition:all .2s ease;color:#f0ead6;}
-.sugestao-item:hover{background:rgba(212,175,55,.2);transform:translateX(5px);}
-.sugestao-item strong{color:var(--ouro-claro);}
-.sugestao-item small{display:block;color:#b8a860;font-size:.85rem;margin-top:.3rem;}
-.sugestao-item.aplicada{opacity:.5;text-decoration:line-through;}
-.esboco-container{background:linear-gradient(135deg,rgba(44,82,145,.5),rgba(15,32,64,.7));border:1px solid var(--ouro);padding:2rem;border-radius:12px;margin:1.5rem 0;box-shadow:0 0 18px var(--dourado-sombra);display:none;}
-.esboco-container.visivel{display:block;animation:fadeInUp .6s ease;}
-.parte{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px dashed rgba(212,175,55,.25);}
-.parte:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.etapa{margin:.8rem 0;padding-left:1rem;border-left:2px solid rgba(212,175,55,.4);}
-.destaque{color:var(--ouro-claro);font-weight:600;}
-.campo-editavel{background:rgba(30,58,107,.4);border:1px dashed rgba(212,175,55,.4);padding:.6rem .8rem;border-radius:6px;min-height:2rem;outline:none;transition:all .2s ease;color:inherit;}
-.campo-editavel:focus{background:rgba(30,58,107,.6);border-color:var(--ouro);box-shadow:0 0 8px var(--dourado-sombra);}
-.campo-titulo{font-size:1.3rem;font-weight:600;text-align:center;background:transparent;border:1px dashed rgba(212,175,55,.4);padding:.5rem;border-radius:6px;width:100%;color:var(--ouro-claro);outline:none;}
-.campo-titulo:focus{border-color:var(--ouro);}
-.campo-ref{font-style:italic;text-align:center;background:transparent;border:1px dashed rgba(212,175,55,.4);padding:.4rem;border-radius:6px;width:100%;color:#e6d28f;outline:none;margin-bottom:1rem;}
-.versiculo-box{background:linear-gradient(90deg,rgba(212,175,55,.12),rgba(212,175,55,.04));border-left:5px solid var(--ouro);padding:1.2rem;margin:1.2rem 0;font-style:italic;border-radius:0 10px 10px 0;box-shadow:inset 0 0 18px rgba(212,175,55,.08);color:#fff9e8;}
-.botoes-acao{display:flex;gap:.8rem;flex-wrap:wrap;margin:1rem 0;justify-content:center;}
-.btn-acao{background:linear-gradient(135deg,var(--ouro-escuro),var(--ouro));color:var(--azul-escuro);border:none;padding:.6rem 1.2rem;border-radius:25px;font-weight:600;cursor:pointer;transition:all .3s ease;box-shadow:0 0 12px var(--dourado-sombra);}
-.btn-acao:hover{transform:scale(1.05);box-shadow:0 0 20px var(--ouro);}
-.modelos-salvos{background:linear-gradient(135deg,rgba(44,82,145,.4),rgba(15,32,64,.6));border:1px solid var(--ouro);padding:1.5rem;border-radius:12px;margin:1.5rem 0;}
-.modelos-salvos h3{color:var(--ouro-claro);margin-bottom:1rem;}
-.modelo-item{background:rgba(212,175,55,.1);border-left:3px solid var(--ouro);padding:.6rem .8rem;margin:.4rem 0;border-radius:0 6px 6px 0;display:flex;justify-content:space-between;align-items:center;}
-.modelo-item button{background:transparent;border:none;color:#ff6b6b;cursor:pointer;font-size:1.1rem;}
-.modelo-item span{color:var(--ouro-claro);cursor:pointer;}
-.modelo-item span:hover{text-decoration:underline;}
-footer{background:linear-gradient(180deg,transparent,rgba(15,32,64,.95));color:#e6d28f;text-align:center;padding:2.5rem 1.2rem;margin-top:2.5rem;border-top:2px solid var(--ouro);box-shadow:0 -4px 20px var(--dourado-sombra);}
-footer p{text-align:center;}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-@media print{.menu-toggle,.toggle-tema,.botao-voltar,.botoes-acao,.nav-principal,.sobreposicao,.form-gerador,.modelos-salvos,.sugestoes-box{display:none!important;}body{background:white;color:black;}.esboco-container{border:1px solid #ccc;box-shadow:none;display:block!important;}}
-@media(max-width:768px){header h1{font-size:1.6rem;}.nav-principal{width:100%;}.toggle-tema{top:auto;bottom:15px;right:15px;}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esboço de Ministração — Bíblia de Estudo</title>
+    <style>
+        :root {
+            --azul-escuro: #0f2040; --azul-medio: #1e3a6b; --azul-claro: #2c5291;
+            --ouro: #d4af37; --ouro-claro: #f0d76e; --ouro-escuro: #b8860b;
+            --branco-suave: #fff9e8; --dourado-sombra: rgba(212,175,55,0.35);
+            --fundo-card: rgba(44,82,145,.45);
+        }
+        * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior:smooth;}
+        body {background:linear-gradient(180deg, #152a50 0%, #0f2040 40%, #0a1528 100%); color:var(--branco-suave); line-height:1.8; min-height:100vh;}
+
+        body.modo-claro {background:linear-gradient(180deg, #e8ecf5 0%, #d4dae8 40%, #c8d0e0 100%); color:#1a1a2e;}
+        body.modo-claro p, body.modo-claro li {color:#2d2d44;}
+        body.modo-claro .nav-principal {background:linear-gradient(180deg, #1e3a6b, #152a50);}
+        body.modo-claro .form-gerador, body.modo-claro .esboco-container, body.modo-claro .modelos-salvos {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+        body.modo-claro .campo-editavel, body.modo-claro .campo-form input, body.modo-claro .campo-form textarea {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
+        body.modo-claro #inputSugestao {background:rgba(220,225,240,.8) !important; color:#1a1a2e !important;}
+
+        .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+        .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+        .menu-toggle.aberto {background:var(--azul-escuro); color:var(--ouro-claro); border:2px solid var(--ouro);}
+
+        .toggle-tema {position:fixed; top:15px; right:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:22px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
+        .toggle-tema:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
+
+        .nav-principal {position:fixed; top:0; left:0; height:100vh; width:280px; background:linear-gradient(180deg, var(--azul-escuro), #0a1528); border-right:2px solid var(--ouro); box-shadow:5px 0 25px rgba(0,0,0,.6); z-index:150; transform:translateX(-100%); transition:transform .4s ease; padding-top:80px; overflow-y:auto;}
+        .nav-principal.visivel {transform:translateX(0);}
+        .nav-principal ul {list-style:none;}
+        .nav-principal a {display:block; color:var(--branco-suave); padding:14px 25px; text-decoration:none; font-weight:500; transition:all .3s ease; border-left:3px solid transparent; border-bottom:1px solid rgba(212,175,55,.15);}
+        .nav-principal a:hover, .nav-principal a.ativo {color:var(--ouro-claro); background:rgba(212,175,55,.12); border-left:3px solid var(--ouro); padding-left:30px;}
+
+        .sobreposicao {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:100; opacity:0; visibility:hidden; transition:all .3s ease;}
+        .sobreposicao.ativa {opacity:1; visibility:visible;}
+
+        header {position:relative; text-align:center; padding:3rem 1.5rem; background:radial-gradient(ellipse at top, rgba(255,220,100,.18) 0%, transparent 65%); border-bottom:2px solid var(--ouro); box-shadow:0 4px 25px var(--dourado-sombra); margin-top:0;}
+        header h1 {font-size:2.2rem; color:var(--ouro-claro); text-shadow:0 0 12px var(--ouro); position:relative; z-index:1; padding-top:10px;}
+        header p {font-style:italic; color:#e6d28f; margin-top:.6rem; font-size:1.1rem;}
+
+        main {max-width:1000px; margin:0 auto; padding:2.5rem 1.2rem;}
+        section {margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid rgba(212,175,55,.25);}
+        h2 {color:var(--ouro-claro); margin:1.5rem 0 1rem; border-left:4px solid var(--ouro); padding-left:1rem;}
+        h3 {color:var(--ouro-claro); margin:1.2rem 0 .8rem;}
+        h4 {color:#f0d76e; margin:1rem 0 .5rem;}
+        p {margin-bottom:1rem; text-align:justify; color:#f0ead6;}
+
+        .botao-voltar {position:fixed; top:80px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem .9rem; border-radius:25px; font-weight:600; font-size:.9rem; cursor:pointer; box-shadow:0 0 12px var(--dourado-sombra); transition:all .3s ease;}
+        .botao-voltar:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
+
+        .form-gerador {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:2rem; border-radius:12px; margin:1.5rem 0; box-shadow:0 0 18px var(--dourado-sombra);}
+        .form-gerador h2 {text-align:center; margin-bottom:1.5rem; border:none; padding:0;}
+        .campo-form {margin-bottom:1.2rem;}
+        .campo-form label {display:block; color:var(--ouro-claro); font-weight:600; margin-bottom:.4rem;}
+        .campo-form input, .campo-form textarea {width:100%; background:rgba(30,58,107,.6); border:1px solid var(--ouro); color:var(--branco-suave); padding:.8rem 1rem; border-radius:8px; font-size:1rem; outline:none; transition:all .3s ease;}
+        .campo-form input:focus, .campo-form textarea:focus {border-color:var(--ouro-claro); box-shadow:0 0 12px var(--dourado-sombra);}
+        .campo-form textarea {min-height:80px; resize:vertical;}
+        .btn-gerar {display:block; width:100%; max-width:400px; margin:0 auto; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:1rem 2rem; border-radius:30px; font-weight:700; font-size:1.1rem; cursor:pointer; transition:all .3s ease; box-shadow:0 0 15px var(--dourado-sombra);}
+        .btn-gerar:hover {transform:scale(1.03); box-shadow:0 0 25px var(--ouro);}
+
+        .esboco-container {background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7)); border:1px solid var(--ouro); padding:2rem; border-radius:12px; margin:1.5rem 0; box-shadow:0 0 18px var(--dourado-sombra); display:none;}
+        .esboco-container.visivel {display:block; animation:fadeInUp .6s ease;}
+        .parte {margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px dashed rgba(212,175,55,.25);}
+        .parte:last-child {border-bottom:none; margin-bottom:0; padding-bottom:0;}
+        .etapa {margin:.8rem 0; padding-left:1rem; border-left:2px solid rgba(212,175,55,.4);}
+        .destaque {color:var(--ouro-claro); font-weight:600;}
+        .campo-editavel {background:rgba(30,58,107,.4); border:1px dashed rgba(212,175,55,.4); padding:.6rem .8rem; border-radius:6px; min-height:2rem; outline:none; transition:all .2s ease; color:inherit;}
+        .campo-editavel:focus {background:rgba(30,58,107,.6); border-color:var(--ouro); box-shadow:0 0 8px var(--dourado-sombra);}
+        .campo-titulo {font-size:1.3rem; font-weight:600; text-align:center; background:transparent; border:1px dashed rgba(212,175,55,.4); padding:.5rem; border-radius:6px; width:100%; color:var(--ouro-claro); outline:none;}
+        .campo-titulo:focus {border-color:var(--ouro);}
+        .campo-ref {font-style:italic; text-align:center; background:transparent; border:1px dashed rgba(212,175,55,.4); padding:.4rem; border-radius:6px; width:100%; color:#e6d28f; outline:none; margin-bottom:1rem;}
+        .versiculo-box {background:linear-gradient(90deg, rgba(212,175,55,.12), rgba(212,175,55,.04)); border-left:5px solid var(--ouro); padding:1.2rem; margin:1.2rem 0; font-style:italic; border-radius:0 10px 10px 0; box-shadow:inset 0 0 18px rgba(212,175,55,.08); color:#fff9e8;}
+        .botoes-acao {display:flex; gap:.8rem; flex-wrap:wrap; margin:1rem 0; justify-content:center;}
+        .btn-acao {background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.6rem 1.2rem; border-radius:25px; font-weight:600; cursor:pointer; transition:all .3s ease; box-shadow:0 0 12px var(--dourado-sombra);}
+        .btn-acao:hover {transform:scale(1.05); box-shadow:0 0 20px var(--ouro);}
+
+        .modelos-salvos {background:linear-gradient(135deg, rgba(44,82,145,.4), rgba(15,32,64,.6)); border:1px solid var(--ouro); padding:1.5rem; border-radius:12px; margin:1.5rem 0;}
+        .modelos-salvos h3 {color:var(--ouro-claro); margin-bottom:1rem;}
+        .modelo-item {background:rgba(212,175,55,.1); border-left:3px solid var(--ouro); padding:.6rem .8rem; margin:.4rem 0; border-radius:0 6px 6px 0; display:flex; justify-content:space-between; align-items:center;}
+        .modelo-item button {background:transparent; border:none; color:#ff6b6b; cursor:pointer; font-size:1.1rem;}
+        .modelo-item span {color:var(--ouro-claro); cursor:pointer;}
+        .modelo-item span:hover {text-decoration:underline;}
+
+        footer {background:linear-gradient(180deg, transparent, rgba(15,32,64,.95)); color:#e6d28f; text-align:center; padding:2.5rem 1.2rem; margin-top:2.5rem; border-top:2px solid var(--ouro); box-shadow:0 -4px 20px var(--dourado-sombra);}
+        footer p {text-align:center;}
+
+        @keyframes fadeInUp {from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}}
+
+        @media print {
+            .menu-toggle, .toggle-tema, .botao-voltar, .botoes-acao, .nav-principal, .sobreposicao, .form-gerador, .modelos-salvos {display:none !important;}
+            body {background:white; color:black;}
+            .esboco-container {border:1px solid #ccc; box-shadow:none; display:block !important;}
+        }
+        @media (max-width:768px) {
+            header h1 {font-size:1.6rem;}
+            .nav-principal {width:100%;}
+            .toggle-tema {top:auto; bottom:15px; right:15px;}
+        }
+    </style>
 </head>
 <body>
 
@@ -89,420 +109,418 @@ footer p{text-align:center;}
 <div class="sobreposicao" id="fundoMenu" onclick="fecharMenu()"></div>
 
 <nav class="nav-principal" id="menuNavegacao">
-<ul>
-<li><a href="index.html">&#127968; Página Inicial</a></li>
-<li><a href="introducao.html">&#128204; Introdução</a></li>
-<li><a href="metodos.html">&#128269; Métodos de Estudo</a></li>
-<li><a href="contexto.html">&#128218; Contexto e Interpretação</a></li>
-<li><a href="bblia.html">&#128214; Leitura Bíblica</a></li>
-<li><a href="livros.html">&#128218; Livros da Bíblia</a></li>
-<li><a href="temas.html">&#10024; Temas Centrais</a></li>
-<li><a href="plano.html">&#128197; Plano de Leitura</a></li>
-<li><a href="recursos.html">&#128218; Recursos</a></li>
-<li><a href="esboco.html" class="ativo">&#128221; Esboço de Ministração</a></li>
-</ul>
+    <ul>
+        <li><a href="index.html">&#127968; Página Inicial</a></li>
+        <li><a href="introducao.html">&#128204; Introdução</a></li>
+        <li><a href="metodos.html">&#128269; Métodos de Estudo</a></li>
+        <li><a href="contexto.html">&#128218; Contexto e Interpretação</a></li>
+        <li><a href="bblia.html">&#128214; Leitura Bíblica</a></li>
+        <li><a href="livros.html">&#128218; Livros da Bíblia</a></li>
+        <li><a href="temas.html">&#10024; Temas Centrais</a></li>
+        <li><a href="plano.html">&#128197; Plano de Leitura</a></li>
+        <li><a href="recursos.html">&#128218; Recursos</a></li>
+        <li><a href="esboco.html" class="ativo">&#128221; Esboço de Ministração</a></li>
+    </ul>
 </nav>
 
 <header>
-<h1>&#128221; Esboço de Ministração</h1>
-<p>Informe o tema ou a passagem e gere um esboço estruturado com sugestões inteligentes</p>
+    <h1>&#128221; Esboço de Ministração</h1>
+    <p>Informe o tema ou a passagem e gere um esboço estruturado para editar</p>
 </header>
 
 <main>
-<section>
-<div class="form-gerador">
-<h2>&#10024; Gerar Novo Esboço</h2>
-<div class="campo-form">
-<label for="inputTema">&#127919; Tema da Mensagem</label>
-<input type="text" id="inputTema" placeholder="Ex: O Poder da Fé que Move Montanhas">
-</div>
-<div class="campo-form">
-<label for="inputPassagem">&#128214; Texto Base (Passagem)</label>
-<input type="text" id="inputPassagem" placeholder="Ex: Mateus 17:14-21">
-</div>
-<div class="campo-form">
-<label for="inputContexto">&#128161; Contexto ou Observações (opcional)</label>
-<textarea id="inputContexto" placeholder="Ex: Mensagem para jovens sobre confiança em Deus..."></textarea>
-</div>
-<button class="btn-gerar" onclick="gerarEsboco()">&#128221; Gerar Esboço com Sugestões</button>
-</div>
+    <section>
+        <div class="form-gerador">
+            <h2>&#10024; Gerar Novo Esboço</h2>
+            <div class="campo-form">
+                <label for="inputTema">&#127919; Tema da Mensagem</label>
+                <input type="text" id="inputTema" placeholder="Ex: O Poder da Fé que Move Montanhas">
+            </div>
+            <div class="campo-form">
+                <label for="inputPassagem">&#128214; Texto Base (Passagem)</label>
+                <input type="text" id="inputPassagem" placeholder="Ex: Mateus 17:14-21">
+            </div>
+            <div class="campo-form">
+                <label for="inputContexto">&#128161; Contexto ou Observações (opcional)</label>
+                <textarea id="inputContexto" placeholder="Ex: Mensagem para jovens sobre confiança em Deus..."></textarea>
+            </div>
+            <div class="campo-form">
+                <label for="inputSugestao">&#128161; Sugestão de Passagem (automática)</label>
+                <input type="text" id="inputSugestao" placeholder="Preencha o tema e clique em Gerar para ver sugestões de versículos e livros" readonly style="background:rgba(15,32,64,.5); border-style:dashed; cursor:default;">
+            </div>
+            <button class="btn-gerar" onclick="gerarEsboco()">&#128221; Gerar Esboço</button>
+        </div>
 
-<div class="sugestoes-box" id="painelSugestoes">
-<h3>&#128161; Clique nas sugestões para aplicar ao esboço</h3>
-<div id="listaSugestoes"></div>
-</div>
+        <div class="botoes-acao" id="botoesAcao" style="display:none;">
+            <button class="btn-acao" onclick="salvarEsboco()">&#128190; Salvar no Navegador</button>
+            <button class="btn-acao" onclick="window.print()">&#128424; Imprimir / PDF</button>
+            <button class="btn-acao" onclick="novoEsboco()">&#10133; Novo Esboço</button>
+        </div>
 
-<div class="botoes-acao" id="botoesAcao" style="display:none;">
-<button class="btn-acao" onclick="salvarEsboco()">&#128190; Salvar no Navegador</button>
-<button class="btn-acao" onclick="window.print()">&#128424; Imprimir / PDF</button>
-<button class="btn-acao" onclick="novoEsboco()">&#10133; Novo Esboço</button>
-</div>
+        <div class="esboco-container" id="esbocoPrincipal">
+            <input class="campo-titulo" id="temaTitulo" value="TEMA: ">
+            <input class="campo-ref" id="textoBase" value="Texto base: ">
+            <div class="versiculo-box" id="boxSugestao" style="display:none;">
+                <p><span class="destaque">&#128161; Sugestão de Passagem:</span></p>
+                <div class="campo-editavel" contenteditable="true" id="sugestaoPassagem"></div>
+            </div>
 
-<div class="esboco-container" id="esbocoPrincipal">
-<input class="campo-titulo" id="temaTitulo" value="TEMA: ">
-<input class="campo-ref" id="textoBase" value="Texto base: ">
+            <div class="parte">
+                <h3>&#128204; I — Introdução</h3>
+                <div class="etapa">
+                    <p><span class="destaque">1. Ganhar atenção:</span></p>
+                    <div class="campo-editavel" contenteditable="true" id="intro1"></div>
+                </div>
+                <div class="etapa">
+                    <p><span class="destaque">2. O contexto:</span></p>
+                    <div class="campo-editavel" contenteditable="true" id="intro2"></div>
+                </div>
+                <div class="etapa">
+                    <p><span class="destaque">3. Proposição central:</span></p>
+                    <div class="campo-editavel" contenteditable="true" id="intro3"></div>
+                </div>
+            </div>
 
-<div class="parte">
-<h3>&#128204; I — Introdução</h3>
-<div class="etapa">
-<p><span class="destaque">1. Ganhar atenção:</span></p>
-<div class="campo-editavel" contenteditable="true" id="intro1"></div>
-</div>
-<div class="etapa">
-<p><span class="destaque">2. O contexto:</span></p>
-<div class="campo-editavel" contenteditable="true" id="intro2"></div>
-</div>
-<div class="etapa">
-<p><span class="destaque">3. Proposição central:</span></p>
-<div class="campo-editavel" contenteditable="true" id="intro3"></div>
-</div>
-</div>
+            <div class="parte">
+                <h3>&#128269; II — Desenvolvimento</h3>
+                <h4>1. Primeiro ponto principal</h4>
+                <div class="campo-editavel" contenteditable="true" id="dev1"></div>
+                <div class="versiculo-box">
+                    <div class="campo-editavel" contenteditable="true" id="dev1verso">Versículo de apoio: </div>
+                </div>
 
-<div class="parte">
-<h3>&#128269; II — Desenvolvimento</h3>
-<h4>1. Primeiro ponto principal</h4>
-<div class="campo-editavel" contenteditable="true" id="dev1"></div>
-<div class="versiculo-box">
-<div class="campo-editavel" contenteditable="true" id="dev1verso">Versículo de apoio: </div>
-</div>
+                <h4>2. Segundo ponto principal</h4>
+                <div class="campo-editavel" contenteditable="true" id="dev2"></div>
+                <div class="versiculo-box">
+                    <div class="campo-editavel" contenteditable="true" id="dev2verso">Versículo de apoio: </div>
+                </div>
 
-<h4>2. Segundo ponto principal</h4>
-<div class="campo-editavel" contenteditable="true" id="dev2"></div>
-<div class="versiculo-box">
-<div class="campo-editavel" contenteditable="true" id="dev2verso">Versículo de apoio: </div>
-</div>
+                <h4>3. Terceiro ponto principal</h4>
+                <div class="campo-editavel" contenteditable="true" id="dev3"></div>
+                <div class="versiculo-box">
+                    <div class="campo-editavel" contenteditable="true" id="dev3verso">Versículo de apoio: </div>
+                </div>
+            </div>
 
-<h4>3. Terceiro ponto principal</h4>
-<div class="campo-editavel" contenteditable="true" id="dev3"></div>
-<div class="versiculo-box">
-<div class="campo-editavel" contenteditable="true" id="dev3verso">Versículo de apoio: </div>
-</div>
-</div>
+            <div class="parte">
+                <h3>&#10024; III — Conclusão e Aplicação</h3>
+                <div class="etapa">
+                    <p><span class="destaque">Resumo:</span></p>
+                    <div class="campo-editavel" contenteditable="true" id="conc1"></div>
+                </div>
+                <div class="etapa">
+                    <p><span class="destaque">Apelo / Aplicação prática:</span></p>
+                    <div class="campo-editavel" contenteditable="true" id="conc2"></div>
+                </div>
+                <div class="etapa">
+                    <p><span class="destaque">Oração final:</span></p>
+                    <div class="campo-editavel" contenteditable="true" id="conc3"></div>
+                </div>
+            </div>
+        </div>
 
-<div class="parte">
-<h3>&#10024; III — Conclusão e Aplicação</h3>
-<div class="etapa">
-<p><span class="destaque">Resumo:</span></p>
-<div class="campo-editavel" contenteditable="true" id="conc1"></div>
-</div>
-<div class="etapa">
-<p><span class="destaque">Apelo / Aplicação prática:</span></p>
-<div class="campo-editavel" contenteditable="true" id="conc2"></div>
-</div>
-<div class="etapa">
-<p><span class="destaque">Oração final:</span></p>
-<div class="campo-editavel" contenteditable="true" id="conc3"></div>
-</div>
-</div>
-</div>
-
-<div class="modelos-salvos" id="areaModelos" style="display:none;">
-<h3>&#128190; Esboços Salvos</h3>
-<div id="listaModelos"></div>
-</div>
-</section>
+        <div class="modelos-salvos" id="areaModelos" style="display:none;">
+            <h3>&#128190; Esboços Salvos</h3>
+            <div id="listaModelos"></div>
+        </div>
+    </section>
 </main>
 
 <footer>
-<p>"E conhecereis a verdade, e a verdade vos libertará." — João 8:32</p>
+    <p>"E conhecereis a verdade, e a verdade vos libertará." — João 8:32</p>
 </footer>
 
 <script>
-const botaoMenu=document.getElementById('botaoMenu');
-const menuNavegacao=document.getElementById('menuNavegacao');
-const fundoMenu=document.getElementById('fundoMenu');
-const toggleTema=document.getElementById('toggleTema');
+    const botaoMenu = document.getElementById('botaoMenu');
+    const menuNavegacao = document.getElementById('menuNavegacao');
+    const fundoMenu = document.getElementById('fundoMenu');
+    const toggleTema = document.getElementById('toggleTema');
 
-function alternarMenu(){
-menuNavegacao.classList.toggle('visivel');
-fundoMenu.classList.toggle('ativa');
-botaoMenu.classList.toggle('aberto');
-botaoMenu.innerHTML=menuNavegacao.classList.contains('visivel')?'&#10005;':'&#9776;';
-}
-function fecharMenu(){
-menuNavegacao.classList.remove('visivel');
-fundoMenu.classList.remove('ativa');
-botaoMenu.classList.remove('aberto');
-botaoMenu.innerHTML='&#9776;';
-}
-botaoMenu.addEventListener('click',alternarMenu);
+    function alternarMenu() {
+        menuNavegacao.classList.toggle('visivel');
+        fundoMenu.classList.toggle('ativa');
+        botaoMenu.classList.toggle('aberto');
+        botaoMenu.innerHTML = menuNavegacao.classList.contains('visivel') ? '&#10005;' : '&#9776;';
+    }
+    function fecharMenu() {
+        menuNavegacao.classList.remove('visivel');
+        fundoMenu.classList.remove('ativa');
+        botaoMenu.classList.remove('aberto');
+        botaoMenu.innerHTML = '&#9776;';
+    }
+    botaoMenu.addEventListener('click', alternarMenu);
 
-if(toggleTema){
-var temaSalvo=localStorage.getItem('tema');
-if(temaSalvo==='claro')document.body.classList.add('modo-claro');
-toggleTema.innerHTML=document.body.classList.contains('modo-claro')?'&#9728;':'&#127769;';
-toggleTema.addEventListener('click',function(){
-document.body.classList.toggle('modo-claro');
-var modo=document.body.classList.contains('modo-claro')?'claro':'escuro';
-localStorage.setItem('tema',modo);
-toggleTema.innerHTML=modo==='claro'?'&#9728;':'&#127769;';
-});
-}
+    if(toggleTema) {
+        const temaSalvo = localStorage.getItem('tema');
+        if(temaSalvo === 'claro') document.body.classList.add('modo-claro');
+        toggleTema.innerHTML = document.body.classList.contains('modo-claro') ? '&#9728;' : '&#127769;';
+        toggleTema.addEventListener('click', function() {
+            document.body.classList.toggle('modo-claro');
+            const modo = document.body.classList.contains('modo-claro') ? 'claro' : 'escuro';
+            localStorage.setItem('tema', modo);
+            toggleTema.innerHTML = modo === 'claro' ? '&#9728;' : '&#127769;';
+        });
+    }
 
-const bancoTemas={
-'fe':{
-intro1:['Comece com uma pergunta: "Você já enfrentou uma situação onde só restava acreditar?"','Conte uma história breve de alguém que superou o impossível pela confiança em Deus.','Mencione como a fé é mencionada mais de 300 vezes na Bíblia.'],
-intro2:['Contextualize a passagem mostrando que a fé bíblica não é auto-ajuda, mas confiança no caráter de Deus.','Explique que a fé surge quando reconhecemos nossa impotência e a onipotência de Deus.','Apresente o cenário histórico: os discípulos falharam porque duvidaram, não porque faltou poder.'],
-intro3:['A fé verdadeira reconhece a impossibilidade humana e descansa no poder de Deus.','Deus não pede fé perfeita, mas fé direcionada ao Deus perfeito.','A fé que move montanhas é pequena como um grão de mostarda, mas volta-se para um Deus grande.'],
-dev1:['A fé reconhece a impossibilidade humana e confia no poder de Deus. Quando Pedro andou sobre as águas, ele não confiou na própria habilidade, mas na palavra de Jesus.','A fé não nega a realidade, mas enxerga além dela. Abraão considerou seu próprio corpo já morto, mas cresceu forte na fé.','A fé começa com o reconhecimento de quem Deus é: onipotente, fiel e soberano.'],
-dev1verso:['Mateus 17:20','Hebreus 11:1-3','Romanos 4:18-21'],
-dev2:['A fé está ligada à Palavra de Deus. A fé vem pelo ouvir, e o ouvir pela palavra de Cristo. Sem a Palavra, a fé se torna mero otimismo.','A fé responde à revelação. Quando Deus fala, o crente crê e age. Moisés deixou o Egito porque viu aquele que é invisível.','A fé se alimenta da Escritura. Quanto mais conhecemos as promessas de Deus, mais firmes ficamos.'],
-dev2verso:['Romanos 10:17','Hebreus 11:27','Salmos 119:11'],
-dev3:['A fé madura se expressa em oração e entrega. Não basta crer; é preciso agir conforme se crê.','A fé persevera mesmo sem ver resultados imediatos. Jó manteve sua integridade mesmo quando tudo foi tirado.','A fé genuína produz obediência. Sem obras, a fé é morta.'],
-dev3verso:['Tiago 2:17-18','Hebreus 11:6','1 Tessalonicenses 5:17-18'],
-conc1:['A fé não é um sentimento passageiro, mas uma postura de vida que reconhece quem Deus é, se apega à Sua Palavra e se expressa em obediência e oração.'],
-conc2:['Que decisão você precisa tomar hoje baseado na fé em Deus? O que Deus está pedindo que você entregue nas mãos dEle?','Identifique uma área da sua vida onde você tem confiado mais em si mesmo do que em Deus. Entregue-a hoje.','Escreva em um papel uma promessa bíblica e declare-a diariamente esta semana.'],
-conc3:['Senhor, aumenta a nossa fé. Ajuda-nos a confiar no Teu poder quando nossos olhos só veem impossibilidades. Confirma a Tua Palavra em nossos corações. Amém.','Pai, perdoa nossas dúvidas e fortalece nossa confiança. Que a nossa fé seja obra Tua, não nossa. Em nome de Jesus.','Deus de Abraão, Isaac e Jacó, ensina-nos a crer antes de ver, a confiar antes de entender e a adorar antes de receber. Amém.']
-},
-'amor':{
-intro1:['"O que você faria por alguém que ama?" Deus fez mais: deu o Seu único Filho.','O amor é a palavra mais cantada e menos praticada. Hoje vamos descobrir o amor que transforma.','Em um mundo cheio de ódio, a Bíblia apresenta um amor que vence tudo.'],
-intro2:['O amor de Deus não é uma emoção, mas um compromisso eterno. Ele amou enquanto éramos inimigos.','O contexto bíblico do amor (ágape) é sacrificial, incondicional e redentor.','Jesus redefine o amor: não como sentimento, mas como entrega de si mesmo.'],
-intro3:['O amor de Deus é a força mais poderosa do universo e a marca do verdadeiro discípulo.','Amar como Deus ama é impossível sem Deus, mas é o chamado de todo cristão.','O amor não é opcional na vida cristã; é o mandamento novo de Jesus.'],
-dev1:['O amor de Deus é incondicional e se revelou em Cristo. Ele não nos amou porque éramos bons, mas porque Ele é bom.','Deus amou o mundo de tal maneira que deu o Seu Filho unigênito. O amor de Deus não é palavra, é ação.','Enquanto éramos ainda pecadores, Cristo morreu por nós. Esse é o amor que não depende do merecimento.'],
-dev1verso:['João 3:16','Romanos 5:8','1 João 4:9-10'],
-dev2:['O amor ao próximo é a marca do discípulo de Jesus. Não basta dizer que amamos; devemos demonstrar com atitudes.','Jesus comandou: "Amai-vos uns aos outros, como eu vos amei". O padrão é divino, não humano.','O amor cristão supera barreiras: raça, classe, inimizade e diferenças. O samaritano mostrou isso.'],
-dev2verso:['João 13:34-35','1 João 3:18','Lucas 10:27-37'],
-dev3:['O amor supera o medo e transforma relacionamentos. O amor perfeito lança fora o medo.','O amor é paciente, é benigno. Não inveja, não se vangloria, não se orgulha. É o caminho mais excelente.','Sem amor, nada somos. Dons, conhecimento e fé são vazios se não forem movidos pelo amor.'],
-dev3verso:['1 João 4:18','1 Coríntios 13:4-8','1 Coríntios 13:1-3'],
-conc1:['O amor de Deus nos alcançou quando éramos indignos, nos transforma para amarmos os indignos e nos capacita a viver sem medo.'],
-conc2:['A quem você precisa demonstrar amor esta semana? Um familiar difícil? Um inimigo? Um estranho?','Escolha uma pessoa e pratique o amor de 1 Coríntios 13: seja paciente, não guarde rancor, proteja e espera.','Peça a Deus para revelar se há alguém que você precisa perdoar para poder amar de verdade.'],
-conc3:['Senhor, enche nossos corações com o Teu amor. Ensina-nos a amar como Tu amas: sem condições, sem limites e sem esperar retorno. Amém.','Pai, onde há ódio, planta amor. Onde há divisão, traz unidade. Que o nosso amor seja a prova de que somos Teus filhos.','Deus é amor. Que essa verdade não seja apenas um versículo decorado, mas a realidade da nossa vida. Amém.']
-},
-'oracao':{
-intro1:['"Quando foi a última vez que você conversou de verdade com Deus?"','A oração é o termômetro da nossa vida espiritual. Hoje vamos recalibrá-lo.','Jesus orou, Paulo orou, os mártires oraram. A oração é o segredo dos grandes homens de Deus.'],
-intro2:['A oração não é um ritual, mas um relacionamento. Deus não quer nossas palavras vazias, mas nosso coração.','No contexto bíblico, orar é falar com Deus como um filho fala com um pai amoroso.','A oração é a resposta de Deus à nossa necessidade de comunhão, não um dever religioso.'],
-intro3:['A oração de fé move o coração de Deus e transforma circunstâncias.','Deus não ouve palavras; ouve corações. A oração sincera é a chave do céu.','A oração não muda Deus, mas muda quem ora.'],
-dev1:['A oração é o canal de comunhão com Deus. Sem oração, a vida cristã é teoria; com oração, é experiência.','Jesus se retirava para orar. Se o Filho de Deus precisava, quanto mais nós?','A oração nos conecta com a fonte da vida. Sem ela, secamos espiritualmente.'],
-dev1verso:['João 15:7','Lucas 5:16','Salmos 63:1-2'],
-dev2:['A oração de fé move o coração de Deus. Elias orou e a chuva parou; orou de novo e a chuva voltou.','A oração não é convencer Deus, mas alinhar nossa vontade com a Sua.','Quando oramos segundo a vontade de Deus, temos a certeza de que somos ouvidos.'],
-dev2verso:['Tiago 5:16-18','1 João 5:14-15','Mateus 7:7-8'],
-dev3:['A oração persistente traz respostas no tempo certo. A parábola da viúva importuna nos ensina a insistir.','Deus responde de três formas: sim, ainda não, e algo melhor. A oração persistente nos prepara para qualquer uma.','A oração não é um evento, é um estilo de vida. Orar sem cessar significa viver em atitude de dependência.'],
-dev3verso:['Lucas 18:1-8','Efésios 6:18','1 Tessalonicenses 5:17'],
-conc1:['A oração é a respiração da alma: sem ela morremos espiritualmente. Com ela, movemos o céu e somos transformados.'],
-conc2:['Estabeleça um horário fixo de oração diária. Comece com 10 minutos e vá aumentando.','Faça uma lista de oração com três categorias: agradecimento, confissão e súplica.','Ore por alguém que você nunca orou antes. A oração muda nossa percepção das pessoas.'],
-conc3:['Senhor, ensina-nos a orar. Não com palavras vazias, mas com coração quebrantado. Que a oração seja o nosso primeiro refúgio, não o último recurso. Amém.','Pai, aumenta nossa fome pela Tua presença. Que a oração não seja um dever, mas um desejo ardente. Em nome de Jesus.','Deus que ouve, obrigado por nos ouvir. Fortalece nossa vida de oração para honra e glória do Teu nome. Amém.']
-},
-'perdao':{
-intro1:['"Você consegue perdoar quem te machucou profundamente?"','O perdão é a medicina mais amarga e mais curativa que existe.','Jesus morreu para perdoar. Hoje vamos entender o poder que Ele nos deu para perdoar também.'],
-intro2:['O perdão bíblico não é esquecer, é entregar a justiça a Deus.','No contexto da cruz, perdoar é caro. Jesus pagou o preço do nosso perdão.','Perdoar não significa aprovar o erro, mas liberar o coração do peso da vingança.'],
-intro3:['O perdão liberta quem perdoa, não apenas quem é perdoado.','Perdoar setenta vezes sete é um estilo de vida, não uma exceção.','O perdão é o caminho da liberdade; a mágoa é a prisão que construímos para nós mesmos.'],
-dev1:['Deus nos perdoou gratuitamente em Cristo. Não merecíamos, mas Ele pagou o preço total.','O perdão de Deus é completo: lembra-se dos nossos pecados não mais.','Se Deus perdoou nossa imensa dívida, como não perdoar a pequena dívida do nosso irmão?'],
-dev1verso:['Efésios 1:7','Isaías 43:25','Mateus 18:21-35'],
-dev2:['O perdão liberta quem perdoa. Estudos científicos confirmam: perdoar melhora saúde física e mental.','A mágoa envenena quem a guarda. O perdão é o antídoto.','Quando perdoamos, imitamos a Deus. Isso é discipulado na sua forma mais pura.'],
-dev2verso:['Mateus 6:14-15','Colossenses 3:13','Marcos 11:25'],
-dev3:['Perdoar setenta vezes sete é um estilo de vida. Não é uma conta matemática, mas uma postura de coração.','O perdão é um processo. Algumas feridas levam tempo, mas Deus dá graça para cada passo.','Perdoar não significa necessariamente reconciliar, mas significa liberar o coração.'],
-dev3verso:['Mateus 18:22','Filipenses 1:6','Romanos 12:17-21'],
-conc1:['O perdão é a marca do cristão: recebemos graça e a estendemos. Não perdoamos porque sentimos vontade, mas porque fomos perdoados primeiro.'],
-conc2:['Identifique uma pessoa que você precisa perdoar. Não é por ela, é por você. Entregue a ofensa a Deus hoje.','Escreva uma carta de perdão (não precisa enviar). O ato de escrever libera emoções.','Ore por quem te machucou. Orar pelo inimigo é o ápice do perdão cristão.'],
-conc3:['Senhor, Tu nos perdoaste uma dívida impagável. Dá-nos graça para perdoar as pequenas dívidas uns dos outros. Que o Teu perdão flua através de nós. Amém.','Pai, onde há mágoa, planta cura. Onde há vingança, traz misericórdia. Ensina-nos a perdoar como Tu perdoaste.','Deus da graça, fortalece nossos corações para perdoar não por mérito, mas por amor. Em nome de Jesus. Amém.']
-},
-'familia':{
-intro1:['"Qual é a base da sua família?"','A família foi a primeira instituição criada por Deus, antes do governo e da igreja.','Em tempos de crise familiar, a Palavra de Deus oferece fundamentos eternos.'],
-intro2:['Deus projetou a família como um reflexo da Trindade: amor, comunhão e propósito.','O contexto bíblico da família é sagrado: não é uma construção social, mas uma ordenança divina.','A família enfrenta ataques porque é o alicerce da sociedade e da fé transmitida.'],
-intro3:['A família que ora unida permanece unida.','O lar cristão é a primeira igreja e o primeiro seminário.','Amor, respeito e submissão são pilares que sustentam a família no propósito de Deus.'],
-dev1:['A família foi instituída por Deus como núcleo da sociedade. Antes de haver nações, havia Adão e Eva.','Deus escolheu trabalhar através de famílias: a de Noé, a de Abraão, a de Davi.','A família é o primeiro campo de missões. Os filhos são herança do Senhor.'],
-dev1verso:['Gênesis 2:18-24','Salmos 127:3','Deuteronômio 6:4-7'],
-dev2:['Amor, respeito e submissão são pilares do lar cristão. Maridos amem; esposas respeitem; ambos se submetam a Cristo.','A submissão bíblica não é inferioridade, mas ordem divina para proteção e bênção.','O amor sacrificial do marido e o respeito da esposa criam um ambiente onde os filhos prosperam.'],
-dev2verso:['Efésios 5:22-33','Colossenses 3:18-21','1 Pedro 3:1-7'],
-dev3:['A família que ora unida permanece unida. A oração é o cimento espiritual do lar.','Os pais são os primeiros pastores dos filhos. Ensina-lhes o caminho e eles não se desviarão.','A mesa familiar é um altar de comunhão. Compartilhar a Palavra e orar juntos fortalece os laços.'],
-dev3verso:['Mateus 18:19-20','Provérbios 22:6','Josué 24:15'],
-conc1:['A família é o projeto de Deus para transmitir fé, valores e amor. Quando Cristo é o centro, o lar se torna um santuário.'],
-conc2:['Marque uma noite esta semana para orar em família. Mesmo que seja apenas 5 minutos.','Peça perdão a um membro da família por alguma falha recente. A humildade constrói pontes.','Leia um capítulo da Bíblia juntos com sua família e discuta o que cada um aprendeu.'],
-conc3:['Senhor, protege nossos lares. Que Cristo seja o centro de cada decisão, conversa e momento. Fortalece os pais, conforta os filhos e une os casamentos. Amém.','Pai, restaura as famílias quebradas. Onde há divisão, traz cura. Onde há frieza, traz fogo. Em nome de Jesus.','Deus da família, abençoa cada lar que ora neste momento. Que a geração de hoje transmita fé para a de amanhã. Amém.']
-},
-'esperanca':{
-intro1:['"O que te dá esperança quando tudo parece perdido?"','A esperança do mundo é frágil; a esperança bíblica é uma âncora.','Paulo escreveu sobre esperança estando na prisão. A verdadeira esperança resiste às circunstâncias.'],
-intro2:['A esperança cristã não é desejo vazio; é certeza baseada na ressurreição de Jesus.','O contexto bíblico da esperança é escatológico: olhamos para o futuro com confiança porque Deus já venceu.','A esperança não nega o sofrimento, mas o transcende pela promessa de Deus.'],
-intro3:['A esperança cristã é certeza, não mera expectativa.','Deus trabalha em todas as coisas para o bem daqueles que O amam.','A esperança da volta de Cristo nos sustenta e nos purifica.'],
-dev1:['A esperança cristã é certeza, não mera expectativa. No mundo, esperamos o que pode acontecer; em Cristo, esperamos o que já está garantido.','A esperança é uma âncora para a alma, firme e segura, que entra no santuário celestial.','Enquanto o mundo espera por notícias, nós esperamos por Cristo.'],
-dev1verso:['Hebreus 6:19','Romanos 8:24-25','Tito 2:13'],
-dev2:['Deus trabalha em todas as coisas para o bem daqueles que O amam. Nem tudo é bom, mas Deus faz todas as coisas cooperarem para o bem.','José foi vendido, preso e esquecido, mas Deus transformou tudo em salvação.','A esperança não precisa entender o porquê; confia no Quem.'],
-dev2verso:['Romanos 8:28','Gênesis 50:20','Jeremias 29:11'],
-dev3:['A esperança da volta de Cristo nos sustenta. O melhor ainda está por vir.','A esperança futura purifica a vida presente. Quem espera por Jesus vive de forma santa.','A eternidade coloca o sofrimento temporário em perspectiva. Leve e momentâneo.'],
-dev3verso:['1 Tessalonicenses 4:16-17','1 João 3:2-3','2 Coríntios 4:17-18'],
-conc1:['A esperança cristã não é um desejo; é uma pessoa chamada Jesus. Nele, temos certeza do presente e do futuro.'],
-conc2:['Liste três motivos pelos quais você pode ter esperança hoje. Leia-os quando o desânimo bater.','Compartilhe sua esperança com alguém que está desanimado. A esperança se multiplica quando é dada.','Medite em Romanos 8:28 e aplique a uma situação difícil da sua vida atual.'],
-conc3:['Senhor, Tu és a nossa esperança. Quando as circunstâncias gritam desespero, fala mais alto com Tua promessa. Fortalece nossa fé na Tua fidelidade. Amém.','Pai, que a esperança da volta de Cristo nos purifique e nos motive. Vem, Senhor Jesus!','Deus da esperança, enche-nos de toda alegria e paz na confiança, para que abundemos em esperança pelo poder do Espírito Santo. Amém.']
-},
-'salvacao':{
-intro1:['"Você tem certeza da sua salvação?"','A salvação é a maior necessidade da humanidade e o maior presente de Deus.','Muitos tentam ganhar o céu por mérito próprio. Hoje vamos ver que é graça, não esforço.'],
-intro2:['A salvação não é uma religião, mas um relacionamento restaurado com Deus.','No contexto bíblico, salvação é resgate: Deus nos tirou do reino das trevas para o Reino do Filho.','A salvação é obra de Deus do início ao fim. Nós contribuímos com o pecado; Ele com a graça.'],
-intro3:['A salvação é por graça, mediante a fé em Cristo. Não há outro caminho.','Jesus é o único caminho, a verdade e a vida.','A salvação transforma: quem é salvo é nova criação.'],
-dev1:['A humanidade está separada de Deus pelo pecado. Todos pecaram e destituídos estão da glória de Deus.','O pecado não é apenas o que fazemos, é o que somos: natureza caída.','A separação é real, mas Deus não deixou a humanidade sem solução.'],
-dev1verso:['Romanos 3:23','Isaías 59:2','Efésios 2:1-3'],
-dev2:['Jesus é o único caminho, a verdade e a vida. Ninguém vem ao Pai senão por Ele.','A cruz é o centro da história: ali Deus julgou o pecado e justificou o pecador.','Jesus não foi apenas um exemplo; Ele foi o substituto. Morreu em nosso lugar.'],
-dev2verso:['João 14:6','2 Coríntios 5:21','1 Pedro 2:24'],
-dev3:['A salvação é por graça, mediante a fé em Cristo. Não por obras, para que ninguém se glorie.','A fé é o instrumento; a graça é a fonte; Cristo é o objeto.','A salvação é segura: ninguém pode arrebatar das mãos do Pai.'],
-dev3verso:['Efésios 2:8-9','Romanos 5:1','João 10:28-29'],
-conc1:['A salvação é o presente mais precioso de Deus: não merecido, não conquistado, mas recebido pela fé em Jesus Cristo.'],
-conc2:['Se você ainda não entregou sua vida a Jesus, hoje é o dia da salvação. Não deixe para amanhã.','Compartilhe o evangelho com alguém esta semana. A salvação é demais para guardar só para nós.','Agradeça a Deus pela sua salvação. Nunca deixe de maravilhar-se com a graça.'],
-conc3:['Senhor, obrigado pela salvação. Obrigado por pagar um preço que não podíamos pagar. Que nossa vida seja uma resposta de gratidão. Amém.','Pai, leva-nos a compartilhar esta esperança. O mundo precisa saber que há salvação em Cristo.','Deus Salvador, guarda-nos firmes na fé até o fim. Que a nossa segurança esteja em Ti, não em nós. Amém.']
-},
-'espirito':{
-intro1:['"Você conhece o Consolador que Jesus prometeu?"','O Espírito Santo é a pessoa mais esquecida da Trindade, mas é quem mais próximo está de nós.','Jesus disse que era melhor Ele ir, para que o Espírito viesse. Vamos entender por quê.'],
-intro2:['O Espírito Santo não é uma força, mas uma pessoa divina. Ele pensa, sente e age.','No contexto bíblico, o Espírito habita em todo crente desde o momento da conversão.','O Espírito Santo é o protagonista da vida cristã: sem Ele, não há fruto, nem poder, nem testemunho.'],
-intro3:['O Espírito Santo habita em todo crente e nos capacita para viver e testemunhar.','O Espírito nos guia a toda a verdade e nos lembra o que Jesus disse.','O Espírito nos capacita para o testemunho e o serviço.'],
-dev1:['O Espírito Santo habita em todo crente. O corpo do cristão é templo do Espírito Santo.','A presença do Espírito é o selo da nossa salvação e a garantia da herança futura.','Não estamos sozinhos. O Espírito está conosco todos os dias, em todos os lugares.'],
-dev1verso:['1 Coríntios 6:19-20','Efésios 1:13-14','Mateus 28:20'],
-dev2:['O Espírito nos guia a toda a verdade. Ele é o nosso professor particular de teologia.','Sem o Espírito, a Bíblia é apenas letras. Com o Espírito, é Palavra viva.','O Espírito testifica com o nosso espírito que somos filhos de Deus.'],
-dev2verso:['João 16:13','1 Coríntios 2:14','Romanos 8:16'],
-dev3:['O Espírito nos capacita para o testemunho e o serviço. Os discípulos receberam poder quando o Espírito veio.','O fruto do Espírito é o caráter de Cristo formado em nós.','Os dons do Espírito são para edificação da igreja, não para exibição pessoal.'],
-dev3verso:['Atos 1:8','Gálatas 5:22-23','1 Coríntios 12:7'],
-conc1:['O Espírito Santo não é um acessório opcional; é essencial. Ele habita, guia, capacita e transforma. Sem Ele, a vida cristã é impossível.'],
-conc2:['Pergunte ao Espírito Santo hoje: "O que Tu queres que eu faça?" e ouça em silêncio.','Identifique um fruto do Espírito que precisa crescer em você. Peça ajuda para desenvolvê-lo.','Ore para ser cheio do Espírito Santo. O enchimento é repetível e necessário.'],
-conc3:['Vem, Espírito Santo. Enche este lugar e enche nossos corações. Que a Tua presença seja a nossa maior paixão. Amém.','Senhor, não queremos viver sem o Espírito. Ensina-nos a andar no Espírito e a depender dEle em cada decisão.','Deus Trino, obrigado pelo Espírito Santo. Que Ele nos guie, nos console e nos empodere para a Tua obra. Amém.']
-}
-};
+    function gerarEsboco() {
+        const tema = document.getElementById('inputTema').value.trim();
+        const passagem = document.getElementById('inputPassagem').value.trim();
+        const contexto = document.getElementById('inputContexto').value.trim();
 
-function detectarTema(t,p,c){
-var x=(t+' '+p+' '+c).toLowerCase();
-var w={fe:['fe','fé','confianca','confiança','cre','crer','crenca','crença','mostarda','montanha','impossivel','impossível'],
-amor:['amor','amar','caridade','bondade','próximo','proximo','ágape'],
-oracao:['oracao','oração','orar','clamar','intercessao','intercessão','súplica','pedido'],
-perdao:['perdao','perdão','perdoar','ofensa','mágoa','magoa','reconciliar','libertar'],
-familia:['familia','família','lar','marido','esposa','filho','pai','mãe','mae','casamento','educar'],
-esperanca:['esperanca','esperança','desanimo','desânimo','futuro','âncora','ancora','volta de cristo','consumacao'],
-salvacao:['salvacao','salvação','salvo','salvar','graça','justificação','justificacao','novo nascimento','converter','conversao'],
-espirito:['espirito','espírito','espirito santo','consolador','dons','fruto','cheio','enchimento','pentecostes']};
-for(var k in w){for(var i=0;i<w[k].length;i++){if(x.indexOf(w[k][i])!==-1)return k;}}
-return null;
-}
+        if(!tema && !passagem) {
+            alert('Por favor, informe pelo menos o tema ou a passagem para gerar o esboço.');
+            return;
+        }
 
-function gerarEsboco(){
-var tema=document.getElementById('inputTema').value.trim();
-var passagem=document.getElementById('inputPassagem').value.trim();
-var contexto=document.getElementById('inputContexto').value.trim();
-if(!tema&&!passagem){alert('Por favor, informe pelo menos o tema ou a passagem.');return;}
-document.getElementById('temaTitulo').value='TEMA: '+(tema||'Estudo Bíblico');
-document.getElementById('textoBase').value='Texto base: '+(passagem||'A definir');
+        document.getElementById('temaTitulo').value = 'TEMA: ' + (tema || 'Estudo Bíblico');
+        document.getElementById('textoBase').value = 'Texto base: ' + (passagem || 'A definir');
 
-var td=detectarTema(tema,passagem,contexto);
-var dados=bancoTemas[td];
-var ids=['intro1','intro2','intro3','dev1','dev1verso','dev2','dev2verso','dev3','dev3verso','conc1','conc2','conc3'];
-for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)el.innerHTML='';}
+        // Sugestão automática de passagem baseada no tema
+        var sugestoes = {
+            'fe': {livro:'Hebreus', versiculo:'Hebreus 11:1-6 — "Ora, a fé é o firme fundamento das coisas que se esperam, e a prova das coisas que se não vêem."'},
+            'amor': {livro:'1 Coríntios', versiculo:'1 Coríntios 13:4-8 — "O amor é paciente, é benigno..."'},
+            'oracao': {livro:'Mateus', versiculo:'Mateus 7:7-8 — "Pedi, e dar-se-vos-á; buscai, e achareis..."'},
+            'perdao': {livro:'Efésios', versiculo:'Efésios 4:32 — "Antes, sede uns para com os outros benignos, misericordiosos, perdoando-vos uns aos outros..."'},
+            'familia': {livro:'Efésios', versiculo:'Efésios 5:25 — "Vós, maridos, amai a vossas mulheres, como também Cristo amou a igreja..."'},
+            'esperanca': {livro:'Romanos', versiculo:'Romanos 15:13 — "Ora, o Deus de esperança vos encha de todo o gozo e paz..."'},
+            'salvacao': {livro:'João', versiculo:'João 3:16 — "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito..."'},
+            'espirito': {livro:'Atos', versiculo:'Atos 1:8 — "Mas recebereis poder, ao descer sobre vós o Espírito Santo..."'},
+            'graca': {livro:'Efésios', versiculo:'Efésios 2:8-9 — "Porque pela graça sois salvos, por meio da fé..."'},
+            'paz': {livro:'Filipenses', versiculo:'Filipenses 4:6-7 — "Não andeis ansiosos por coisa alguma..."'},
+            'humildade': {livro:'Filipenses', versiculo:'Filipenses 2:3-4 — "Nada façais por contenda ou por vanglória..."'},
+            'sabedoria': {livro:'Tiago', versiculo:'Tiago 1:5 — "Se algum de vós tem falta de sabedoria, peça-a a Deus..."'},
+            'tentacao': {livro:'1 Coríntios', versiculo:'1 Coríntios 10:13 — "Não vos sobreveio tentação, senão humana..."'},
+            'obediencia': {livro:'João', versiculo:'João 14:15 — "Se me amais, guardai os meus mandamentos."'},
+            'santidade': {livro:'1 Pedro', versiculo:'1 Pedro 1:15-16 — "Mas, como é santo aquele que vos chamou..."'},
+            'misericordia': {livro:'Salmos', versiculo:'Salmos 103:8 — "O Senhor é misericordioso e compassivo, tardio em irar-se..."'},
+            'justica': {livro:'Romanos', versiculo:'Romanos 1:17 — "Porque a justiça de Deus se revela no evangelho..."'},
+            'gratidao': {livro:'1 Tessalonicenses', versiculo:'1 Tessalonicenses 5:18 — "Em tudo dai graças, porque esta é a vontade de Deus..."'},
+            'confianca': {livro:'Provérbios', versiculo:'Provérbios 3:5-6 — "Confia no Senhor de todo o teu coração..."'},
+            'forca': {livro:'Isaías', versiculo:'Isaías 40:31 — "Mas os que esperam no Senhor renovarão as suas forças..."'},
+            'luz': {livro:'João', versiculo:'João 8:12 — "Eu sou a luz do mundo; quem me segue não andará em trevas..."'},
+            'verdade': {livro:'João', versiculo:'João 14:6 — "Eu sou o caminho, a verdade e a vida..."'},
+            'vida': {livro:'João', versiculo:'João 10:10 — "Eu vim para que tenham vida, e a tenham com abundância."'},
+            'reino': {livro:'Mateus', versiculo:'Mateus 6:33 — "Buscai primeiro o reino de Deus, e a sua justiça..."'},
+            'discipulado': {livro:'Lucas', versiculo:'Lucas 9:23 — "Se alguém quer vir após mim, negue-se a si mesmo..."'},
+            'servico': {livro:'Gálatas', versiculo:'Gálatas 5:13 — "Vós, irmãos, fostes chamados à liberdade..."'},
+            'generosidade': {livro:'2 Coríntios', versiculo:'2 Coríntios 9:7 — "Cada um contribui segundo propôs no seu coração..."'},
+            'paciencia': {livro:'Romanos', versiculo:'Romanos 5:3-4 — "E não somente isto, mas também nos gloriamos nas tribulações..."'},
+            'alegria': {livro:'Neemias', versiculo:'Neemias 8:10 — "Não vos entristeçais, porque o gozo do Senhor é a vossa força."'},
+            'unidade': {livro:'Salmos', versiculo:'Salmos 133:1 — "Oh! quão bom e quão suave é que os irmãos vivam em união!"'},
+            'santificacao': {livro:'1 Tessalonicenses', versiculo:'1 Tessalonicenses 4:3 — "Porque esta é a vontade de Deus: a vossa santificação..."'},
+            'renovacao': {livro:'Romanos', versiculo:'Romanos 12:2 — "E não vos conformeis com este século, mas transformai-vos..."'},
+            'proposito': {livro:'Jeremias', versiculo:'Jeremias 29:11 — "Porque eu bem sei os pensamentos que tenho a vosso respeito..."'},
+            'guerra': {livro:'Efésios', versiculo:'Efésios 6:10-11 — "Digo-vos, finalmente, fortalecei-vos no Senhor..."'},
+            'vitoria': {livro:'1 João', versiculo:'1 João 5:4 — "Porque tudo o que é nascido de Deus vence o mundo..."'},
+            'cur': {livro:'Isaías', versiculo:'Isaías 53:5 — "Mas ele foi ferido pelas nossas transgressões..."'},
+            'provisao': {livro:'Filipenses', versiculo:'Filipenses 4:19 — "O meu Deus, segundo as suas riquezas, suprirá..."'},
+            'protecao': {livro:'Salmos', versiculo:'Salmos 91:1-2 — "Aquele que habita no esconderijo do Altíssimo..."'},
+            'guia': {livro:'Salmos', versiculo:'Salmos 23:1-3 — "O Senhor é o meu pastor; nada me faltará..."'},
+            'restauracao': {livro:'Joel', versiculo:'Joel 2:25 — "E restituirei os anos que comeu o gafanhoto..."'},
+            'novo': {livro:'2 Coríntios', versiculo:'2 Coríntios 5:17 — "Assim que, se alguém está em Cristo, nova criatura é..."'},
+            'nascimento': {livro:'João', versiculo:'João 3:3 — "Em verdade, em verdade te digo que aquele que não nascer de novo..."'},
+            'crescer': {livro:'2 Pedro', versiculo:'2 Pedro 3:18 — "Antes, crescei na graça e no conhecimento..."'},
+            'fruto': {livro:'Gálatas', versiculo:'Gálatas 5:22-23 — "Mas o fruto do Espírito é amor, gozo, paz..."'},
+            'dons': {livro:'1 Coríntios', versiculo:'1 Coríntios 12:4-7 — "Ora, há diversidade de dons, mas o Espírito é o mesmo..."'},
+            'chamado': {livro:'Romanos', versiculo:'Romanos 8:28 — "E sabemos que todas as coisas contribuem juntamente..."'},
+            'missao': {livro:'Mateus', versiculo:'Mateus 28:19-20 — "Ide, portanto, fazei discípulos de todas as nações..."'},
+            'testemunho': {livro:'Atos', versiculo:'Atos 1:8 — "Mas recebereis poder, ao descer sobre vós o Espírito Santo..."'},
+            'perseveranca': {livro:'Hebreus', versiculo:'Hebreus 12:1-2 — "Portanto, nós também, pois, que estamos rodeados..."'},
+            'sofrimento': {livro:'Romanos', versiculo:'Romanos 8:18 — "Porque para mim tenho por certo que as aflições..."'},
+            'morte': {livro:'1 Coríntios', versiculo:'1 Coríntios 15:55-57 — "Onde está, ó morte, a tua vitória?..."'},
+            'ressurreicao': {livro:'1 Coríntios', versiculo:'1 Coríntios 15:20 — "Mas, de fato, Cristo ressuscitou dentre os mortos..."'},
+            'volta': {livro:'João', versiculo:'João 14:3 — "E, quando eu for, e vos preparar lugar, virei outra vez..."'},
+            'juizo': {livro:'Hebreus', versiculo:'Hebreus 9:27 — "E, assim como está ordenado aos homens morrerem uma só vez..."'},
+            'eternidade': {livro:'Apocalipse', versiculo:'Apocalipse 21:4 — "E Deus limpará de seus olhos toda a lágrima..."'},
+            'ceu': {livro:'João', versiculo:'João 14:2 — "Na casa de meu Pai há muitas moradas..."'},
+            'inferno': {livro:'Mateus', versiculo:'Mateus 25:41 — "Apartai-vos de mim, malditos, para o fogo eterno..."'},
+            'anjo': {livro:'Hebreus', versiculo:'Hebreus 1:14 — "Não são, porventura, todos eles espíritos ministradores..."'},
+            'demonio': {livro:'Tiago', versiculo:'Tiago 4:7 — "Sujeitai-vos, pois, a Deus; resisti ao diabo..."'},
+            'pecado': {livro:'Romanos', versiculo:'Romanos 3:23 — "Porque todos pecaram e destituídos estão da glória de Deus."'},
+            'arrependimento': {livro:'Atos', versiculo:'Atos 3:19 — "Arrependei-vos, pois, e convertei-vos..."'},
+            'conversao': {livro:'Atos', versiculo:'Atos 2:38 — "Arrependei-vos, e cada um de vós seja batizado..."'},
+            'batismo': {livro:'Romanos', versiculo:'Romanos 6:4 — "Fomos, pois, sepultados com ele pelo batismo..."'},
+            'ceia': {livro:'Lucas', versiculo:'Lucas 22:19-20 — "E, tomando o pão, e havendo dado graças, partiu-o..."'},
+            'igreja': {livro:'Mateus', versiculo:'Mateus 16:18 — "E eu também te digo que tu és Pedro, e sobre esta pedra..."'},
+            'corpo': {livro:'1 Coríntios', versiculo:'1 Coríntios 12:27 — "Ora, vós sois o corpo de Cristo..."'},
+            'lideranca': {livro:'1 Timoteo', versiculo:'1 Timoteo 3:1-2 — "Fiel é esta palavra: Se alguém aspira ao episcopado..."'},
+            'pastor': {livro:'1 Pedro', versiculo:'1 Pedro 5:2-3 — "Apascentai o rebanho de Deus que está entre vós..."'},
+            'diacono': {livro:'Atos', versiculo:'Atos 6:3 — "Escolhei, pois, dentre vós, irmãos, sete homens..."'},
+            'profecia': {livro:'2 Pedro', versiculo:'2 Pedro 1:21 — "Porque nunca nenhuma profecia foi dada por vontade humana..."'},
+            'revelacao': {livro:'Apocalipse', versiculo:'Apocalipse 1:1 — "A revelação de Jesus Cristo, a qual Deus lhe deu..."'},
+            'palavra': {livro:'2 Timoteo', versiculo:'2 Timoteo 3:16-17 — "Toda a Escritura é divinamente inspirada..."'},
+            'pregacao': {livro:'Romanos', versiculo:'Romanos 10:14-15 — "Como, pois, invocarão aquele em quem não creram?..."'},
+            'evangelho': {livro:'Romanos', versiculo:'Romanos 1:16 — "Porque não me envergonho do evangelho de Cristo..."'},
+            'santidade': {livro:'Hebreus', versiculo:'Hebreus 12:14 — "Segui a paz com todos, e a santificação..."'},
+            'consagracao': {livro:'Romanos', versiculo:'Romanos 12:1 — "Rogo-vos, pois, irmãos, pela compaixão de Deus..."'},
+            'adoracao': {livro:'João', versiculo:'João 4:24 — "Deus é Espírito, e importa que os que o adoram..."'},
+            'louvor': {livro:'Salmos', versiculo:'Salmos 150:6 — "Tudo o que tem fôlego louve ao Senhor."'},
+            'gratidao': {livro:'Salmos', versiculo:'Salmos 107:1 — "Louvai ao Senhor, porque ele é bom..."'},
+            'jejum': {livro:'Mateus', versiculo:'Mateus 6:16-18 — "Quando jejuardes, não vos mostreis contristados..."'},
+            'oferta': {livro:'2 Coríntios', versiculo:'2 Coríntios 9:7 — "Cada um contribui segundo propôs no seu coração..."'},
+            'dizimo': {livro:'Malaquias', versiculo:'Malaquias 3:10 — "Trazei todos os dízimos à casa do tesouro..."'},
+            'sabado': {livro:'Êxodo', versiculo:'Êxodo 20:8-10 — "Lembra-te do dia de sábado, para o santificar..."'},
+            'domingo': {livro:'Atos', versiculo:'Atos 20:7 — "E no primeiro dia da semana, estando os discípulos reunidos..."'},
+            'natal': {livro:'Lucas', versiculo:'Lucas 2:11 — "Porque vos nasceu hoje, na cidade de Davi, o Salvador..."'},
+            'pascoa': {livro:'1 Coríntios', versiculo:'1 Coríntios 5:7 — "Pois, na verdade, Cristo, nossa páscoa, foi sacrificado por nós."'},
+            'pentecostes': {livro:'Atos', versiculo:'Atos 2:1-4 — "E, cumprindo-se o dia de Pentecostes..."'},
+            'trindade': {livro:'Mateus', versiculo:'Mateus 28:19 — "Ide, portanto, fazei discípulos de todas as nações..."'},
+            'pai': {livro:'Mateus', versiculo:'Mateus 6:9 — "Vosso Pai, que está nos céus..."'},
+            'filho': {livro:'João', versiculo:'João 1:14 — "E o Verbo se fez carne, e habitou entre nós..."'},
+            'criacao': {livro:'Gênesis', versiculo:'Gênesis 1:1 — "No princípio criou Deus os céus e a terra."'},
+            'queda': {livro:'Gênesis', versiculo:'Gênesis 3:6 — "E, vendo a mulher que aquela árvore era boa para se comer..."'},
+            'noe': {livro:'Gênesis', versiculo:'Gênesis 6:8 — "Mas Noé achou graça aos olhos do Senhor."'},
+            'abraham': {livro:'Gênesis', versiculo:'Gênesis 12:1-3 — "Ora, o Senhor disse a Abrão: Sai-te da tua terra..."'},
+            'moises': {livro:'Êxodo', versiculo:'Êxodo 3:14 — "E disse Deus a Moisés: EU SOU O QUE SOU..."'},
+            'davi': {livro:'Salmos', versiculo:'Salmos 23:1 — "O Senhor é o meu pastor; nada me faltará."'},
+            'salomao': {livro:'Provérbios', versiculo:'Provérbios 1:7 — "O temor do Senhor é o princípio do conhecimento..."'},
+            'isaias': {livro:'Isaías', versiculo:'Isaías 6:8 — "E ouvi a voz do Senhor, que dizia: A quem enviarei..."'},
+            'jeremias': {livro:'Jeremias', versiculo:'Jeremias 1:5 — "Antes que te formasse no ventre, te conheci..."'},
+            'ezequiel': {livro:'Ezequiel', versiculo:'Ezequiel 36:26 — "E vos darei um coração novo..."'},
+            'daniel': {livro:'Daniel', versiculo:'Daniel 6:22 — "O meu Deus enviou o seu anjo..."'},
+            'jonas': {livro:'Jonas', versiculo:'Jonas 2:10 — "Falou, pois, o Senhor ao peixe..."'},
+            'maria': {livro:'Lucas', versiculo:'Lucas 1:38 — "E disse Maria: Eis aqui a serva do Senhor..."'},
+            'jose': {livro:'Mateus', versiculo:'Mateus 1:24 — "E, despertando José do sono, fez como o anjo do Senhor..."'},
+            'joao': {livro:'João', versiculo:'João 13:23 — "Ora, um dos seus discípulos, aquele a quem Jesus amava..."'},
+            'pedro': {livro:'Mateus', versiculo:'Mateus 16:16 — "E Simão Pedro, respondendo, disse: Tu és o Cristo..."'},
+            'paulo': {livro:'Filipenses', versiculo:'Filipenses 3:13-14 — "Irmãos, quanto a mim, não julgo que o haja alcançado..."'},
+            'tiago': {livro:'Tiago', versiculo:'Tiago 1:2 — "Meus irmãos, tende por motivo de toda a alegria..."'},
+            'judas': {livro:'Judas', versiculo:'Judas 1:20-21 — "Mas vós, amados, edificando-vos sobre a vossa santíssima fé..."'},
+            'apocalipse': {livro:'Apocalipse', versiculo:'Apocalipse 22:20 — "Aquele que testifica estas coisas diz: Certamente, cedo venho..."'}
+        };
 
-var sugestoes=[];
-if(dados){
-for(var campo in dados){
-if(Array.isArray(dados[campo])){
-dados[campo].forEach(function(txt){
-sugestoes.push({campo:campo,texto:txt,desc:'Sugestão contextualizada'});
-});
-}
-}
-}else{
-ids.forEach(function(id){
-var txt='';
-if(id==='intro1')txt='Comece com uma pergunta que conecte o tema "'+(tema||'a Palavra de Deus')+'" com a realidade do ouvinte.';
-else if(id==='intro2')txt='Contextualize a passagem de '+(passagem||'a Escritura')+', explicando o cenário histórico e espiritual em que o texto foi escrito.';
-else if(id==='intro3')txt='A mensagem central é: '+(tema||'a Palavra de Deus')+'. Este é o eixo que guiará toda a ministração.';
-else if(id==='dev1')txt='Primeiro ponto: apresente a verdade bíblica central do tema "'+(tema||'escolhido')+'" a partir da passagem '+(passagem||'estudada')+'.';
-else if(id==='dev2')txt='Segundo ponto: desenvolva aplicações práticas e exemplos da Escritura relacionados a '+(contexto||'a vida cristã')+'.';
-else if(id==='dev3')txt='Terceiro ponto: mostre como esta verdade transforma a vida do crente em '+(contexto||'sua caminhada com Deus')+'.';
-else if(id==='conc1')txt='Resuma os três pontos principais e reforce que '+(tema||'a Palavra de Deus')+' tem poder para transformar vidas.';
-else if(id==='conc2')txt='Apelo direto ao ouvinte: como você pode aplicar esta verdade na sua vida esta semana? Que decisão prática você precisa tomar?';
-else if(id==='conc3')txt='Oração de encerramento, pedindo ao Senhor que fortaleça a fé, aumente o amor e confirme a Palavra no coração de cada um.';
-else if(id.indexOf('verso')!==-1)txt='Versículo de apoio: (escolha uma referência que confirme este ponto)';
-if(txt)sugestoes.push({campo:id,texto:txt,desc:'Sugestão genérica'});
-});
-}
+        var tl = (tema || passagem || '').toLowerCase();
+        var sugestaoEncontrada = null;
+        for(var k in sugestoes) {
+            if(tl.indexOf(k) !== -1) { sugestaoEncontrada = sugestoes[k]; break; }
+        }
 
-var painel=document.getElementById('painelSugestoes');
-var lista=document.getElementById('listaSugestoes');
-painel.classList.add('visivel');
+        var campoSugestao = document.getElementById('inputSugestao');
+        var boxSugestao = document.getElementById('boxSugestao');
+        var sugestaoPassagem = document.getElementById('sugestaoPassagem');
 
-var grupos={};
-sugestoes.forEach(function(s){if(!grupos[s.campo])grupos[s.campo]=[];grupos[s.campo].push(s);});
-var nomes={intro1:'I — Introdução: Ganhar atenção',intro2:'I — Introdução: Contexto',intro3:'I — Introdução: Proposição central',
-dev1:'II — Desenvolvimento: Ponto 1',dev1verso:'II — Versículo de apoio 1',
-dev2:'II — Desenvolvimento: Ponto 2',dev2verso:'II — Versículo de apoio 2',
-dev3:'II — Desenvolvimento: Ponto 3',dev3verso:'II — Versículo de apoio 3',
-conc1:'III — Conclusão: Resumo',conc2:'III — Conclusão: Aplicação',conc3:'III — Conclusão: Oração'};
-var html='';
-for(var campo in grupos){
-html+='<h4 style="color:#f0d76e;margin-top:1rem;">'+(nomes[campo]||campo)+'</h4>';
-grupos[campo].forEach(function(s,idx){
-html+='<div class="sugestao-item" onclick="aplicarSugestao(\''+campo+'\',this,'+idx+')">';
-html+='<strong>'+s.texto+'</strong>';
-html+='<small>'+s.desc+' — clique para aplicar</small>';
-html+='</div>';
-});
-}
-lista.innerHTML=html;
+        if(sugestaoEncontrada) {
+            campoSugestao.value = sugestaoEncontrada.livro + ' — ' + sugestaoEncontrada.versiculo;
+            sugestaoPassagem.textContent = sugestaoEncontrada.versiculo;
+            boxSugestao.style.display = 'block';
+        } else {
+            campoSugestao.value = 'Nenhuma sugestão automática encontrada para este tema. Pesquise na Bíblia ou insira manualmente.';
+            sugestaoPassagem.textContent = 'Sugestão de passagem: (pesquise um versículo relacionado ao tema e insira aqui)';
+            boxSugestao.style.display = 'block';
+        }
 
-document.getElementById('esbocoPrincipal').classList.add('visivel');
-document.getElementById('botoesAcao').style.display='flex';
-document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
-}
+        const tl = (tema || passagem).toLowerCase();
 
-function aplicarSugestao(campo,el,idx){
-var target=document.getElementById(campo);
-if(!target)return;
-var txt=el.querySelector('strong').textContent;
-if(campo.indexOf('verso')!==-1){
-target.textContent=txt;
-}else{
-target.innerHTML=txt;
-}
-el.classList.add('aplicada');
-el.querySelector('small').textContent='Aplicado ao esboço ✓';
-}
+        document.getElementById('intro1').textContent = contexto
+            ? 'Apresentar o tema de forma que conecte com a realidade do ouvinte. ' + contexto
+            : 'Apresentar o tema de forma que conecte com a realidade e as necessidades do ouvinte, chamando a atenção para a relevância da Palavra.';
+        document.getElementById('intro2').textContent = passagem
+            ? 'Contextualizar a passagem de ' + passagem + ', explicando o cenário histórico e espiritual em que o texto foi escrito.'
+            : 'Contextualizar o tema bíblico escolhido, apresentando o cenário histórico e espiritual das Escrituras.';
+        document.getElementById('intro3').textContent = tema
+            ? 'A mensagem central é: ' + tema + '. Este é o eixo que guiará toda a ministração.'
+            : 'A mensagem central será desenvolvida a partir da Palavra de Deus, buscando transformar vidas.';
 
-function novoEsboco(){
-document.getElementById('inputTema').value='';
-document.getElementById('inputPassagem').value='';
-document.getElementById('inputContexto').value='';
-document.getElementById('esbocoPrincipal').classList.remove('visivel');
-document.getElementById('painelSugestoes').classList.remove('visivel');
-document.getElementById('botoesAcao').style.display='none';
-window.scrollTo({top:0,behavior:'smooth'});
-}
+        var pts = null;
+        var chaves = {
+            'fe': {p1:'A fé reconhece a impossibilidade humana e confia no poder de Deus.', p2:'A fé está ligada à Palavra de Deus e à sua promessa.', p3:'A fé madura se expressa em oração e entrega.'},
+            'amor': {p1:'O amor de Deus é incondicional e se revelou em Cristo.', p2:'O amor ao próximo é a marca do discípulo de Jesus.', p3:'O amor supera o medo e transforma relacionamentos.'},
+            'oracao': {p1:'A oração é o canal de comunhão com Deus.', p2:'A oração de fé move o coração de Deus.', p3:'A oração persistente traz respostas no tempo certo.'},
+            'perdao': {p1:'Deus nos perdoou gratuitamente em Cristo.', p2:'O perdão liberta quem perdoa, não apenas quem é perdoado.', p3:'Perdoar setenta vezes sete é um estilo de vida.'},
+            'familia': {p1:'A família foi instituída por Deus como núcleo da sociedade.', p2:'Amor, respeito e submissão são pilares do lar cristão.', p3:'A família que ora unida permanece unida.'},
+            'esperanca': {p1:'A esperança cristã é certeza, não mera expectativa.', p2:'Deus trabalha em todas as coisas para o bem daqueles que O amam.', p3:'A esperança da volta de Cristo nos sustenta.'},
+            'salvacao': {p1:'A humanidade está separada de Deus pelo pecado.', p2:'Jesus é o único caminho, a verdade e a vida.', p3:'A salvação é por graça, mediante a fé em Cristo.'},
+            'espirito': {p1:'O Espírito Santo habita em todo crente.', p2:'O Espírito nos guia a toda a verdade.', p3:'O Espírito nos capacita para o testemunho e o serviço.'}
+        };
+        for(var k in chaves) {
+            if(tl.indexOf(k) !== -1) { pts = chaves[k]; break; }
+        }
+        if(!pts) {
+            pts = {p1:'Primeiro ponto principal: apresente a verdade bíblica central do tema escolhido.', p2:'Segundo ponto principal: desenvolva aplicações práticas e exemplos da Escritura.', p3:'Terceiro ponto principal: mostre como esta verdade transforma a vida do crente.'};
+        }
 
-function salvarEsboco(){
-var dados={tema:document.getElementById('temaTitulo').value,ref:document.getElementById('textoBase').value,campos:{}};
-var ids=['intro1','intro2','intro3','dev1','dev1verso','dev2','dev2verso','dev3','dev3verso','conc1','conc2','conc3'];
-for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)dados.campos[ids[i]]=el.innerHTML;}
-var modelos=JSON.parse(localStorage.getItem('esbocosSalvos')||'[]');
-modelos.unshift({id:Date.now(),tema:dados.tema,ref:dados.ref,campos:dados.campos,data:new Date().toLocaleString()});
-if(modelos.length>10)modelos=modelos.slice(0,10);
-localStorage.setItem('esbocosSalvos',JSON.stringify(modelos));
-mostrarModelos();
-alert('Esboço salvo com sucesso!');
-}
+        document.getElementById('dev1').textContent = pts.p1;
+        document.getElementById('dev1verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
+        document.getElementById('dev2').textContent = pts.p2;
+        document.getElementById('dev2verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
+        document.getElementById('dev3').textContent = pts.p3;
+        document.getElementById('dev3verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
 
-function carregarModelo(idx){
-var modelos=JSON.parse(localStorage.getItem('esbocosSalvos')||'[]');
-var m=modelos[idx];if(!m)return;
-document.getElementById('temaTitulo').value=m.tema;
-document.getElementById('textoBase').value=m.ref;
-if(m.campos){for(var id in m.campos){var el=document.getElementById(id);if(el)el.innerHTML=m.campos[id];}}
-document.getElementById('esbocoPrincipal').classList.add('visivel');
-document.getElementById('botoesAcao').style.display='flex';
-document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
-}
+        document.getElementById('conc1').textContent = 'Resumir os três pontos principais e reforçar que ' + (tema || 'a Palavra de Deus') + ' tem poder para transformar vidas.';
+        document.getElementById('conc2').textContent = 'Apelo direto ao ouvinte: como você pode aplicar esta verdade na sua vida esta semana? Que decisão prática você precisa tomar?';
+        document.getElementById('conc3').textContent = 'Oração de encerramento, pedindo ao Senhor que fortaleça a fé, aumente o amor e confirme a Palavra no coração de cada um.';
 
-function removerModelo(idx){
-var modelos=JSON.parse(localStorage.getItem('esbocosSalvos')||'[]');
-modelos.splice(idx,1);
-localStorage.setItem('esbocosSalvos',JSON.stringify(modelos));
-mostrarModelos();
-}
+        document.getElementById('esbocoPrincipal').classList.add('visivel');
+        document.getElementById('botoesAcao').style.display = 'flex';
+        document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
+    }
 
-function mostrarModelos(){
-var modelos=JSON.parse(localStorage.getItem('esbocosSalvos')||'[]');
-var area=document.getElementById('areaModelos');
-var lista=document.getElementById('listaModelos');
-if(modelos.length===0){area.style.display='none';return;}
-area.style.display='block';
-var html='';
-for(var i=0;i<modelos.length;i++){
-var m=modelos[i];
-html+='<div class="modelo-item"><span onclick="carregarModelo('+i+')"><strong>'+m.tema.replace('TEMA: ','')+'</strong> <small>('+(m.ref||'').replace('Texto base: ','')+') — '+m.data+'</small></span><button onclick="removerModelo('+i+')" title="Remover">&#128465;</button></div>';
-}
-lista.innerHTML=html;
-}
+    function novoEsboco() {
+        document.getElementById('inputTema').value = '';
+        document.getElementById('inputPassagem').value = '';
+        document.getElementById('inputContexto').value = '';
+        document.getElementById('esbocoPrincipal').classList.remove('visivel');
+        document.getElementById('botoesAcao').style.display = 'none';
+        window.scrollTo({top:0, behavior:'smooth'});
+    }
 
-window.addEventListener('load',mostrarModelos);
+    function salvarEsboco() {
+        var dados = {tema: document.getElementById('temaTitulo').value, ref: document.getElementById('textoBase').value, campos: {}};
+        var ids = ['intro1','intro2','intro3','dev1','dev1verso','dev2','dev2verso','dev3','dev3verso','conc1','conc2','conc3','sugestaoPassagem'];
+        for(var i=0; i<ids.length; i++) {
+            var el = document.getElementById(ids[i]);
+            if(el) dados.campos[ids[i]] = el.innerHTML;
+        }
+        var modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        modelos.unshift({id: Date.now(), tema: dados.tema, ref: dados.ref, campos: dados.campos, data: new Date().toLocaleString()});
+        if(modelos.length > 10) modelos = modelos.slice(0,10);
+        localStorage.setItem('esbocosSalvos', JSON.stringify(modelos));
+        mostrarModelos();
+        alert('Esboço salvo com sucesso!');
+    }
+
+    function carregarModelo(idx) {
+        var modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        var m = modelos[idx]; if(!m) return;
+        document.getElementById('temaTitulo').value = m.tema;
+        document.getElementById('textoBase').value = m.ref;
+        if(m.campos) {
+            for(var id in m.campos) {
+                var el = document.getElementById(id);
+                if(el) el.innerHTML = m.campos[id];
+            }
+        }
+        var boxSugestao = document.getElementById('boxSugestao');
+        if(boxSugestao && m.campos && m.campos['sugestaoPassagem']) {
+            boxSugestao.style.display = 'block';
+        }
+        document.getElementById('esbocoPrincipal').classList.add('visivel');
+        document.getElementById('botoesAcao').style.display = 'flex';
+        document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
+    }
+
+    function removerModelo(idx) {
+        var modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        modelos.splice(idx,1);
+        localStorage.setItem('esbocosSalvos', JSON.stringify(modelos));
+        mostrarModelos();
+    }
+
+    function mostrarModelos() {
+        var modelos = JSON.parse(localStorage.getItem('esbocosSalvos') || '[]');
+        var area = document.getElementById('areaModelos');
+        var lista = document.getElementById('listaModelos');
+        if(modelos.length === 0) { area.style.display = 'none'; return; }
+        area.style.display = 'block';
+        var html = '';
+        for(var i=0; i<modelos.length; i++) {
+            var m = modelos[i];
+            html += '<div class="modelo-item"><span onclick="carregarModelo(' + i + ')"><strong>' + m.tema.replace('TEMA: ','') + '</strong> <small>(' + m.ref.replace('Texto base: ','') + ') — ' + m.data + '</small></span><button onclick="removerModelo(' + i + ')" title="Remover">&#128465;</button></div>';
+        }
+        lista.innerHTML = html;
+    }
+
+    window.addEventListener('load', mostrarModelos);
 </script>
 </body>
 </html>
