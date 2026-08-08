@@ -20,6 +20,43 @@
         body.modo-claro .form-gerador, body.modo-claro .esboco-container, body.modo-claro .modelos-salvos {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
         body.modo-claro .campo-editavel, body.modo-claro .campo-form input, body.modo-claro .campo-form textarea {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
         body.modo-claro #inputSugestao {background:rgba(220,225,240,.8) !important; color:#1a1a2e !important;}
+body.modo-claro h1, body.modo-claro h2, body.modo-claro h3, body.modo-claro h4 {color:var(--ouro-escuro);}
+body.modo-claro .versiculo, body.modo-claro .versiculo-box {color:#1a1a2e;}
+body.modo-claro footer p, body.modo-claro header p {color:#2d2d44;}
+body.modo-claro label {color:#1a1a2e;}
+body.modo-claro .destaque {color:var(--ouro-escuro);}
+body.modo-claro .campo-ref {color:#555;}
+body.modo-claro .info-versao {color:#666;}
+body.modo-claro .ref {color:#666;}
+body.modo-claro .tag {color:var(--ouro-escuro);}
+body.modo-claro .grupo-titulo {color:var(--ouro-escuro);}
+body.modo-claro .plano-lista li {color:#2d2d44;}
+body.modo-claro .versiculo-linha {color:#1a1a2e;}
+body.modo-claro strong {color:var(--ouro-escuro);}
+body.modo-claro .timeline-item {color:#2d2d44;}
+body.modo-claro .recurso-card a {color:var(--ouro-escuro);}
+body.modo-claro .campo-titulo {color:var(--ouro-escuro);}
+body.modo-claro .modelo-item span {color:var(--ouro-escuro);}
+body.modo-claro .fav-item a {color:var(--ouro-escuro);}
+body.modo-claro .hist-tag {color:#1a1a2e;}
+body.modo-claro .loading {color:var(--ouro-escuro);}
+body.modo-claro .erro {color:#c00;}
+body.modo-claro .numero {color:var(--ouro-escuro);}
+body.modo-claro .btn-fav {color:var(--azul-escuro);}
+body.modo-claro .btn-acao {color:var(--azul-escuro);}
+body.modo-claro .btn-gerar {color:var(--azul-escuro);}
+body.modo-claro .btn-reset {color:var(--azul-escuro);}
+body.modo-claro .botao-painel {color:var(--azul-escuro);}
+body.modo-claro .botao-carregar {color:var(--azul-escuro);}
+body.modo-claro .cartao-link .conteudo-card p {color:#444;}
+body.modo-claro .passo strong {color:var(--ouro-escuro);}
+body.modo-claro .regra-card strong {color:var(--ouro-escuro);}
+body.modo-claro .nivel-box strong {color:var(--ouro-escuro);}
+body.modo-claro .objetivo-item strong {color:var(--ouro-escuro);}
+body.modo-claro .resumo-box strong {color:var(--ouro-escuro);}
+body.modo-claro .dica-box h3 {color:var(--ouro-escuro);}
+body.modo-claro .tabela th {color:#0f1a30;}
+body.modo-claro .tabela td {color:#2d2d44;}
 
         .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
         .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
@@ -392,16 +429,10 @@ function gerarEsboco() {
     }
 
     document.getElementById('temaTitulo').value = 'TEMA: ' + (tema || 'Estudo Bíblico');
+    document.getElementById('textoBase').value = 'Texto base: ' + (passagem || 'A definir');
 
     // Sugestão automática de passagem
     var sugestao = buscarSugestao(tema || passagem);
-
-    // Preenche o texto base: se o usuário digitou manualmente, usa isso; senão, usa a sugestão
-    var textoBaseValor = passagem;
-    if(!textoBaseValor && sugestao) {
-        textoBaseValor = sugestao.vers;
-    }
-    document.getElementById('textoBase').value = 'Texto base: ' + (textoBaseValor || 'A definir');
     var campoSugestao = document.getElementById('inputSugestao');
     var boxSugestao = document.getElementById('boxSugestao');
     var sugestaoPassagem = document.getElementById('sugestaoPassagem');
