@@ -28,6 +28,10 @@ body.modo-claro .esboco-container, body.modo-claro .caixa-destaque, body.modo-cl
 body.modo-claro .painel-controles {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
 body.modo-claro select, body.modo-claro input {background:rgba(255,255,255,.8); color:#1a1a2e; border-color:var(--ouro-escuro);}
 body.modo-claro .botao-voltar, body.modo-claro .menu-toggle, body.modo-claro .botao-carregar, body.modo-claro .botao-painel {color:var(--azul-escuro);}
+body.modo-claro .semana-cabecalho {background:linear-gradient(135deg, rgba(255,255,255,.6), rgba(220,225,240,.4));}
+body.modo-claro .semana-cabecalho h3 {color:var(--azul-escuro);}
+body.modo-claro .semana-cabecalho .seta {color:var(--ouro-escuro);}
+body.modo-claro .semana-cabecalho:hover {background:linear-gradient(135deg, rgba(255,255,255,.8), rgba(220,225,240,.6));}
 
 .menu-toggle {position:fixed; top:15px; left:15px; z-index:200; background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; width:50px; height:50px; border-radius:50%; font-size:24px; cursor:pointer; box-shadow:0 0 15px var(--dourado-sombra); display:flex; align-items:center; justify-content:center; transition:all .3s ease;}
 .menu-toggle:hover {transform:scale(1.1); box-shadow:0 0 25px var(--ouro);}
@@ -71,27 +75,75 @@ footer p {text-align:center;}
 @keyframes fadeInUp {from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);}}
 @keyframes fadeInDown {from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);}}
 
+/* ===== ACCORDION / SEMANAS ===== */
+.semana-cabecalho {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    padding:1rem 1.5rem;
+    background:linear-gradient(135deg, rgba(44,82,145,.5), rgba(15,32,64,.7));
+    border-radius:12px;
+    border:1px solid var(--ouro);
+    transition:all .3s ease;
+    user-select:none;
+    margin-bottom:0;
+}
+.semana-cabecalho:hover {
+    background:linear-gradient(135deg, rgba(44,82,145,.7), rgba(15,32,64,.9));
+    box-shadow:0 0 20px var(--dourado-sombra);
+}
+.semana-cabecalho h3 {
+    margin:0;
+    font-size:1.15rem;
+    text-align:left;
+}
+.semana-cabecalho .seta {
+    font-size:1.4rem;
+    color:var(--ouro-claro);
+    transition:transform .35s ease;
+    flex-shrink:0;
+    margin-left:1rem;
+}
+.semana-cabecalho.aberto .seta {
+    transform:rotate(180deg);
+}
+
+.semana-conteudo {
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease, padding .4s ease, opacity .3s ease;
+    opacity:0;
+    padding:0 1rem;
+}
+.semana-conteudo.aberto {
+    max-height:1200px;
+    opacity:1;
+    padding:1rem 1rem 0 1rem;
+}
+
+.plano-card {background:linear-gradient(135deg, rgba(44,82,145,.4), rgba(15,32,64,.6)); border:1px solid var(--ouro); padding:0; border-radius:12px; margin:1.2rem 0; box-shadow:0 0 15px var(--dourado-sombra); overflow:hidden;}
+.plano-card h3 {color:var(--ouro-claro); margin-bottom:1rem; text-align:center;}
+.plano-lista {list-style:none; margin:0; padding:0;}
+.plano-lista li {padding:.8rem 0; border-bottom:1px dashed rgba(212,175,55,.2); color:#e6d28f; display:flex; align-items:center; gap:.8rem; transition:all .2s ease;}
+.plano-lista li:last-child {border-bottom:none;}
+.plano-lista li:hover {background:rgba(212,175,55,.08); border-radius:6px; padding-left:.5rem;}
+.plano-lista input[type="checkbox"] {width:22px; height:22px; accent-color:var(--ouro); cursor:pointer;}
+.plano-lista label {cursor:pointer; flex:1;}
+.plano-lista input:checked + label {text-decoration:line-through; opacity:.6;}
+.destaque {color:var(--ouro-claro); font-weight:600;}
+.barra-geral {background:rgba(212,175,55,.15); border-radius:20px; padding:1rem; margin:1rem 0; text-align:center; border:1px solid rgba(212,175,55,.3);}
+.barra-fill {height:12px; background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); border-radius:6px; transition:width .5s ease; margin-top:.5rem;}
+.btn-reset {background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem 1rem; border-radius:20px; font-weight:600; cursor:pointer; margin-top:1rem; transition:all .3s ease;}
+.btn-reset:hover {transform:scale(1.05); box-shadow:0 0 12px var(--ouro);}
+.dica-box {background:rgba(212,175,55,.1); border-left:4px solid var(--ouro); padding:1rem; margin:1rem 0; border-radius:0 8px 8px 0;}
+
 @media (max-width:768px) {
     header h1 {font-size:1.6rem;}
     .nav-principal {width:100%;}
     .toggle-tema {top:auto; bottom:15px; right:15px;}
+    .semana-cabecalho h3 {font-size:1rem;}
 }
-
-        .plano-card {background:linear-gradient(135deg, rgba(44,82,145,.4), rgba(15,32,64,.6)); border:1px solid var(--ouro); padding:1.5rem; border-radius:12px; margin:1.5rem 0; box-shadow:0 0 15px var(--dourado-sombra);}
-        .plano-card h3 {color:var(--ouro-claro); margin-bottom:1rem; text-align:center;}
-        .plano-lista {list-style:none;}
-        .plano-lista li {padding:.8rem 0; border-bottom:1px dashed rgba(212,175,55,.2); color:#e6d28f; display:flex; align-items:center; gap:.8rem; transition:all .2s ease;}
-        .plano-lista li:last-child {border-bottom:none;}
-        .plano-lista li:hover {background:rgba(212,175,55,.08); border-radius:6px; padding-left:.5rem;}
-        .plano-lista input[type="checkbox"] {width:22px; height:22px; accent-color:var(--ouro); cursor:pointer;}
-        .plano-lista label {cursor:pointer; flex:1;}
-        .plano-lista input:checked + label {text-decoration:line-through; opacity:.6;}
-        .destaque {color:var(--ouro-claro); font-weight:600;}
-        .barra-geral {background:rgba(212,175,55,.15); border-radius:20px; padding:1rem; margin:1rem 0; text-align:center; border:1px solid rgba(212,175,55,.3);}
-        .barra-fill {height:12px; background:linear-gradient(90deg, var(--ouro-escuro), var(--ouro)); border-radius:6px; transition:width .5s ease; margin-top:.5rem;}
-        .btn-reset {background:linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color:var(--azul-escuro); border:none; padding:.5rem 1rem; border-radius:20px; font-weight:600; cursor:pointer; margin-top:1rem; transition:all .3s ease;}
-        .btn-reset:hover {transform:scale(1.05); box-shadow:0 0 12px var(--ouro);}
-        .dica-box {background:rgba(212,175,55,.1); border-left:4px solid var(--ouro); padding:1rem; margin:1rem 0; border-radius:0 8px 8px 0;}
     </style>
 </head>
 <body>
@@ -125,103 +177,145 @@ footer p {text-align:center;}
     <section>
         <div class="barra-geral">
             <strong>📊 Progresso Geral</strong>
-            <p id="textoGeral">0 de 7 etapas concluídas (0%)</p>
+            <p id="textoGeral">0 de 49 dias concluídos (0%)</p>
             <div class="barra-fill" id="barraGeral" style="width:0%"></div>
             <button class="btn-reset" onclick="resetarPlano()">🔄 Reiniciar Plano</button>
         </div>
 
         <h2>📖 Plano Recomendado de 7 Semanas</h2>
-        <p>Marque os itens conforme for concluindo. Seu progresso é salvo automaticamente no navegador.</p>
+        <p>Clique em cada semana para ver os dias de leitura. Marque os itens conforme for concluindo. Seu progresso é salvo automaticamente no navegador.</p>
 
+        <!-- Semana 1 -->
         <div class="plano-card">
-            <h3>🗓️ Semana 1 — Oração e Adoração</h3>
-            <ul class="plano-lista">
-                <li><input type="checkbox" id="p1" onchange="salvarPlano()"><label for="p1">Dia 1: Salmos 1-5</label></li>
-                <li><input type="checkbox" id="p2" onchange="salvarPlano()"><label for="p2">Dia 2: Salmos 6-10</label></li>
-                <li><input type="checkbox" id="p3" onchange="salvarPlano()"><label for="p3">Dia 3: Salmos 11-15</label></li>
-                <li><input type="checkbox" id="p4" onchange="salvarPlano()"><label for="p4">Dia 4: Salmos 16-20</label></li>
-                <li><input type="checkbox" id="p5" onchange="salvarPlano()"><label for="p5">Dia 5: Salmos 21-25</label></li>
-                <li><input type="checkbox" id="p6" onchange="salvarPlano()"><label for="p6">Dia 6: Salmos 26-30</label></li>
-                <li><input type="checkbox" id="p7" onchange="salvarPlano()"><label for="p7">Dia 7: Salmos 31-35</label></li>
-            </ul>
+            <div class="semana-cabecalho" onclick="toggleSemana(this)">
+                <h3>🗓️ Semana 1 — Oração e Adoração</h3>
+                <span class="seta">▼</span>
+            </div>
+            <div class="semana-conteudo">
+                <ul class="plano-lista">
+                    <li><input type="checkbox" id="p1" onchange="salvarPlano()"><label for="p1">Dia 1: Salmos 1-5</label></li>
+                    <li><input type="checkbox" id="p2" onchange="salvarPlano()"><label for="p2">Dia 2: Salmos 6-10</label></li>
+                    <li><input type="checkbox" id="p3" onchange="salvarPlano()"><label for="p3">Dia 3: Salmos 11-15</label></li>
+                    <li><input type="checkbox" id="p4" onchange="salvarPlano()"><label for="p4">Dia 4: Salmos 16-20</label></li>
+                    <li><input type="checkbox" id="p5" onchange="salvarPlano()"><label for="p5">Dia 5: Salmos 21-25</label></li>
+                    <li><input type="checkbox" id="p6" onchange="salvarPlano()"><label for="p6">Dia 6: Salmos 26-30</label></li>
+                    <li><input type="checkbox" id="p7" onchange="salvarPlano()"><label for="p7">Dia 7: Salmos 31-35</label></li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Semana 2 -->
         <div class="plano-card">
-            <h3>🗓️ Semana 2 — Conhecer Jesus</h3>
-            <ul class="plano-lista">
-                <li><input type="checkbox" id="p8" onchange="salvarPlano()"><label for="p8">Dia 8: João 1-3</label></li>
-                <li><input type="checkbox" id="p9" onchange="salvarPlano()"><label for="p9">Dia 9: João 4-6</label></li>
-                <li><input type="checkbox" id="p10" onchange="salvarPlano()"><label for="p10">Dia 10: João 7-9</label></li>
-                <li><input type="checkbox" id="p11" onchange="salvarPlano()"><label for="p11">Dia 11: João 10-12</label></li>
-                <li><input type="checkbox" id="p12" onchange="salvarPlano()"><label for="p12">Dia 12: João 13-15</label></li>
-                <li><input type="checkbox" id="p13" onchange="salvarPlano()"><label for="p13">Dia 13: João 16-18</label></li>
-                <li><input type="checkbox" id="p14" onchange="salvarPlano()"><label for="p14">Dia 14: João 19-21</label></li>
-            </ul>
+            <div class="semana-cabecalho" onclick="toggleSemana(this)">
+                <h3>🗓️ Semana 2 — Conhecer Jesus</h3>
+                <span class="seta">▼</span>
+            </div>
+            <div class="semana-conteudo">
+                <ul class="plano-lista">
+                    <li><input type="checkbox" id="p8" onchange="salvarPlano()"><label for="p8">Dia 8: João 1-3</label></li>
+                    <li><input type="checkbox" id="p9" onchange="salvarPlano()"><label for="p9">Dia 9: João 4-6</label></li>
+                    <li><input type="checkbox" id="p10" onchange="salvarPlano()"><label for="p10">Dia 10: João 7-9</label></li>
+                    <li><input type="checkbox" id="p11" onchange="salvarPlano()"><label for="p11">Dia 11: João 10-12</label></li>
+                    <li><input type="checkbox" id="p12" onchange="salvarPlano()"><label for="p12">Dia 12: João 13-15</label></li>
+                    <li><input type="checkbox" id="p13" onchange="salvarPlano()"><label for="p13">Dia 13: João 16-18</label></li>
+                    <li><input type="checkbox" id="p14" onchange="salvarPlano()"><label for="p14">Dia 14: João 19-21</label></li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Semana 3 -->
         <div class="plano-card">
-            <h3>🗓️ Semana 3 — Origem e Aliança</h3>
-            <ul class="plano-lista">
-                <li><input type="checkbox" id="p15" onchange="salvarPlano()"><label for="p15">Dia 15: Gênesis 1-3</label></li>
-                <li><input type="checkbox" id="p16" onchange="salvarPlano()"><label for="p16">Dia 16: Gênesis 4-7</label></li>
-                <li><input type="checkbox" id="p17" onchange="salvarPlano()"><label for="p17">Dia 17: Gênesis 8-11</label></li>
-                <li><input type="checkbox" id="p18" onchange="salvarPlano()"><label for="p18">Dia 18: Gênesis 12-15</label></li>
-                <li><input type="checkbox" id="p19" onchange="salvarPlano()"><label for="p19">Dia 19: Gênesis 16-19</label></li>
-                <li><input type="checkbox" id="p20" onchange="salvarPlano()"><label for="p20">Dia 20: Gênesis 20-23</label></li>
-                <li><input type="checkbox" id="p21" onchange="salvarPlano()"><label for="p21">Dia 21: Gênesis 24-27</label></li>
-            </ul>
+            <div class="semana-cabecalho" onclick="toggleSemana(this)">
+                <h3>🗓️ Semana 3 — Origem e Aliança</h3>
+                <span class="seta">▼</span>
+            </div>
+            <div class="semana-conteudo">
+                <ul class="plano-lista">
+                    <li><input type="checkbox" id="p15" onchange="salvarPlano()"><label for="p15">Dia 15: Gênesis 1-3</label></li>
+                    <li><input type="checkbox" id="p16" onchange="salvarPlano()"><label for="p16">Dia 16: Gênesis 4-7</label></li>
+                    <li><input type="checkbox" id="p17" onchange="salvarPlano()"><label for="p17">Dia 17: Gênesis 8-11</label></li>
+                    <li><input type="checkbox" id="p18" onchange="salvarPlano()"><label for="p18">Dia 18: Gênesis 12-15</label></li>
+                    <li><input type="checkbox" id="p19" onchange="salvarPlano()"><label for="p19">Dia 19: Gênesis 16-19</label></li>
+                    <li><input type="checkbox" id="p20" onchange="salvarPlano()"><label for="p20">Dia 20: Gênesis 20-23</label></li>
+                    <li><input type="checkbox" id="p21" onchange="salvarPlano()"><label for="p21">Dia 21: Gênesis 24-27</label></li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Semana 4 -->
         <div class="plano-card">
-            <h3>🗓️ Semana 4 — Reino de Deus</h3>
-            <ul class="plano-lista">
-                <li><input type="checkbox" id="p22" onchange="salvarPlano()"><label for="p22">Dia 22: Mateus 1-4</label></li>
-                <li><input type="checkbox" id="p23" onchange="salvarPlano()"><label for="p23">Dia 23: Mateus 5-7</label></li>
-                <li><input type="checkbox" id="p24" onchange="salvarPlano()"><label for="p24">Dia 24: Mateus 8-10</label></li>
-                <li><input type="checkbox" id="p25" onchange="salvarPlano()"><label for="p25">Dia 25: Mateus 11-13</label></li>
-                <li><input type="checkbox" id="p26" onchange="salvarPlano()"><label for="p26">Dia 26: Mateus 14-16</label></li>
-                <li><input type="checkbox" id="p27" onchange="salvarPlano()"><label for="p27">Dia 27: Mateus 17-19</label></li>
-                <li><input type="checkbox" id="p28" onchange="salvarPlano()"><label for="p28">Dia 28: Mateus 20-22</label></li>
-            </ul>
+            <div class="semana-cabecalho" onclick="toggleSemana(this)">
+                <h3>🗓️ Semana 4 — Reino de Deus</h3>
+                <span class="seta">▼</span>
+            </div>
+            <div class="semana-conteudo">
+                <ul class="plano-lista">
+                    <li><input type="checkbox" id="p22" onchange="salvarPlano()"><label for="p22">Dia 22: Mateus 1-4</label></li>
+                    <li><input type="checkbox" id="p23" onchange="salvarPlano()"><label for="p23">Dia 23: Mateus 5-7</label></li>
+                    <li><input type="checkbox" id="p24" onchange="salvarPlano()"><label for="p24">Dia 24: Mateus 8-10</label></li>
+                    <li><input type="checkbox" id="p25" onchange="salvarPlano()"><label for="p25">Dia 25: Mateus 11-13</label></li>
+                    <li><input type="checkbox" id="p26" onchange="salvarPlano()"><label for="p26">Dia 26: Mateus 14-16</label></li>
+                    <li><input type="checkbox" id="p27" onchange="salvarPlano()"><label for="p27">Dia 27: Mateus 17-19</label></li>
+                    <li><input type="checkbox" id="p28" onchange="salvarPlano()"><label for="p28">Dia 28: Mateus 20-22</label></li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Semana 5 -->
         <div class="plano-card">
-            <h3>🗓️ Semana 5 — Salvação e Fé</h3>
-            <ul class="plano-lista">
-                <li><input type="checkbox" id="p29" onchange="salvarPlano()"><label for="p29">Dia 29: Romanos 1-3</label></li>
-                <li><input type="checkbox" id="p30" onchange="salvarPlano()"><label for="p30">Dia 30: Romanos 4-6</label></li>
-                <li><input type="checkbox" id="p31" onchange="salvarPlano()"><label for="p31">Dia 31: Romanos 7-9</label></li>
-                <li><input type="checkbox" id="p32" onchange="salvarPlano()"><label for="p32">Dia 32: Romanos 10-12</label></li>
-                <li><input type="checkbox" id="p33" onchange="salvarPlano()"><label for="p33">Dia 33: Romanos 13-14</label></li>
-                <li><input type="checkbox" id="p34" onchange="salvarPlano()"><label for="p34">Dia 34: Romanos 15-16</label></li>
-                <li><input type="checkbox" id="p35" onchange="salvarPlano()"><label for="p35">Dia 35: Efésios 1-3</label></li>
-            </ul>
+            <div class="semana-cabecalho" onclick="toggleSemana(this)">
+                <h3>🗓️ Semana 5 — Salvação e Fé</h3>
+                <span class="seta">▼</span>
+            </div>
+            <div class="semana-conteudo">
+                <ul class="plano-lista">
+                    <li><input type="checkbox" id="p29" onchange="salvarPlano()"><label for="p29">Dia 29: Romanos 1-3</label></li>
+                    <li><input type="checkbox" id="p30" onchange="salvarPlano()"><label for="p30">Dia 30: Romanos 4-6</label></li>
+                    <li><input type="checkbox" id="p31" onchange="salvarPlano()"><label for="p31">Dia 31: Romanos 7-9</label></li>
+                    <li><input type="checkbox" id="p32" onchange="salvarPlano()"><label for="p32">Dia 32: Romanos 10-12</label></li>
+                    <li><input type="checkbox" id="p33" onchange="salvarPlano()"><label for="p33">Dia 33: Romanos 13-14</label></li>
+                    <li><input type="checkbox" id="p34" onchange="salvarPlano()"><label for="p34">Dia 34: Romanos 15-16</label></li>
+                    <li><input type="checkbox" id="p35" onchange="salvarPlano()"><label for="p35">Dia 35: Efésios 1-3</label></li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Semana 6 -->
         <div class="plano-card">
-            <h3>🗓️ Semana 6 — Igreja e Espírito</h3>
-            <ul class="plano-lista">
-                <li><input type="checkbox" id="p36" onchange="salvarPlano()"><label for="p36">Dia 36: Atos 1-3</label></li>
-                <li><input type="checkbox" id="p37" onchange="salvarPlano()"><label for="p37">Dia 37: Atos 4-6</label></li>
-                <li><input type="checkbox" id="p38" onchange="salvarPlano()"><label for="p38">Dia 38: Atos 7-9</label></li>
-                <li><input type="checkbox" id="p39" onchange="salvarPlano()"><label for="p39">Dia 39: Atos 10-12</label></li>
-                <li><input type="checkbox" id="p40" onchange="salvarPlano()"><label for="p40">Dia 40: Atos 13-15</label></li>
-                <li><input type="checkbox" id="p41" onchange="salvarPlano()"><label for="p41">Dia 41: Atos 16-18</label></li>
-                <li><input type="checkbox" id="p42" onchange="salvarPlano()"><label for="p42">Dia 42: Atos 19-21</label></li>
-            </ul>
+            <div class="semana-cabecalho" onclick="toggleSemana(this)">
+                <h3>🗓️ Semana 6 — Igreja e Espírito</h3>
+                <span class="seta">▼</span>
+            </div>
+            <div class="semana-conteudo">
+                <ul class="plano-lista">
+                    <li><input type="checkbox" id="p36" onchange="salvarPlano()"><label for="p36">Dia 36: Atos 1-3</label></li>
+                    <li><input type="checkbox" id="p37" onchange="salvarPlano()"><label for="p37">Dia 37: Atos 4-6</label></li>
+                    <li><input type="checkbox" id="p38" onchange="salvarPlano()"><label for="p38">Dia 38: Atos 7-9</label></li>
+                    <li><input type="checkbox" id="p39" onchange="salvarPlano()"><label for="p39">Dia 39: Atos 10-12</label></li>
+                    <li><input type="checkbox" id="p40" onchange="salvarPlano()"><label for="p40">Dia 40: Atos 13-15</label></li>
+                    <li><input type="checkbox" id="p41" onchange="salvarPlano()"><label for="p41">Dia 41: Atos 16-18</label></li>
+                    <li><input type="checkbox" id="p42" onchange="salvarPlano()"><label for="p42">Dia 42: Atos 19-21</label></li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Semana 7 -->
         <div class="plano-card">
-            <h3>🗓️ Semana 7 — Consolidação</h3>
-            <ul class="plano-lista">
-                <li><input type="checkbox" id="p43" onchange="salvarPlano()"><label for="p43">Dia 43: Salmos 91-95</label></li>
-                <li><input type="checkbox" id="p44" onchange="salvarPlano()"><label for="p44">Dia 44: Provérbios 1-5</label></li>
-                <li><input type="checkbox" id="p45" onchange="salvarPlano()"><label for="p45">Dia 45: Isaías 40-44</label></li>
-                <li><input type="checkbox" id="p46" onchange="salvarPlano()"><label for="p46">Dia 46: Filipenses 1-4</label></li>
-                <li><input type="checkbox" id="p47" onchange="salvarPlano()"><label for="p47">Dia 47: 1 João 1-5</label></li>
-                <li><input type="checkbox" id="p48" onchange="salvarPlano()"><label for="p48">Dia 48: Apocalipse 1-5</label></li>
-                <li><input type="checkbox" id="p49" onchange="salvarPlano()"><label for="p49">Dia 49: Apocalipse 19-22</label></li>
-            </ul>
+            <div class="semana-cabecalho" onclick="toggleSemana(this)">
+                <h3>🗓️ Semana 7 — Consolidação</h3>
+                <span class="seta">▼</span>
+            </div>
+            <div class="semana-conteudo">
+                <ul class="plano-lista">
+                    <li><input type="checkbox" id="p43" onchange="salvarPlano()"><label for="p43">Dia 43: Salmos 91-95</label></li>
+                    <li><input type="checkbox" id="p44" onchange="salvarPlano()"><label for="p44">Dia 44: Provérbios 1-5</label></li>
+                    <li><input type="checkbox" id="p45" onchange="salvarPlano()"><label for="p45">Dia 45: Isaías 40-44</label></li>
+                    <li><input type="checkbox" id="p46" onchange="salvarPlano()"><label for="p46">Dia 46: Filipenses 1-4</label></li>
+                    <li><input type="checkbox" id="p47" onchange="salvarPlano()"><label for="p47">Dia 47: 1 João 1-5</label></li>
+                    <li><input type="checkbox" id="p48" onchange="salvarPlano()"><label for="p48">Dia 48: Apocalipse 1-5</label></li>
+                    <li><input type="checkbox" id="p49" onchange="salvarPlano()"><label for="p49">Dia 49: Apocalipse 19-22</label></li>
+                </ul>
+            </div>
         </div>
 
         <div class="dica-box">
@@ -275,44 +369,60 @@ if(toggleTema) {
     });
 }
 
-    const totalItens = 49;
-    function salvarPlano() {
-        const estado = {};
-        for(let i=1; i<=totalItens; i++) {
-            const el = document.getElementById('p'+i);
-            if(el) estado['p'+i] = el.checked;
-        }
-        localStorage.setItem('planoLeitura', JSON.stringify(estado));
-        atualizarBarra();
+// ===== ACCORDION =====
+function toggleSemana(cabecalho) {
+    const conteudo = cabecalho.nextElementSibling;
+    const estaAberto = conteudo.classList.contains('aberto');
+
+    // Fechar todos
+    document.querySelectorAll('.semana-conteudo').forEach(el => el.classList.remove('aberto'));
+    document.querySelectorAll('.semana-cabecalho').forEach(el => el.classList.remove('aberto'));
+
+    // Abrir o clicado (se estava fechado)
+    if (!estaAberto) {
+        conteudo.classList.add('aberto');
+        cabecalho.classList.add('aberto');
     }
-    function carregarPlano() {
-        const estado = JSON.parse(localStorage.getItem('planoLeitura') || '{}');
-        for(let i=1; i<=totalItens; i++) {
-            const el = document.getElementById('p'+i);
-            if(el && estado['p'+i]) el.checked = true;
-        }
-        atualizarBarra();
+}
+
+const totalItens = 49;
+function salvarPlano() {
+    const estado = {};
+    for(let i=1; i<=totalItens; i++) {
+        const el = document.getElementById('p'+i);
+        if(el) estado['p'+i] = el.checked;
     }
-    function atualizarBarra() {
-        let concluidos = 0;
-        for(let i=1; i<=totalItens; i++) {
-            const el = document.getElementById('p'+i);
-            if(el && el.checked) concluidos++;
-        }
-        const pct = Math.round((concluidos/totalItens)*100);
-        document.getElementById('textoGeral').textContent = concluidos + ' de ' + totalItens + ' dias concluídos (' + pct + '%)';
-        document.getElementById('barraGeral').style.width = pct + '%';
+    localStorage.setItem('planoLeitura', JSON.stringify(estado));
+    atualizarBarra();
+}
+function carregarPlano() {
+    const estado = JSON.parse(localStorage.getItem('planoLeitura') || '{}');
+    for(let i=1; i<=totalItens; i++) {
+        const el = document.getElementById('p'+i);
+        if(el && estado['p'+i]) el.checked = true;
     }
-    function resetarPlano() {
-        if(!confirm('Tem certeza que deseja reiniciar todo o plano?')) return;
-        for(let i=1; i<=totalItens; i++) {
-            const el = document.getElementById('p'+i);
-            if(el) el.checked = false;
-        }
-        localStorage.removeItem('planoLeitura');
-        atualizarBarra();
+    atualizarBarra();
+}
+function atualizarBarra() {
+    let concluidos = 0;
+    for(let i=1; i<=totalItens; i++) {
+        const el = document.getElementById('p'+i);
+        if(el && el.checked) concluidos++;
     }
-    window.addEventListener('load', carregarPlano);
+    const pct = Math.round((concluidos/totalItens)*100);
+    document.getElementById('textoGeral').textContent = concluidos + ' de ' + totalItens + ' dias concluídos (' + pct + '%)';
+    document.getElementById('barraGeral').style.width = pct + '%';
+}
+function resetarPlano() {
+    if(!confirm('Tem certeza que deseja reiniciar todo o plano?')) return;
+    for(let i=1; i<=totalItens; i++) {
+        const el = document.getElementById('p'+i);
+        if(el) el.checked = false;
+    }
+    localStorage.removeItem('planoLeitura');
+    atualizarBarra();
+}
+window.addEventListener('load', carregarPlano);
 </script>
 </body>
 </html>
