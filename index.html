@@ -72,7 +72,12 @@
         }
     
         .toggle-tema {font-size:11px; letter-spacing:0.5px; font-weight:700;}
-</style>
+
+        .logo-header {width:90px !important; height:90px !important; border-radius:50% !important; border:2px solid var(--ouro) !important; box-shadow:0 0 15px var(--dourado-sombra) !important; object-fit:cover !important; margin:0 auto .6rem auto !important; display:block !important; animation:fadeInDown 1s ease !important; transition:all .3s ease !important;}
+        .logo-header:hover {transform:scale(1.08) !important; box-shadow:0 0 25px var(--dourado-sombra) !important;}
+        body.modo-claro .logo-header {border-color:var(--ouro-escuro) !important; box-shadow:0 0 12px rgba(184,134,11,.25) !important;}
+        @media (max-width:768px) {.logo-header {width:70px !important; height:70px !important;}}
+    </style>
 </head>
 <body>
 
