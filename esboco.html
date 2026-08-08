@@ -392,10 +392,16 @@ function gerarEsboco() {
     }
 
     document.getElementById('temaTitulo').value = 'TEMA: ' + (tema || 'Estudo Bíblico');
-    document.getElementById('textoBase').value = 'Texto base: ' + (passagem || 'A definir');
 
     // Sugestão automática de passagem
     var sugestao = buscarSugestao(tema || passagem);
+
+    // Preenche o texto base: se o usuário digitou manualmente, usa isso; senão, usa a sugestão
+    var textoBaseValor = passagem;
+    if(!textoBaseValor && sugestao) {
+        textoBaseValor = sugestao.vers;
+    }
+    document.getElementById('textoBase').value = 'Texto base: ' + (textoBaseValor || 'A definir');
     var campoSugestao = document.getElementById('inputSugestao');
     var boxSugestao = document.getElementById('boxSugestao');
     var sugestaoPassagem = document.getElementById('sugestaoPassagem');
