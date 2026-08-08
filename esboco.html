@@ -146,7 +146,7 @@
             </div>
             <div class="campo-form">
                 <label for="inputSugestao">&#128161; Sugestão de Passagem (automática)</label>
-                <input type="text" id="inputSugestao" placeholder="Preencha o tema e clique em Gerar para ver sugestões de versículos e livros" readonly style="background:rgba(15,32,64,.5); border-style:dashed; cursor:default;">
+                <input type="text" id="inputSugestao" placeholder="Preencha o tema e clique em Gerar para ver sugestões" readonly style="background:rgba(15,32,64,.5); border-style:dashed; cursor:default;">
             </div>
             <button class="btn-gerar" onclick="gerarEsboco()">&#128221; Gerar Esboço</button>
         </div>
@@ -262,198 +262,198 @@
         });
     }
 
-    function gerarEsboco() {
-        const tema = document.getElementById('inputTema').value.trim();
-        const passagem = document.getElementById('inputPassagem').value.trim();
-        const contexto = document.getElementById('inputContexto').value.trim();
+    var SUGESTOES_PASSAGEM = {
+    'fe': {livro:'Hebreus', vers:'Hebreus 11:1-6 — Ora, a fé é o firme fundamento das coisas que se esperam, e a prova das coisas que se não vêem.'},
+    'amor': {livro:'1 Coríntios', vers:'1 Coríntios 13:4-8 — O amor é paciente, é benigno; o amor não é invejoso, não trata com leviandade, não se ensoberbece.'},
+    'oracao': {livro:'Mateus', vers:'Mateus 7:7-8 — Pedi, e dar-se-vos-á; buscai, e achareis; batei, e abrir-se-vos-á.'},
+    'perdao': {livro:'Efésios', vers:'Efésios 4:32 — Antes, sede uns para com os outros benignos, misericordiosos, perdoando-vos uns aos outros, como também Deus vos perdoou em Cristo.'},
+    'familia': {livro:'Efésios', vers:'Efésios 5:25 — Vós, maridos, amai a vossas mulheres, como também Cristo amou a igreja, e a si mesmo se entregou por ela.'},
+    'esperanca': {livro:'Romanos', vers:'Romanos 15:13 — Ora, o Deus de esperança vos encha de todo o gozo e paz em crença, para que abundeis em esperança pela virtude do Espírito Santo.'},
+    'salvacao': {livro:'João', vers:'João 3:16 — Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna.'},
+    'espirito': {livro:'Atos', vers:'Atos 1:8 — Mas recebereis poder, ao descer sobre vós o Espírito Santo, e sereis minhas testemunhas tanto em Jerusalém como em toda a Judéia e Samaria, e até aos confins da terra.'},
+    'graca': {livro:'Efésios', vers:'Efésios 2:8-9 — Porque pela graça sois salvos, por meio da fé; e isto não vem de vós, é dom de Deus. Não vem das obras, para que ninguém se glorie.'},
+    'paz': {livro:'Filipenses', vers:'Filipenses 4:6-7 — Não andeis ansiosos por coisa alguma; antes, em tudo, sejam os vossos pedidos conhecidos diante de Deus, pela oração e súplicas, com ação de graças. E a paz de Deus, que excede todo o entendimento, guardará os vossos corações e os vossos pensamentos, em Cristo Jesus.'},
+    'humildade': {livro:'Filipenses', vers:'Filipenses 2:3-4 — Nada façais por contenda ou por vanglória, mas por humildade; cada um considere os outros superiores a si mesmo. Não atente cada um para o que é seu, mas cada qual também para o que é dos outros.'},
+    'sabedoria': {livro:'Tiago', vers:'Tiago 1:5 — Se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente e nada lhes impropera, e ser-lhe-á dada.'},
+    'tentacao': {livro:'1 Coríntios', vers:'1 Coríntios 10:13 — Não vos sobreveio tentação, senão humana; mas fiel é Deus, que não vos deixará tentar acima do que podeis, antes, com a tentação, dará também o escape, para que a possais suportar.'},
+    'obediencia': {livro:'João', vers:'João 14:15 — Se me amais, guardai os meus mandamentos.'},
+    'santidade': {livro:'1 Pedro', vers:'1 Pedro 1:15-16 — Mas, como é santo aquele que vos chamou, sede vós também santos em toda a vossa maneira de viver. Porquanto escrito está: Sede santos, porque eu sou santo.'},
+    'misericordia': {livro:'Salmos', vers:'Salmos 103:8 — O Senhor é misericordioso e compassivo, tardio em irar-se e grande em benignidade.'},
+    'justica': {livro:'Romanos', vers:'Romanos 1:17 — Porque a justiça de Deus se revela no evangelho, de fé em fé, como está escrito: Mas o justo viverá pela fé.'},
+    'gratidao': {livro:'1 Tessalonicenses', vers:'1 Tessalonicenses 5:18 — Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco.'},
+    'confianca': {livro:'Provérbios', vers:'Provérbios 3:5-6 — Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento. Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas.'},
+    'forca': {livro:'Isaías', vers:'Isaías 40:31 — Mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias; correrão, e não se cansarão; caminharão, e não se fatigarão.'},
+    'luz': {livro:'João', vers:'João 8:12 — Falou-lhes, pois, Jesus outra vez, dizendo: Eu sou a luz do mundo; quem me segue não andará em trevas, mas terá a luz da vida.'},
+    'verdade': {livro:'João', vers:'João 14:6 — Disse-lhe Jesus: Eu sou o caminho, e a verdade, e a vida; ninguém vem ao Pai, senão por mim.'},
+    'vida': {livro:'João', vers:'João 10:10 — O ladrão não vem senão a roubar, a matar e a destruir; eu vim para que tenham vida, e a tenham com abundância.'},
+    'reino': {livro:'Mateus', vers:'Mateus 6:33 — Buscai primeiro o reino de Deus, e a sua justiça, e todas estas coisas vos serão acrescentadas.'},
+    'discipulado': {livro:'Lucas', vers:'Lucas 9:23 — E dizia a todos: Se alguém quer vir após mim, negue-se a si mesmo, e tome cada dia a sua cruz, e siga-me.'},
+    'servico': {livro:'Gálatas', vers:'Gálatas 5:13 — Vós, irmãos, fostes chamados à liberdade; apenas não useis da liberdade para dar ocasião à carne, mas servi-vos uns aos outros pelo amor.'},
+    'generosidade': {livro:'2 Coríntios', vers:'2 Coríntios 9:7 — Cada um contribui segundo propôs no seu coração, não com tristeza ou por necessidade; porque Deus ama ao que dá com alegria.'},
+    'paciencia': {livro:'Romanos', vers:'Romanos 5:3-4 — E não somente isto, mas também nos gloriamos nas tribulações, sabendo que a tribulação produz a paciência, e a paciência a experiência, e a experiência a esperança.'},
+    'alegria': {livro:'Neemias', vers:'Neemias 8:10 — Não vos entristeçais, porque o gozo do Senhor é a vossa força.'},
+    'unidade': {livro:'Salmos', vers:'Salmos 133:1 — Oh! quão bom e quão suave é que os irmãos vivam em união!'},
+    'santificacao': {livro:'1 Tessalonicenses', vers:'1 Tessalonicenses 4:3 — Porque esta é a vontade de Deus: a vossa santificação; que vos abstenhais da prostituição.'},
+    'renovacao': {livro:'Romanos', vers:'Romanos 12:2 — E não vos conformeis com este século, mas transformai-vos pela renovação da vossa mente, para que experimenteis qual seja a boa, agradável e perfeita vontade de Deus.'},
+    'proposito': {livro:'Jeremias', vers:'Jeremias 29:11 — Porque eu bem sei os pensamentos que tenho a vosso respeito, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais.'},
+    'guerra': {livro:'Efésios', vers:'Efésios 6:10-11 — Digo-vos, finalmente, fortalecei-vos no Senhor e na força do seu poder. Revesti-vos de toda a armadura de Deus, para que possais estar firmes contra as astutas ciladas do diabo.'},
+    'vitoria': {livro:'1 João', vers:'1 João 5:4 — Porque tudo o que é nascido de Deus vence o mundo; e esta é a vitória que vence o mundo: a nossa fé.'},
+    'cura': {livro:'Isaías', vers:'Isaías 53:5 — Mas ele foi ferido pelas nossas transgressões, e moído pelas nossas iniquidades; o castigo que nos traz a paz estava sobre ele, e pelas suas pisaduras fomos sarados.'},
+    'provisao': {livro:'Filipenses', vers:'Filipenses 4:19 — O meu Deus, segundo as suas riquezas, suprirá todas as vossas necessidades em glória, por Cristo Jesus.'},
+    'protecao': {livro:'Salmos', vers:'Salmos 91:1-2 — Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará. Direi do Senhor: Ele é o meu refúgio e a minha fortaleza, o meu Deus, em quem confio.'},
+    'guia': {livro:'Salmos', vers:'Salmos 23:1-3 — O Senhor é o meu pastor; nada me faltará. Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas. Refrigera a minha alma; guia-me pelas veredas da justiça, por amor do seu nome.'},
+    'restauracao': {livro:'Joel', vers:'Joel 2:25 — E restituirei os anos que comeu o gafanhoto, a locusta, e o pulgão e a lagarta, o meu grande exército que enviei contra vós.'},
+    'novo': {livro:'2 Coríntios', vers:'2 Coríntios 5:17 — Assim que, se alguém está em Cristo, nova criatura é; as coisas velhas já passaram; eis que tudo se fez novo.'},
+    'nascimento': {livro:'João', vers:'João 3:3 — Jesus respondeu, e disse-lhe: Em verdade, em verdade te digo que aquele que não nascer de novo não pode ver o reino de Deus.'},
+    'crescer': {livro:'2 Pedro', vers:'2 Pedro 3:18 — Antes, crescei na graça e no conhecimento de nosso Senhor e Salvador Jesus Cristo. A ele seja dada a glória, assim agora como para o dia da eternidade.'},
+    'fruto': {livro:'Gálatas', vers:'Gálatas 5:22-23 — Mas o fruto do Espírito é amor, gozo, paz, longanimidade, benignidade, bondade, fé, mansidão, temperança; contra estas coisas não há lei.'},
+    'dons': {livro:'1 Coríntios', vers:'1 Coríntios 12:4-7 — Ora, há diversidade de dons, mas o Espírito é o mesmo. E há diversidade de ministérios, mas o Senhor é o mesmo. E há diversidade de operações, mas é o mesmo Deus que opera tudo em todos. Mas a manifestação do Espírito é dada a cada um, para o que for útil.'},
+    'chamado': {livro:'Romanos', vers:'Romanos 8:28 — E sabemos que todas as coisas contribuem juntamente para o bem daqueles que amam a Deus, daqueles que são chamados segundo o seu propósito.'},
+    'missao': {livro:'Mateus', vers:'Mateus 28:19-20 — Ide, portanto, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo; ensinando-os a guardar todas as coisas que vos tenho mandado. E eis que eu estou convosco todos os dias, até à consumação dos séculos.'},
+    'testemunho': {livro:'Atos', vers:'Atos 1:8 — Mas recebereis poder, ao descer sobre vós o Espírito Santo, e sereis minhas testemunhas tanto em Jerusalém como em toda a Judéia e Samaria, e até aos confins da terra.'},
+    'perseveranca': {livro:'Hebreus', vers:'Hebreus 12:1-2 — Portanto, nós também, pois, que estamos rodeados de uma tão grande nuvem de testemunhas, deixemos todo o embaraço, e o pecado que tão de perto nos rodeia, e corramos com paciência a carreira que nos está proposta, olhando para Jesus, autor e consumador da fé.'},
+    'sofrimento': {livro:'Romanos', vers:'Romanos 8:18 — Porque para mim tenho por certo que as aflições deste tempo presente não são para comparar com a glória que em nós há de ser revelada.'},
+    'morte': {livro:'1 Coríntios', vers:'1 Coríntios 15:55-57 — Onde está, ó morte, a tua vitória? Onde está, ó morte, o teu aguilhão? O aguilhão da morte é o pecado, e a força do pecado é a lei. Mas graças a Deus, que nos dá a vitória por nosso Senhor Jesus Cristo.'},
+    'ressurreicao': {livro:'1 Coríntios', vers:'1 Coríntios 15:20 — Mas, de fato, Cristo ressuscitou dentre os mortos, e foi feito as primícias dos que dormem.'},
+    'volta': {livro:'João', vers:'João 14:3 — E, quando eu for, e vos preparar lugar, virei outra vez, e vos levarei para mim mesmo, para que, onde eu estiver, estejais vós também.'},
+    'juizo': {livro:'Hebreus', vers:'Hebreus 9:27 — E, assim como está ordenado aos homens morrerem uma só vez, vindo, depois disso, o juízo.'},
+    'eternidade': {livro:'Apocalipse', vers:'Apocalipse 21:4 — E Deus limpará de seus olhos toda a lágrima; e não haverá mais morte, nem haverá mais pranto, nem clamor, nem dor; porque já as primeiras coisas são passadas.'},
+    'ceu': {livro:'João', vers:'João 14:2 — Na casa de meu Pai há muitas moradas; se não fosse assim, eu vo-lo teria dito; vou preparar-vos lugar.'},
+    'inferno': {livro:'Mateus', vers:'Mateus 25:41 — Apartai-vos de mim, malditos, para o fogo eterno, preparado para o diabo e seus anjos.'},
+    'anjo': {livro:'Hebreus', vers:'Hebreus 1:14 — Não são, porventura, todos eles espíritos ministradores, enviados para serviço a favor daqueles que hão de herdar a salvação?'},
+    'demonio': {livro:'Tiago', vers:'Tiago 4:7 — Sujeitai-vos, pois, a Deus; resisti ao diabo, e ele fugirá de vós.'},
+    'pecado': {livro:'Romanos', vers:'Romanos 3:23 — Porque todos pecaram e destituídos estão da glória de Deus.'},
+    'arrependimento': {livro:'Atos', vers:'Atos 3:19 — Arrependei-vos, pois, e convertei-vos, para que sejam apagados os vossos pecados, e venham assim os tempos de refrigério da presença do Senhor.'},
+    'conversao': {livro:'Atos', vers:'Atos 2:38 — Arrependei-vos, e cada um de vós seja batizado em nome de Jesus Cristo, para perdão dos pecados; e recebereis o dom do Espírito Santo.'},
+    'batismo': {livro:'Romanos', vers:'Romanos 6:4 — Fomos, pois, sepultados com ele pelo batismo na morte, para que, como Cristo foi ressuscitado dentre os mortos pela glória do Pai, assim andemos nós também em novidade de vida.'},
+    'ceia': {livro:'Lucas', vers:'Lucas 22:19-20 — E, tomando o pão, e havendo dado graças, partiu-o, e deu-lhes, dizendo: Isto é o meu corpo, que por vós é dado; fazei isto em memória de mim. Semelhantemente, depois da ceia, tomou o cálice, dizendo: Este cálice é o Novo Testamento no meu sangue, que por vós é derramado.'},
+    'igreja': {livro:'Mateus', vers:'Mateus 16:18 — E eu também te digo que tu és Pedro, e sobre esta pedra edificarei a minha igreja, e as portas do inferno não prevalecerão contra ela.'},
+    'corpo': {livro:'1 Coríntios', vers:'1 Coríntios 12:27 — Ora, vós sois o corpo de Cristo, e seus membros em particular.'},
+    'lideranca': {livro:'1 Timoteo', vers:'1 Timoteo 3:1-2 — Fiel é esta palavra: Se alguém aspira ao episcopado, excelente obra deseja. Convém, pois, que o bispo seja irrepreensível, marido de uma só mulher, sobrio, moderado, ornado de pudor, hospitaleiro, apto para ensinar.'},
+    'pastor': {livro:'1 Pedro', vers:'1 Pedro 5:2-3 — Apascentai o rebanho de Deus que está entre vós, tendo cuidado dele, não por força, mas voluntariamente; nem por torpe ganância, mas de ânimo pronto. Nem como tendo domínio sobre os que estão ao vosso cargo, mas servindo de exemplo ao rebanho.'},
+    'diacono': {livro:'Atos', vers:'Atos 6:3 — Escolhei, pois, dentre vós, irmãos, sete homens de boa reputação, cheios do Espírito Santo e de sabedoria, aos quais constituamos sobre este importante negócio.'},
+    'profecia': {livro:'2 Pedro', vers:'2 Pedro 1:21 — Porque nunca nenhuma profecia foi dada por vontade humana; mas os homens santos de Deus falaram inspirados pelo Espírito Santo.'},
+    'revelacao': {livro:'Apocalipse', vers:'Apocalipse 1:1 — A revelação de Jesus Cristo, a qual Deus lhe deu, para mostrar aos seus servos as coisas que brevemente devem acontecer; e pelo seu anjo as enviou, e as fez saber a João, seu servo.'},
+    'palavra': {livro:'2 Timoteo', vers:'2 Timoteo 3:16-17 — Toda a Escritura é divinamente inspirada, e proveitosa para ensinar, para redarguir, para corrigir, para instruir em justiça, para que o homem de Deus seja perfeito, e perfeitamente instruído para toda a boa obra.'},
+    'pregacao': {livro:'Romanos', vers:'Romanos 10:14-15 — Como, pois, invocarão aquele em quem não creram? E como crerão naquele de quem não ouviram? E como ouvirão, se não há quem pregue? E como pregarão, se não forem enviados?'},
+    'evangelho': {livro:'Romanos', vers:'Romanos 1:16 — Porque não me envergonho do evangelho de Cristo, porque é o poder de Deus para salvação de todo aquele que crê.'},
+    'consagracao': {livro:'Romanos', vers:'Romanos 12:1 — Rogo-vos, pois, irmãos, pela compaixão de Deus, que apresenteis os vossos corpos em sacrifício vivo, santo e agradável a Deus, que é o vosso culto racional.'},
+    'adoracao': {livro:'João', vers:'João 4:24 — Deus é Espírito, e importa que os que o adorem o adorem em espírito e em verdade.'},
+    'louvor': {livro:'Salmos', vers:'Salmos 150:6 — Tudo o que tem fôlego louve ao Senhor. Louvai ao Senhor.'},
+    'jejum': {livro:'Mateus', vers:'Mateus 6:16-18 — Quando jejuardes, não vos mostreis contristados como os hipócritas; porque eles desfiguram os seus rostos, para que aos homens pareça que jejuam. Em verdade vos digo que já receberam a sua recompensa. Tu, porém, quando jejuares, unge a tua cabeça, e lava o teu rosto, para não parecer aos homens que jejuas, mas a teu Pai, que está em secreto; e teu Pai, que vê em secreto, te recompensará publicamente.'},
+    'oferta': {livro:'2 Coríntios', vers:'2 Coríntios 9:7 — Cada um contribui segundo propôs no seu coração, não com tristeza ou por necessidade; porque Deus ama ao que dá com alegria.'},
+    'dizimo': {livro:'Malaquias', vers:'Malaquias 3:10 — Trazei todos os dízimos à casa do tesouro, para que haja mantimento na minha casa, e provai-me nisto, diz o Senhor dos Exércitos, se eu não vos abrir as janelas do céu, e não derramar sobre vós uma bênção tal até que não bastes lugar para a recolherdes.'},
+    'sabado': {livro:'Êxodo', vers:'Êxodo 20:8-10 — Lembra-te do dia de sábado, para o santificar. Seis dias trabalharás, e farás toda a tua obra. Mas o sétimo dia é o sábado do Senhor teu Deus; não farás nenhuma obra nele, nem tu, nem teu filho, nem tua filha, nem o teu servo, nem a tua serva, nem o teu animal, nem o teu estrangeiro que está dentro das tuas portas.'},
+    'domingo': {livro:'Atos', vers:'Atos 20:7 — E no primeiro dia da semana, estando os discípulos reunidos para partir o pão, Paulo, que havia de partir no dia seguinte, lhes falou, e prolongou a prática até à meia-noite.'},
+    'natal': {livro:'Lucas', vers:'Lucas 2:11 — Porque vos nasceu hoje, na cidade de Davi, o Salvador, que é Cristo, o Senhor.'},
+    'pascoa': {livro:'1 Coríntios', vers:'1 Coríntios 5:7 — Pois, na verdade, Cristo, nossa páscoa, foi sacrificado por nós.'},
+    'pentecostes': {livro:'Atos', vers:'Atos 2:1-4 — E, cumprindo-se o dia de Pentecostes, estavam todos concordemente reunidos. E de repente veio do céu um som, como de um vento veemente e impetuoso, e encheu toda a casa em que estavam assentados. E foram vistas por eles línguas repartidas, como que de fogo, as quais pousaram sobre cada um deles. E todos foram cheios do Espírito Santo, e começaram a falar noutras línguas, conforme o Espírito lhes dava que falassem.'},
+    'trindade': {livro:'Mateus', vers:'Mateus 28:19 — Ide, portanto, fazei discípulos de todas as nações, batizando-os em nome do Pai, e do Filho, e do Espírito Santo.'},
+    'criacao': {livro:'Gênesis', vers:'Gênesis 1:1 — No princípio criou Deus os céus e a terra.'},
+    'queda': {livro:'Gênesis', vers:'Gênesis 3:6 — E, vendo a mulher que aquela árvore era boa para se comer, e agradável aos olhos, e árvore desejável para dar entendimento, tomou do seu fruto, e comeu-o; e deu também a seu marido, e ele comeu-o com ela.'},
+    'noe': {livro:'Gênesis', vers:'Gênesis 6:8 — Mas Noé achou graça aos olhos do Senhor.'},
+    'abrao': {livro:'Gênesis', vers:'Gênesis 12:1-3 — Ora, o Senhor disse a Abrão: Sai-te da tua terra, e da tua parentela, e da casa de teu pai, para a terra que eu te mostrarei. E far-te-ei uma grande nação, e te abençoarei, e engrandecerei o teu nome, e tu serás uma bênção.'},
+    'moises': {livro:'Êxodo', vers:'Êxodo 3:14 — E disse Deus a Moisés: EU SOU O QUE SOU. Disse mais: Assim dirás aos filhos de Israel: EU SOU me enviou a vós.'},
+    'davi': {livro:'Salmos', vers:'Salmos 23:1 — O Senhor é o meu pastor; nada me faltará.'},
+    'salomao': {livro:'Provérbios', vers:'Provérbios 1:7 — O temor do Senhor é o princípio do conhecimento; os loucos desprezam a sabedoria e a instrução.'},
+    'isaias': {livro:'Isaías', vers:'Isaías 6:8 — E ouvi a voz do Senhor, que dizia: A quem enviarei, e quem irá por nós? Então eu disse: Eis-me aqui, envia-me a mim.'},
+    'jeremias': {livro:'Jeremias', vers:'Jeremias 1:5 — Antes que te formasse no ventre, te conheci; e antes que saísses da madre, te santifiquei, e às nações te dei por profeta.'},
+    'ezequiel': {livro:'Ezequiel', vers:'Ezequiel 36:26 — E vos darei um coração novo, e porei um espírito novo dentro de vós; e tirarei da vossa carne o coração de pedra, e vos darei um coração de carne.'},
+    'daniel': {livro:'Daniel', vers:'Daniel 6:22 — O meu Deus enviou o seu anjo, e fechou a boca dos leões, para que não me fizessem dano, porque foi achada em mim inocência diante dele; e também contra ti, ó rei, não tenho cometido delito algum.'},
+    'jonas': {livro:'Jonas', vers:'Jonas 2:10 — Falou, pois, o Senhor ao peixe, e este vomitou a Jonas na terra.'},
+    'maria': {livro:'Lucas', vers:'Lucas 1:38 — E disse Maria: Eis aqui a serva do Senhor; cumpra-se em mim segundo a tua palavra. E o anjo ausentou-se dela.'},
+    'jose': {livro:'Mateus', vers:'Mateus 1:24 — E, despertando José do sono, fez como o anjo do Senhor lhe ordenara, e recebeu a sua mulher.'},
+    'pedro': {livro:'Mateus', vers:'Mateus 16:16 — E Simão Pedro, respondendo, disse: Tu és o Cristo, o Filho do Deus vivo.'},
+    'paulo': {livro:'Filipenses', vers:'Filipenses 3:13-14 — Irmãos, quanto a mim, não julgo que o haja alcançado; mas uma coisa faço: esquecendo-me das coisas que ficaram para trás, e avançando para as que estão diante de mim, prossigo para o alvo, pelo prêmio da soberana vocação de Deus em Cristo Jesus.'},
+    'tiago': {livro:'Tiago', vers:'Tiago 1:2 — Meus irmãos, tende por motivo de toda a alegria o passardes por várias provações.'},
+    'judas': {livro:'Judas', vers:'Judas 1:20-21 — Mas vós, amados, edificando-vos sobre a vossa santíssima fé, orando no Espírito Santo, conservai-vos no amor de Deus, esperando a misericórdia de nosso Senhor Jesus Cristo para a vida eterna.'},
+    'apocalipse': {livro:'Apocalipse', vers:'Apocalipse 22:20 — Aquele que testifica estas coisas diz: Certamente, cedo venho. Amém, ora vem, Senhor Jesus.'}
+};
 
-        if(!tema && !passagem) {
-            alert('Por favor, informe pelo menos o tema ou a passagem para gerar o esboço.');
-            return;
+function buscarSugestao(tema) {
+    if(!tema) return null;
+    var t = tema.toLowerCase();
+    for(var chave in SUGESTOES_PASSAGEM) {
+        if(t.indexOf(chave) !== -1) {
+            return SUGESTOES_PASSAGEM[chave];
         }
-
-        document.getElementById('temaTitulo').value = 'TEMA: ' + (tema || 'Estudo Bíblico');
-        document.getElementById('textoBase').value = 'Texto base: ' + (passagem || 'A definir');
-
-        // Sugestão automática de passagem baseada no tema
-        var sugestoes = {
-            'fe': {livro:'Hebreus', versiculo:'Hebreus 11:1-6 — "Ora, a fé é o firme fundamento das coisas que se esperam, e a prova das coisas que se não vêem."'},
-            'amor': {livro:'1 Coríntios', versiculo:'1 Coríntios 13:4-8 — "O amor é paciente, é benigno..."'},
-            'oracao': {livro:'Mateus', versiculo:'Mateus 7:7-8 — "Pedi, e dar-se-vos-á; buscai, e achareis..."'},
-            'perdao': {livro:'Efésios', versiculo:'Efésios 4:32 — "Antes, sede uns para com os outros benignos, misericordiosos, perdoando-vos uns aos outros..."'},
-            'familia': {livro:'Efésios', versiculo:'Efésios 5:25 — "Vós, maridos, amai a vossas mulheres, como também Cristo amou a igreja..."'},
-            'esperanca': {livro:'Romanos', versiculo:'Romanos 15:13 — "Ora, o Deus de esperança vos encha de todo o gozo e paz..."'},
-            'salvacao': {livro:'João', versiculo:'João 3:16 — "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito..."'},
-            'espirito': {livro:'Atos', versiculo:'Atos 1:8 — "Mas recebereis poder, ao descer sobre vós o Espírito Santo..."'},
-            'graca': {livro:'Efésios', versiculo:'Efésios 2:8-9 — "Porque pela graça sois salvos, por meio da fé..."'},
-            'paz': {livro:'Filipenses', versiculo:'Filipenses 4:6-7 — "Não andeis ansiosos por coisa alguma..."'},
-            'humildade': {livro:'Filipenses', versiculo:'Filipenses 2:3-4 — "Nada façais por contenda ou por vanglória..."'},
-            'sabedoria': {livro:'Tiago', versiculo:'Tiago 1:5 — "Se algum de vós tem falta de sabedoria, peça-a a Deus..."'},
-            'tentacao': {livro:'1 Coríntios', versiculo:'1 Coríntios 10:13 — "Não vos sobreveio tentação, senão humana..."'},
-            'obediencia': {livro:'João', versiculo:'João 14:15 — "Se me amais, guardai os meus mandamentos."'},
-            'santidade': {livro:'1 Pedro', versiculo:'1 Pedro 1:15-16 — "Mas, como é santo aquele que vos chamou..."'},
-            'misericordia': {livro:'Salmos', versiculo:'Salmos 103:8 — "O Senhor é misericordioso e compassivo, tardio em irar-se..."'},
-            'justica': {livro:'Romanos', versiculo:'Romanos 1:17 — "Porque a justiça de Deus se revela no evangelho..."'},
-            'gratidao': {livro:'1 Tessalonicenses', versiculo:'1 Tessalonicenses 5:18 — "Em tudo dai graças, porque esta é a vontade de Deus..."'},
-            'confianca': {livro:'Provérbios', versiculo:'Provérbios 3:5-6 — "Confia no Senhor de todo o teu coração..."'},
-            'forca': {livro:'Isaías', versiculo:'Isaías 40:31 — "Mas os que esperam no Senhor renovarão as suas forças..."'},
-            'luz': {livro:'João', versiculo:'João 8:12 — "Eu sou a luz do mundo; quem me segue não andará em trevas..."'},
-            'verdade': {livro:'João', versiculo:'João 14:6 — "Eu sou o caminho, a verdade e a vida..."'},
-            'vida': {livro:'João', versiculo:'João 10:10 — "Eu vim para que tenham vida, e a tenham com abundância."'},
-            'reino': {livro:'Mateus', versiculo:'Mateus 6:33 — "Buscai primeiro o reino de Deus, e a sua justiça..."'},
-            'discipulado': {livro:'Lucas', versiculo:'Lucas 9:23 — "Se alguém quer vir após mim, negue-se a si mesmo..."'},
-            'servico': {livro:'Gálatas', versiculo:'Gálatas 5:13 — "Vós, irmãos, fostes chamados à liberdade..."'},
-            'generosidade': {livro:'2 Coríntios', versiculo:'2 Coríntios 9:7 — "Cada um contribui segundo propôs no seu coração..."'},
-            'paciencia': {livro:'Romanos', versiculo:'Romanos 5:3-4 — "E não somente isto, mas também nos gloriamos nas tribulações..."'},
-            'alegria': {livro:'Neemias', versiculo:'Neemias 8:10 — "Não vos entristeçais, porque o gozo do Senhor é a vossa força."'},
-            'unidade': {livro:'Salmos', versiculo:'Salmos 133:1 — "Oh! quão bom e quão suave é que os irmãos vivam em união!"'},
-            'santificacao': {livro:'1 Tessalonicenses', versiculo:'1 Tessalonicenses 4:3 — "Porque esta é a vontade de Deus: a vossa santificação..."'},
-            'renovacao': {livro:'Romanos', versiculo:'Romanos 12:2 — "E não vos conformeis com este século, mas transformai-vos..."'},
-            'proposito': {livro:'Jeremias', versiculo:'Jeremias 29:11 — "Porque eu bem sei os pensamentos que tenho a vosso respeito..."'},
-            'guerra': {livro:'Efésios', versiculo:'Efésios 6:10-11 — "Digo-vos, finalmente, fortalecei-vos no Senhor..."'},
-            'vitoria': {livro:'1 João', versiculo:'1 João 5:4 — "Porque tudo o que é nascido de Deus vence o mundo..."'},
-            'cur': {livro:'Isaías', versiculo:'Isaías 53:5 — "Mas ele foi ferido pelas nossas transgressões..."'},
-            'provisao': {livro:'Filipenses', versiculo:'Filipenses 4:19 — "O meu Deus, segundo as suas riquezas, suprirá..."'},
-            'protecao': {livro:'Salmos', versiculo:'Salmos 91:1-2 — "Aquele que habita no esconderijo do Altíssimo..."'},
-            'guia': {livro:'Salmos', versiculo:'Salmos 23:1-3 — "O Senhor é o meu pastor; nada me faltará..."'},
-            'restauracao': {livro:'Joel', versiculo:'Joel 2:25 — "E restituirei os anos que comeu o gafanhoto..."'},
-            'novo': {livro:'2 Coríntios', versiculo:'2 Coríntios 5:17 — "Assim que, se alguém está em Cristo, nova criatura é..."'},
-            'nascimento': {livro:'João', versiculo:'João 3:3 — "Em verdade, em verdade te digo que aquele que não nascer de novo..."'},
-            'crescer': {livro:'2 Pedro', versiculo:'2 Pedro 3:18 — "Antes, crescei na graça e no conhecimento..."'},
-            'fruto': {livro:'Gálatas', versiculo:'Gálatas 5:22-23 — "Mas o fruto do Espírito é amor, gozo, paz..."'},
-            'dons': {livro:'1 Coríntios', versiculo:'1 Coríntios 12:4-7 — "Ora, há diversidade de dons, mas o Espírito é o mesmo..."'},
-            'chamado': {livro:'Romanos', versiculo:'Romanos 8:28 — "E sabemos que todas as coisas contribuem juntamente..."'},
-            'missao': {livro:'Mateus', versiculo:'Mateus 28:19-20 — "Ide, portanto, fazei discípulos de todas as nações..."'},
-            'testemunho': {livro:'Atos', versiculo:'Atos 1:8 — "Mas recebereis poder, ao descer sobre vós o Espírito Santo..."'},
-            'perseveranca': {livro:'Hebreus', versiculo:'Hebreus 12:1-2 — "Portanto, nós também, pois, que estamos rodeados..."'},
-            'sofrimento': {livro:'Romanos', versiculo:'Romanos 8:18 — "Porque para mim tenho por certo que as aflições..."'},
-            'morte': {livro:'1 Coríntios', versiculo:'1 Coríntios 15:55-57 — "Onde está, ó morte, a tua vitória?..."'},
-            'ressurreicao': {livro:'1 Coríntios', versiculo:'1 Coríntios 15:20 — "Mas, de fato, Cristo ressuscitou dentre os mortos..."'},
-            'volta': {livro:'João', versiculo:'João 14:3 — "E, quando eu for, e vos preparar lugar, virei outra vez..."'},
-            'juizo': {livro:'Hebreus', versiculo:'Hebreus 9:27 — "E, assim como está ordenado aos homens morrerem uma só vez..."'},
-            'eternidade': {livro:'Apocalipse', versiculo:'Apocalipse 21:4 — "E Deus limpará de seus olhos toda a lágrima..."'},
-            'ceu': {livro:'João', versiculo:'João 14:2 — "Na casa de meu Pai há muitas moradas..."'},
-            'inferno': {livro:'Mateus', versiculo:'Mateus 25:41 — "Apartai-vos de mim, malditos, para o fogo eterno..."'},
-            'anjo': {livro:'Hebreus', versiculo:'Hebreus 1:14 — "Não são, porventura, todos eles espíritos ministradores..."'},
-            'demonio': {livro:'Tiago', versiculo:'Tiago 4:7 — "Sujeitai-vos, pois, a Deus; resisti ao diabo..."'},
-            'pecado': {livro:'Romanos', versiculo:'Romanos 3:23 — "Porque todos pecaram e destituídos estão da glória de Deus."'},
-            'arrependimento': {livro:'Atos', versiculo:'Atos 3:19 — "Arrependei-vos, pois, e convertei-vos..."'},
-            'conversao': {livro:'Atos', versiculo:'Atos 2:38 — "Arrependei-vos, e cada um de vós seja batizado..."'},
-            'batismo': {livro:'Romanos', versiculo:'Romanos 6:4 — "Fomos, pois, sepultados com ele pelo batismo..."'},
-            'ceia': {livro:'Lucas', versiculo:'Lucas 22:19-20 — "E, tomando o pão, e havendo dado graças, partiu-o..."'},
-            'igreja': {livro:'Mateus', versiculo:'Mateus 16:18 — "E eu também te digo que tu és Pedro, e sobre esta pedra..."'},
-            'corpo': {livro:'1 Coríntios', versiculo:'1 Coríntios 12:27 — "Ora, vós sois o corpo de Cristo..."'},
-            'lideranca': {livro:'1 Timoteo', versiculo:'1 Timoteo 3:1-2 — "Fiel é esta palavra: Se alguém aspira ao episcopado..."'},
-            'pastor': {livro:'1 Pedro', versiculo:'1 Pedro 5:2-3 — "Apascentai o rebanho de Deus que está entre vós..."'},
-            'diacono': {livro:'Atos', versiculo:'Atos 6:3 — "Escolhei, pois, dentre vós, irmãos, sete homens..."'},
-            'profecia': {livro:'2 Pedro', versiculo:'2 Pedro 1:21 — "Porque nunca nenhuma profecia foi dada por vontade humana..."'},
-            'revelacao': {livro:'Apocalipse', versiculo:'Apocalipse 1:1 — "A revelação de Jesus Cristo, a qual Deus lhe deu..."'},
-            'palavra': {livro:'2 Timoteo', versiculo:'2 Timoteo 3:16-17 — "Toda a Escritura é divinamente inspirada..."'},
-            'pregacao': {livro:'Romanos', versiculo:'Romanos 10:14-15 — "Como, pois, invocarão aquele em quem não creram?..."'},
-            'evangelho': {livro:'Romanos', versiculo:'Romanos 1:16 — "Porque não me envergonho do evangelho de Cristo..."'},
-            'santidade': {livro:'Hebreus', versiculo:'Hebreus 12:14 — "Segui a paz com todos, e a santificação..."'},
-            'consagracao': {livro:'Romanos', versiculo:'Romanos 12:1 — "Rogo-vos, pois, irmãos, pela compaixão de Deus..."'},
-            'adoracao': {livro:'João', versiculo:'João 4:24 — "Deus é Espírito, e importa que os que o adoram..."'},
-            'louvor': {livro:'Salmos', versiculo:'Salmos 150:6 — "Tudo o que tem fôlego louve ao Senhor."'},
-            'gratidao': {livro:'Salmos', versiculo:'Salmos 107:1 — "Louvai ao Senhor, porque ele é bom..."'},
-            'jejum': {livro:'Mateus', versiculo:'Mateus 6:16-18 — "Quando jejuardes, não vos mostreis contristados..."'},
-            'oferta': {livro:'2 Coríntios', versiculo:'2 Coríntios 9:7 — "Cada um contribui segundo propôs no seu coração..."'},
-            'dizimo': {livro:'Malaquias', versiculo:'Malaquias 3:10 — "Trazei todos os dízimos à casa do tesouro..."'},
-            'sabado': {livro:'Êxodo', versiculo:'Êxodo 20:8-10 — "Lembra-te do dia de sábado, para o santificar..."'},
-            'domingo': {livro:'Atos', versiculo:'Atos 20:7 — "E no primeiro dia da semana, estando os discípulos reunidos..."'},
-            'natal': {livro:'Lucas', versiculo:'Lucas 2:11 — "Porque vos nasceu hoje, na cidade de Davi, o Salvador..."'},
-            'pascoa': {livro:'1 Coríntios', versiculo:'1 Coríntios 5:7 — "Pois, na verdade, Cristo, nossa páscoa, foi sacrificado por nós."'},
-            'pentecostes': {livro:'Atos', versiculo:'Atos 2:1-4 — "E, cumprindo-se o dia de Pentecostes..."'},
-            'trindade': {livro:'Mateus', versiculo:'Mateus 28:19 — "Ide, portanto, fazei discípulos de todas as nações..."'},
-            'pai': {livro:'Mateus', versiculo:'Mateus 6:9 — "Vosso Pai, que está nos céus..."'},
-            'filho': {livro:'João', versiculo:'João 1:14 — "E o Verbo se fez carne, e habitou entre nós..."'},
-            'criacao': {livro:'Gênesis', versiculo:'Gênesis 1:1 — "No princípio criou Deus os céus e a terra."'},
-            'queda': {livro:'Gênesis', versiculo:'Gênesis 3:6 — "E, vendo a mulher que aquela árvore era boa para se comer..."'},
-            'noe': {livro:'Gênesis', versiculo:'Gênesis 6:8 — "Mas Noé achou graça aos olhos do Senhor."'},
-            'abraham': {livro:'Gênesis', versiculo:'Gênesis 12:1-3 — "Ora, o Senhor disse a Abrão: Sai-te da tua terra..."'},
-            'moises': {livro:'Êxodo', versiculo:'Êxodo 3:14 — "E disse Deus a Moisés: EU SOU O QUE SOU..."'},
-            'davi': {livro:'Salmos', versiculo:'Salmos 23:1 — "O Senhor é o meu pastor; nada me faltará."'},
-            'salomao': {livro:'Provérbios', versiculo:'Provérbios 1:7 — "O temor do Senhor é o princípio do conhecimento..."'},
-            'isaias': {livro:'Isaías', versiculo:'Isaías 6:8 — "E ouvi a voz do Senhor, que dizia: A quem enviarei..."'},
-            'jeremias': {livro:'Jeremias', versiculo:'Jeremias 1:5 — "Antes que te formasse no ventre, te conheci..."'},
-            'ezequiel': {livro:'Ezequiel', versiculo:'Ezequiel 36:26 — "E vos darei um coração novo..."'},
-            'daniel': {livro:'Daniel', versiculo:'Daniel 6:22 — "O meu Deus enviou o seu anjo..."'},
-            'jonas': {livro:'Jonas', versiculo:'Jonas 2:10 — "Falou, pois, o Senhor ao peixe..."'},
-            'maria': {livro:'Lucas', versiculo:'Lucas 1:38 — "E disse Maria: Eis aqui a serva do Senhor..."'},
-            'jose': {livro:'Mateus', versiculo:'Mateus 1:24 — "E, despertando José do sono, fez como o anjo do Senhor..."'},
-            'joao': {livro:'João', versiculo:'João 13:23 — "Ora, um dos seus discípulos, aquele a quem Jesus amava..."'},
-            'pedro': {livro:'Mateus', versiculo:'Mateus 16:16 — "E Simão Pedro, respondendo, disse: Tu és o Cristo..."'},
-            'paulo': {livro:'Filipenses', versiculo:'Filipenses 3:13-14 — "Irmãos, quanto a mim, não julgo que o haja alcançado..."'},
-            'tiago': {livro:'Tiago', versiculo:'Tiago 1:2 — "Meus irmãos, tende por motivo de toda a alegria..."'},
-            'judas': {livro:'Judas', versiculo:'Judas 1:20-21 — "Mas vós, amados, edificando-vos sobre a vossa santíssima fé..."'},
-            'apocalipse': {livro:'Apocalipse', versiculo:'Apocalipse 22:20 — "Aquele que testifica estas coisas diz: Certamente, cedo venho..."'}
-        };
-
-        var tl = (tema || passagem || '').toLowerCase();
-        var sugestaoEncontrada = null;
-        for(var k in sugestoes) {
-            if(tl.indexOf(k) !== -1) { sugestaoEncontrada = sugestoes[k]; break; }
-        }
-
-        var campoSugestao = document.getElementById('inputSugestao');
-        var boxSugestao = document.getElementById('boxSugestao');
-        var sugestaoPassagem = document.getElementById('sugestaoPassagem');
-
-        if(sugestaoEncontrada) {
-            campoSugestao.value = sugestaoEncontrada.livro + ' — ' + sugestaoEncontrada.versiculo;
-            sugestaoPassagem.textContent = sugestaoEncontrada.versiculo;
-            boxSugestao.style.display = 'block';
-        } else {
-            campoSugestao.value = 'Nenhuma sugestão automática encontrada para este tema. Pesquise na Bíblia ou insira manualmente.';
-            sugestaoPassagem.textContent = 'Sugestão de passagem: (pesquise um versículo relacionado ao tema e insira aqui)';
-            boxSugestao.style.display = 'block';
-        }
-
-        const tl = (tema || passagem).toLowerCase();
-
-        document.getElementById('intro1').textContent = contexto
-            ? 'Apresentar o tema de forma que conecte com a realidade do ouvinte. ' + contexto
-            : 'Apresentar o tema de forma que conecte com a realidade e as necessidades do ouvinte, chamando a atenção para a relevância da Palavra.';
-        document.getElementById('intro2').textContent = passagem
-            ? 'Contextualizar a passagem de ' + passagem + ', explicando o cenário histórico e espiritual em que o texto foi escrito.'
-            : 'Contextualizar o tema bíblico escolhido, apresentando o cenário histórico e espiritual das Escrituras.';
-        document.getElementById('intro3').textContent = tema
-            ? 'A mensagem central é: ' + tema + '. Este é o eixo que guiará toda a ministração.'
-            : 'A mensagem central será desenvolvida a partir da Palavra de Deus, buscando transformar vidas.';
-
-        var pts = null;
-        var chaves = {
-            'fe': {p1:'A fé reconhece a impossibilidade humana e confia no poder de Deus.', p2:'A fé está ligada à Palavra de Deus e à sua promessa.', p3:'A fé madura se expressa em oração e entrega.'},
-            'amor': {p1:'O amor de Deus é incondicional e se revelou em Cristo.', p2:'O amor ao próximo é a marca do discípulo de Jesus.', p3:'O amor supera o medo e transforma relacionamentos.'},
-            'oracao': {p1:'A oração é o canal de comunhão com Deus.', p2:'A oração de fé move o coração de Deus.', p3:'A oração persistente traz respostas no tempo certo.'},
-            'perdao': {p1:'Deus nos perdoou gratuitamente em Cristo.', p2:'O perdão liberta quem perdoa, não apenas quem é perdoado.', p3:'Perdoar setenta vezes sete é um estilo de vida.'},
-            'familia': {p1:'A família foi instituída por Deus como núcleo da sociedade.', p2:'Amor, respeito e submissão são pilares do lar cristão.', p3:'A família que ora unida permanece unida.'},
-            'esperanca': {p1:'A esperança cristã é certeza, não mera expectativa.', p2:'Deus trabalha em todas as coisas para o bem daqueles que O amam.', p3:'A esperança da volta de Cristo nos sustenta.'},
-            'salvacao': {p1:'A humanidade está separada de Deus pelo pecado.', p2:'Jesus é o único caminho, a verdade e a vida.', p3:'A salvação é por graça, mediante a fé em Cristo.'},
-            'espirito': {p1:'O Espírito Santo habita em todo crente.', p2:'O Espírito nos guia a toda a verdade.', p3:'O Espírito nos capacita para o testemunho e o serviço.'}
-        };
-        for(var k in chaves) {
-            if(tl.indexOf(k) !== -1) { pts = chaves[k]; break; }
-        }
-        if(!pts) {
-            pts = {p1:'Primeiro ponto principal: apresente a verdade bíblica central do tema escolhido.', p2:'Segundo ponto principal: desenvolva aplicações práticas e exemplos da Escritura.', p3:'Terceiro ponto principal: mostre como esta verdade transforma a vida do crente.'};
-        }
-
-        document.getElementById('dev1').textContent = pts.p1;
-        document.getElementById('dev1verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
-        document.getElementById('dev2').textContent = pts.p2;
-        document.getElementById('dev2verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
-        document.getElementById('dev3').textContent = pts.p3;
-        document.getElementById('dev3verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
-
-        document.getElementById('conc1').textContent = 'Resumir os três pontos principais e reforçar que ' + (tema || 'a Palavra de Deus') + ' tem poder para transformar vidas.';
-        document.getElementById('conc2').textContent = 'Apelo direto ao ouvinte: como você pode aplicar esta verdade na sua vida esta semana? Que decisão prática você precisa tomar?';
-        document.getElementById('conc3').textContent = 'Oração de encerramento, pedindo ao Senhor que fortaleça a fé, aumente o amor e confirme a Palavra no coração de cada um.';
-
-        document.getElementById('esbocoPrincipal').classList.add('visivel');
-        document.getElementById('botoesAcao').style.display = 'flex';
-        document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
     }
+    return null;
+}
+
+function gerarEsboco() {
+    const tema = document.getElementById('inputTema').value.trim();
+    const passagem = document.getElementById('inputPassagem').value.trim();
+    const contexto = document.getElementById('inputContexto').value.trim();
+
+    if(!tema && !passagem) {
+        alert('Por favor, informe pelo menos o tema ou a passagem para gerar o esboço.');
+        return;
+    }
+
+    document.getElementById('temaTitulo').value = 'TEMA: ' + (tema || 'Estudo Bíblico');
+    document.getElementById('textoBase').value = 'Texto base: ' + (passagem || 'A definir');
+
+    // Sugestão automática de passagem
+    var sugestao = buscarSugestao(tema || passagem);
+    var campoSugestao = document.getElementById('inputSugestao');
+    var boxSugestao = document.getElementById('boxSugestao');
+    var sugestaoPassagem = document.getElementById('sugestaoPassagem');
+
+    if(sugestao) {
+        campoSugestao.value = sugestao.livro + ' — ' + sugestao.vers;
+        sugestaoPassagem.textContent = sugestao.vers;
+    } else {
+        campoSugestao.value = 'Nenhuma sugestão automática encontrada. Pesquise na Bíblia ou insira manualmente.';
+        sugestaoPassagem.textContent = 'Sugestão de passagem: (pesquise um versículo relacionado ao tema e insira aqui)';
+    }
+    boxSugestao.style.display = 'block';
+
+    const tl = (tema || passagem).toLowerCase();
+
+    document.getElementById('intro1').textContent = contexto
+        ? 'Apresentar o tema de forma que conecte com a realidade do ouvinte. ' + contexto
+        : 'Apresentar o tema de forma que conecte com a realidade e as necessidades do ouvinte, chamando a atenção para a relevância da Palavra.';
+    document.getElementById('intro2').textContent = passagem
+        ? 'Contextualizar a passagem de ' + passagem + ', explicando o cenário histórico e espiritual em que o texto foi escrito.'
+        : 'Contextualizar o tema bíblico escolhido, apresentando o cenário histórico e espiritual das Escrituras.';
+    document.getElementById('intro3').textContent = tema
+        ? 'A mensagem central é: ' + tema + '. Este é o eixo que guiará toda a ministração.'
+        : 'A mensagem central será desenvolvida a partir da Palavra de Deus, buscando transformar vidas.';
+
+    var pts = null;
+    var chaves = {
+        'fe': {p1:'A fé reconhece a impossibilidade humana e confia no poder de Deus.', p2:'A fé está ligada à Palavra de Deus e à sua promessa.', p3:'A fé madura se expressa em oração e entrega.'},
+        'amor': {p1:'O amor de Deus é incondicional e se revelou em Cristo.', p2:'O amor ao próximo é a marca do discípulo de Jesus.', p3:'O amor supera o medo e transforma relacionamentos.'},
+        'oracao': {p1:'A oração é o canal de comunhão com Deus.', p2:'A oração de fé move o coração de Deus.', p3:'A oração persistente traz respostas no tempo certo.'},
+        'perdao': {p1:'Deus nos perdoou gratuitamente em Cristo.', p2:'O perdão liberta quem perdoa, não apenas quem é perdoado.', p3:'Perdoar setenta vezes sete é um estilo de vida.'},
+        'familia': {p1:'A família foi instituída por Deus como núcleo da sociedade.', p2:'Amor, respeito e submissão são pilares do lar cristão.', p3:'A família que ora unida permanece unida.'},
+        'esperanca': {p1:'A esperança cristã é certeza, não mera expectativa.', p2:'Deus trabalha em todas as coisas para o bem daqueles que O amam.', p3:'A esperança da volta de Cristo nos sustenta.'},
+        'salvacao': {p1:'A humanidade está separada de Deus pelo pecado.', p2:'Jesus é o único caminho, a verdade e a vida.', p3:'A salvação é por graça, mediante a fé em Cristo.'},
+        'espirito': {p1:'O Espírito Santo habita em todo crente.', p2:'O Espírito nos guia a toda a verdade.', p3:'O Espírito nos capacita para o testemunho e o serviço.'}
+    };
+    for(var k in chaves) {
+        if(tl.indexOf(k) !== -1) { pts = chaves[k]; break; }
+    }
+    if(!pts) {
+        pts = {p1:'Primeiro ponto principal: apresente a verdade bíblica central do tema escolhido.', p2:'Segundo ponto principal: desenvolva aplicações práticas e exemplos da Escritura.', p3:'Terceiro ponto principal: mostre como esta verdade transforma a vida do crente.'};
+    }
+
+    document.getElementById('dev1').textContent = pts.p1;
+    document.getElementById('dev1verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
+    document.getElementById('dev2').textContent = pts.p2;
+    document.getElementById('dev2verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
+    document.getElementById('dev3').textContent = pts.p3;
+    document.getElementById('dev3verso').textContent = 'Versículo de apoio: (insira uma referência bíblica que confirme este ponto)';
+
+    document.getElementById('conc1').textContent = 'Resumir os três pontos principais e reforçar que ' + (tema || 'a Palavra de Deus') + ' tem poder para transformar vidas.';
+    document.getElementById('conc2').textContent = 'Apelo direto ao ouvinte: como você pode aplicar esta verdade na sua vida esta semana? Que decisão prática você precisa tomar?';
+    document.getElementById('conc3').textContent = 'Oração de encerramento, pedindo ao Senhor que fortaleça a fé, aumente o amor e confirme a Palavra no coração de cada um.';
+
+    document.getElementById('esbocoPrincipal').classList.add('visivel');
+    document.getElementById('botoesAcao').style.display = 'flex';
+    document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
+}
 
     function novoEsboco() {
         document.getElementById('inputTema').value = '';
@@ -491,9 +491,7 @@
             }
         }
         var boxSugestao = document.getElementById('boxSugestao');
-        if(boxSugestao && m.campos && m.campos['sugestaoPassagem']) {
-            boxSugestao.style.display = 'block';
-        }
+        if(boxSugestao) boxSugestao.style.display = 'block';
         document.getElementById('esbocoPrincipal').classList.add('visivel');
         document.getElementById('botoesAcao').style.display = 'flex';
         document.getElementById('esbocoPrincipal').scrollIntoView({behavior:'smooth'});
